@@ -1,10 +1,10 @@
 import React from 'react';
+import './styles/App.css'
+import Add from './pages/Add';
 
 const App = () => {
   return (
-    <div>
-      Работает!
-    </div>
+      <Add />
   );
 };
 
