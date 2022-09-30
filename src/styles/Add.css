@@ -25,19 +25,19 @@ input {
 }
 
 button {
-    margin: 10px 0 0 10px;
+    margin: 10px 10px 0 10px;
     padding: 10px 25px;
     max-width: max-content;
 
     background: #5CDB95;
     border-radius: 7px;
     
+    font-size: 20px;
     font-weight: 700;
     color: #FFFFFF;
 }
 
 .btns-genres {
-    margin: 10px 10px 0 10px;
     color: #EDF5E1;
     background: #379683;
 }
@@ -61,12 +61,9 @@ hr {
 }
 
 h1 {
-    font-size: 34px;
-    font-weight: bold;    
-    line-height: 46px;
-    padding: 50px 0 0 10px;
+    padding: 50px 10px 0 10px;
 }
 
 h2 {
-    padding: 25px 0 0 10px;
+    padding: 25px 10px 0 10px;
 }
