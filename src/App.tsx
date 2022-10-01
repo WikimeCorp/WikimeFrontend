@@ -1,10 +1,11 @@
-import React from 'react';
-import './styles/App.css'
+import './styles/App.css';
 import Add from './pages/Add';
+import Navbar from './components/UI/Navbar/Navbar';
+
 
 const App = () => {
   return (
-      <Add />
+    <Navbar />     
   );
 };
 

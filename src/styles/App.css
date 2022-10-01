@@ -10,3 +10,68 @@
     flex-direction: column;
     align-items: center;
 }
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 46px;
+    letter-spacing: -0.02em;
+
+    color: #05386B;
+}
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 33px;
+
+    letter-spacing: -0.02em;
+
+    color: #05386B;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+
+    letter-spacing: -0.01em;
+
+    color: #D4EDD3;
+}
+
+input::-webkit-input-placeholder {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+
+    letter-spacing: -0.02em;
+
+    color: #379683;
+}
+
+input:-moz-placeholder {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+
+    letter-spacing: -0.02em;
+
+    color: #379683;
+}
+
+@font-face {
+    font-family: 'Dressedless-Pro-Regular';
+    src:url('./fonts/Dressedless-Pro-Regular.ttf.woff') format('woff'),
+        url('./fonts/Dressedless-Pro-Regular.ttf.svg') format('svg'),
+        url('./fonts/Dressedless-Pro-Regular.ttf.eot') format('embedded-opentype'); 
+    font-weight: 400;
+    font-style: normal;
+    line-height: 45px;
+    letter-spacing: 0.07em;
+}

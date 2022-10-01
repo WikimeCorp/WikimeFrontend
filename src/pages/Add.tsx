@@ -3,7 +3,7 @@ import "../styles/Add.css"
 
 const Add = () => {
     return (
-        <div className="Add-page">
+        <form className="Add-page">
             <h1>Название</h1>
             <input type="text" placeholder="Напишите название..."/>
             <h1>Обложка</h1>
@@ -38,7 +38,7 @@ const Add = () => {
             <div className="container-save">
                 <button className="btn-save">Сохранить</button>
             </div>            
-        </div>
+        </form>
     );
 };
 

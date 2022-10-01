@@ -1,0 +1,12 @@
+.myButton {
+    margin: 10px 10px 0 10px;
+    padding: 10px 25px;
+    max-width: max-content;
+
+    background: #5CDB95;
+    border-radius: 7px;
+    
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
