@@ -1,0 +1,33 @@
+.innerSorter {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-top: 70px;
+}
+
+.catalog {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-bottom: 10px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: #05386B;
+}
+
+.catalog a {
+    padding: 0 15px;
+    text-decoration: none;
+    color: #05386B;
+    cursor: pointer;    
+}
+
+.catalog a:hover, a:active {
+    font-weight: 400;
+}
+
+.catalog span {
+    padding: 0 35px 0 10px;
+}
