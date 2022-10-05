@@ -1,0 +1,79 @@
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 830px;
+    margin: 0 50px 50px 10px;
+
+    background: #05386B;
+    border: 2px solid #05386B;
+    box-shadow: 0px 0px 10px #EDF5E1;
+    border-radius: 10px;
+}
+
+.card img {
+    width: 320px;
+    height: 400px;
+    border-radius: 10px 0px 0px 10px;
+    margin-right: 25px;
+}
+
+.card h1 {
+    font-family: 'Dressedless Pro';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.07em;
+    color: #EDF5E1;
+    padding: 25px 25px 14px 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.content p {
+    max-width: 277px;
+    max-height: 228px;
+    margin-bottom: 27px;
+    color: #D4EDD3;
+    line-height: 26px;
+}
+
+.ui {
+    display: flex;
+    flex-direction: column;    
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    font-size: 14px;
+    line-height: 22px;
+    text-align: right;
+    letter-spacing: -0.01em;
+    color: #C2F8CB;
+}
+
+.ui span {
+    font-family: 'Dressedless Pro';
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 45px;
+    letter-spacing: 0.07em;
+
+    color: #C2F8CB;
+}
+
+.rateAndBtn {
+    padding-right: 5px;
+}
+
+.rate {
+    padding: 32px 39px 22px 0;
+}
+
+.rate p {
+    margin: 0px;
+}

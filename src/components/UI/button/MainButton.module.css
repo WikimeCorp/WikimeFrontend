@@ -1,4 +1,4 @@
-.mainButton {
+.main {
     padding: 10px 25px;
     margin: 10px;
 
@@ -12,7 +12,7 @@
     cursor: pointer;
 }
 
-.mainButton:hover {
+.main:hover {
     background: #5CDB95;
     color: #fff;
 }

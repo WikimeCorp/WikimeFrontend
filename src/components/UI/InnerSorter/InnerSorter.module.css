@@ -1,8 +1,27 @@
 .innerSorter {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 308px;
     margin-top: 70px;
+
+    align-self: flex-end;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1044px;
+}
+
+.content::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #EDF5E1;
 }
 
 .catalog {

@@ -1,0 +1,16 @@
+.fav {
+    padding: 10px 59px 14px 10px;
+    max-width: 162px;
+
+    background: #379683;
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    color: #EDF5E1;
+}

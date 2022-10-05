@@ -8,7 +8,7 @@ interface Props{
 
 const MainButton: FC<Props> = ({children, onClick}) => {
     return (
-        <button onClick={onClick} className={cl.mainButton}>
+        <button onClick={onClick} className={cl.main}>
             {children}
         </button>
     );
