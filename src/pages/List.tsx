@@ -9,9 +9,9 @@ const List: FC = () => {
     return (
         <div className="list-page">
             <InnerSorter />
-            <div className="list-content">
-                <SideBar />
-                <ArticleTable />                                           
+            <div className="list-content">                
+                <SideBar /> 
+                <ArticleTable />                                                         
             </div>                       
         </div>
     );

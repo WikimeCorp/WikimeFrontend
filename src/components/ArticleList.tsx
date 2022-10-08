@@ -1,6 +1,6 @@
 import { FC } from "react";
 import CardMedium from "./CardMedium";
-import cl from "./ArticleList.module.css"
+import cl from "./Articles.module.css"
 
 const ArticleList: FC = () => {
     return (
