@@ -1,5 +1,7 @@
 .fav {
-    padding: 10px 59px 14px 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
     max-width: 162px;
 
     background: #379683;
@@ -13,4 +15,24 @@
     line-height: 22px;
     letter-spacing: -0.01em;
     color: #EDF5E1;
+}
+
+.icon {
+    width: 33.51px;
+    height: 32px;
+    color: #05386B;
+}
+
+.favSmall {        
+    width: 40px;
+    height: 40px;
+    background-color: #05386B;
+    border: 1px solid #05386B;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.iconSmall {
+    width: 20.94px;
+    height: 20px;
+    color: #379683;
 }

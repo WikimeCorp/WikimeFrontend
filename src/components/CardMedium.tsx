@@ -2,11 +2,11 @@ import { FC, useState, useEffect } from "react";
 import axios from "axios";
 import { IPhoto } from "../types/types";
 import art from "../styles/img/Art.png";
-import cl from "./ArticleListItem.module.css"
+import cl from "./CardMedium.module.css"
 import MainButton from "./UI/button/MainButton";
 import FavoriteButton from "./UI/button/FavouriteButton";
 
-const ArticleListItem: FC = () => {
+const CardMedium: FC = () => {
 
     return (
         <div className={cl.card}>
@@ -36,4 +36,4 @@ const ArticleListItem: FC = () => {
     );
 }
 
-export default ArticleListItem;
+export default CardMedium;

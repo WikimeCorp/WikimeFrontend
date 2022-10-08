@@ -1,0 +1,12 @@
+.list {
+    margin: 0 auto;
+}
+
+.table {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 1044px;
+
+    margin: 0 auto;
+}

@@ -1,0 +1,67 @@
+.card {
+    height: 409px;
+    width: 234px;
+    margin: 0 33px 33px 26px;
+
+    background: #05386B;
+    border: 2px solid #05386B;
+    box-shadow: 0px 0px 10px #EDF5E1;
+    border-radius: 10px;
+}
+
+.art {
+    position: relative;    
+}
+
+.art img {
+    width: 230px;
+    height: 296.63px;
+    border-radius: 10px;
+}
+
+.art button {
+    position: absolute;
+    right: 0%;
+    top: 10%;
+}
+
+.art p {
+    position: absolute;
+    padding: 5px 11px 5px 13px;
+    bottom: 1.5%;
+    right: 0%;
+
+    font-family: 'Dressedless Pro';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.07em;
+
+    color: #5CDB95;
+    background: rgba(5, 56, 107, 0.7);
+    border-radius: 5px 0px 10px 5px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.content h1 {
+    font-family: 'Dressedless Pro';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.07em;
+    color: #EDF5E1;
+    padding: 10px;
+    max-height: 68px;
+}
+
+.content button {
+    font-size: 14px;
+    margin: 0;
+    width: 100%;
+}

@@ -1,17 +1,16 @@
 import { FC } from "react";
-import ArticleListItem from "./ArticleListItem";
-import InnerSorter from "./UI/InnerSorter/InnerSorter";
-import SideBar from "./UI/SideBar/SideBar";
+import CardMedium from "./CardMedium";
+import cl from "./ArticleList.module.css"
 
 const ArticleList: FC = () => {
     return (
-        <div style={{ marginLeft: "auto", marginRight: "auto"}}>
-            <ArticleListItem />
-            <ArticleListItem />
-            <ArticleListItem />
-            <ArticleListItem />
-            <ArticleListItem />
-            <ArticleListItem />
+        <div className={cl.list}>
+            <CardMedium />
+            <CardMedium />
+            <CardMedium />
+            <CardMedium />
+            <CardMedium />
+            <CardMedium />
         </div>
     );
 };
