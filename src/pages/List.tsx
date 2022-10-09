@@ -11,7 +11,7 @@ const List: FC = () => {
             <InnerSorter />
             <div className="list-content">                
                 <SideBar /> 
-                <ArticleTable />                                                         
+                <ArticleList />                                                         
             </div>                       
         </div>
     );

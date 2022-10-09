@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import cl from "./MainButton.module.css"
 
-interface Props{
+interface Props {
     children?: React.ReactNode;
     onClick?: () => void;
 }

@@ -1,0 +1,167 @@
+.Article-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #05386B;
+    width: 100%;
+}
+
+.Article-page h1 {
+    font-family: 'Dressedless Pro';
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 45px;
+    letter-spacing: 0.07em;
+
+    color: #EDF5E1;
+    margin-bottom: 25px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 70px 0;
+}
+
+.art {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+
+    max-width: 320px;
+}
+
+.art img {
+    width: 320px;
+    height: 400px;
+    margin-bottom: 25px;
+
+    filter: drop-shadow(0px 0px 10px #D4EDD3);
+    border-radius: 10px;
+}
+
+.art button {
+    width: 100%;
+    max-width: 100%;
+    justify-content: space-between;
+    height: 50px;
+    border-radius: 7px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.02em;    
+}
+
+.art span {
+    color: #EDF5E1;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-content-main {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+    justify-content: space-between;
+}
+
+.info-description {
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;    
+
+    font-size: 20px;
+    color: #fff;
+}
+
+.info-description p {
+    margin-bottom: 15px;
+    line-height: 30px;
+}
+
+.info-description span {
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.info-genres {
+    word-spacing: 10px;
+}
+
+.info-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #EDF5E1;
+}
+
+.info-ui span {
+    font-family: 'Dressedless Pro';
+    font-weight: 400;
+    font-size: 46px;
+    line-height: 61px;
+    letter-spacing: 0.07em;
+
+    color: #C2F8CB;
+    margin-right: 53px;
+}
+
+.info-ui button {
+    margin-right: 0;
+}
+
+.edit {
+    margin-top: 100px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 70px;
+}
+
+.description p {    
+    line-height: 30px;
+    font-size: 20px;
+    width: 80%;
+}
+
+.description span {
+    margin-top: 10px;
+    color: #EDF5E1;
+    line-height: 26px;
+    align-self: flex-end;
+    margin-right: 20%;
+}
+
+.pictures {
+    width: 80%;
+    margin-bottom: 70px;
+}
+
+.pictures-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.pictures-content img {
+    height: 250px;
+    width: 225px;
+
+    border-radius: 10px
+}
+
+.comments {
+    width: 80%;
+}

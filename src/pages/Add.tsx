@@ -1,3 +1,4 @@
+import MainButton from "../components/UI/button/MainButton";
 import "../styles/Add.css"
 
 const Add = () => {
@@ -6,7 +7,7 @@ const Add = () => {
             <h1>Название</h1>
             <input type="text" placeholder="Напишите название..."/>
             <h1>Обложка</h1>
-            <button>Загрузить изображение</button>
+            <MainButton>Загрузить изображение</MainButton>
             <h1>Общая информация</h1>
             <hr />
             <div>
@@ -30,7 +31,7 @@ const Add = () => {
                 <input type="text" placeholder="Напишите дату..."/>
             </div>
             <h1>Арты и кадры</h1>
-            <button>Загрузить изображение</button>
+            <MainButton>Загрузить изображение</MainButton>
             <h1>Описание</h1>
             <input type="text" placeholder="Введите описание..."/>
             <hr />
