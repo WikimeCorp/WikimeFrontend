@@ -1,26 +1,29 @@
 import { FC, useEffect } from "react";
-import CardMedium from "./CardMedium";
 import cl from "./Articles.module.css"
-import { useTypedSelector } from "./hooks/useTypedSelector";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
 import { fetchArticles } from "../store/action-creators/article";
+import CardMedium from "./CardMedium";
 
 const ArticleList: FC = () => {
     const {articles, error, loading} = useTypedSelector(state => state.article)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // TODO!!!!
-    }, [dispatch])
+        dispatch(fetchArticles()) 
+    }, [])
+
+    if (loading) {
+        return <h1>Loading</h1>
+    }
+    if (error) {
+        return <h1>{error}</h1>
+    }
 
     return (
-        <div className={cl.list}>
-            <CardMedium />
-            <CardMedium />
-            <CardMedium />
-            <CardMedium />
-            <CardMedium />
-            <CardMedium />
+        <div>
+            {articles.map(article =>
+                <CardMedium article={article}/>
+            )}
         </div>
     );
 };

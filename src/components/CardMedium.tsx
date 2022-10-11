@@ -1,18 +1,21 @@
 import { FC, useState, useEffect } from "react";
-import axios from "axios";
-import { IPhoto } from "../types/types";
 import art from "../styles/img/Art.png";
 import cl from "./CardMedium.module.css"
 import MainButton from "./UI/button/MainButton";
 import FavoriteButton from "./UI/button/FavouriteButton";
+import { IArticle } from "../types/types";
 
-const CardMedium: FC = () => {
+interface CardMediumProps {
+  article: IArticle;
+}
+
+const CardMedium: FC<CardMediumProps> = ({article}) => {
 
     return (
         <div className={cl.card}>
-            <img src={art}/>
-            <div>
-              <h1>Мастера Меча Онлайн: Прогрессив — Ария в беззвёздной ночи</h1>
+            <img src={article.url}/>
+            <div className={cl.cardContent}>
+              <h1>{article.title}</h1>
               <div className={cl.content}>
                 <p>Асуна Юки была лучшей ученицей, усердно готовилась к
                   вступительным экзаменам в старшую школу, но это было
