@@ -2,17 +2,18 @@ import { FC, useEffect } from "react";
 import { fetchArticles } from "../store/action-creators/article";
 import cl from "./Articles.module.css"
 import CardSmall from "./CardSmall";
-import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+
 
 const ArticleTable: FC = () => {
-    const {articles, error, loading} = useTypedSelector(state => state.article)
+    const {articles, error, isloading} = useAppSelector(state => state.articleReducer)
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchArticles()) 
     }, [])
 
-    if (loading) {
+    if (isloading) {
         return <h1>Loading</h1>
     }
     if (error) {

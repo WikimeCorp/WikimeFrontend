@@ -3,7 +3,7 @@ import art from "../styles/img/Art.png";
 import cl from "./CardSmall.module.css";
 import FavoriteButton from "./UI/button/FavouriteButton";
 import MainButton from "./UI/button/MainButton";
-import { IArticle } from "../types/types";
+import { IArticle } from "../models/IArticle"
 
 interface CardSmallProps {
     article: IArticle;

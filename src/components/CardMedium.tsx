@@ -3,7 +3,7 @@ import art from "../styles/img/Art.png";
 import cl from "./CardMedium.module.css"
 import MainButton from "./UI/button/MainButton";
 import FavoriteButton from "./UI/button/FavouriteButton";
-import { IArticle } from "../types/types";
+import { IArticle } from "../models/IArticle"
 
 interface CardMediumProps {
   article: IArticle;

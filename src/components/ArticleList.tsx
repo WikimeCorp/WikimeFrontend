@@ -1,18 +1,18 @@
 import { FC, useEffect } from "react";
 import cl from "./Articles.module.css"
-import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
-import { fetchArticles } from "../store/action-creators/article";
 import CardMedium from "./CardMedium";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { fetchArticles } from "../store/action-creators/article";
 
 const ArticleList: FC = () => {
-    const {articles, error, loading} = useTypedSelector(state => state.article)
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch()
+    const {articles, error, isloading} = useAppSelector(state => state.articleReducer)
 
     useEffect(() => {
-        dispatch(fetchArticles()) 
+        dispatch(fetchArticles())
     }, [])
 
-    if (loading) {
+    if (isloading) {
         return <h1>Loading</h1>
     }
     if (error) {
@@ -20,7 +20,7 @@ const ArticleList: FC = () => {
     }
 
     return (
-        <div>
+        <div className={cl.list}>
             {articles.map(article =>
                 <CardMedium article={article}/>
             )}

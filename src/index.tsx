@@ -2,8 +2,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import "./styles/App.css"
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { setupStore } from './store/store';
 // import reportWebVitals from './reportWebVitals';
+
+const store = setupStore()
 
 ReactDOM.render(
   <Provider store={store}>

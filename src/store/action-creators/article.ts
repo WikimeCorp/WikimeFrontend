@@ -1,16 +1,15 @@
-import { Dispatch } from "@reduxjs/toolkit"
-import axios from "axios"
-import { ArticleAction, ArticleActionTypes } from "../../types/article"
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { IArticle } from "../../models/IArticle";
 
-export const fetchArticles = () => async (dispatch: Dispatch<ArticleAction>) => {
+export const fetchArticles = createAsyncThunk(
+    'user/fetchAll',
+    async (_, thunkAPI) => {
         try {
-            dispatch({type: ArticleActionTypes.FETCH_ARTICLES})
-            const response = await axios.get('https://jsonplaceholder.typicode.com/photos?_limit=10')
-            dispatch({type: ArticleActionTypes.FETCH_ARTICLES_SUCCESS, payload: response.data})
-        } catch (e) {
-            dispatch({
-                type: ArticleActionTypes.FETCH_ARTICLES_ERROR, 
-                payload: 'Произошла ошибка при загрузке статей'
-            })
-        }
-}
+            const response = await axios.get<IArticle[]>('https://jsonplaceholder.typicode.com/photos?_limit=10')
+            return response.data;
+        }  catch(e) {
+            return thunkAPI.rejectWithValue('Не удалось загрузить статьи')
+        }        
+    }
+)
