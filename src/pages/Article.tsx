@@ -1,6 +1,6 @@
 import { FC } from "react";
-import FavoriteButton from "../components/UI/button/FavouriteButton";
-import MainButton from "../components/UI/button/MainButton";
+import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
+import MainButton from "../components/UI/button/main/MainButton";
 import "../styles/Article.css";
 import art from "../styles/img/Art.png";
 

@@ -1,4 +1,4 @@
-import MainButton from "../button/MainButton";
+import MainButton from "../button/main/MainButton";
 import "./Navbar.css"
 
 const Navbar = () => {

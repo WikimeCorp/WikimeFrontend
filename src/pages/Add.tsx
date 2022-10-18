@@ -1,4 +1,4 @@
-import MainButton from "../components/UI/button/MainButton";
+import MainButton from "../components/UI/button/main/MainButton";
 import "../styles/Add.css"
 
 const Add = () => {

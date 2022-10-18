@@ -1,4 +1,4 @@
-import { createApi,fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
 export const articleAPI = createApi({
     reducerPath: 'userAPI',
@@ -10,4 +10,4 @@ export const articleAPI = createApi({
             })
         })
     })
-})
+});

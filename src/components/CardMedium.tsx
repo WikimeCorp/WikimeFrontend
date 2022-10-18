@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from "react";
 import art from "../styles/img/Art.png";
 import cl from "./CardMedium.module.css"
-import MainButton from "./UI/button/MainButton";
-import FavoriteButton from "./UI/button/FavouriteButton";
+import MainButton from "./UI/button/main/MainButton";
+import FavoriteButton from "./UI/button/favorite/FavouriteButton";
 import { IArticle } from "../models/IArticle"
 
 interface CardMediumProps {

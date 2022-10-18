@@ -1,18 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IArticle } from "../../models/IArticle"
+import { IArticle } from "../../models/IArticle";
 import { fetchArticles } from "../action-creators/article";
+
 
 interface ArticleState {
     articles: IArticle[];
     isloading: boolean;
     error: string;
-}
+};
 
 const initialState: ArticleState = {
     articles: [],
     isloading: false,
     error: '',
-}
+};
 
 export const articleSlice = createSlice({
     name: 'article',
@@ -32,6 +33,6 @@ export const articleSlice = createSlice({
             state.error = action.payload;
         }, 
     }
-})
+});
 
 export default articleSlice.reducer;
