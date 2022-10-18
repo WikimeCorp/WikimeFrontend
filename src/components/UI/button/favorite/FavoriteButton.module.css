@@ -3,6 +3,7 @@
     align-items: center;
     padding: 10px 14px;
     max-width: 162px;
+    height: 64px;
 
     background: #379683;
     border-radius: 5px 0px 0px 5px;
@@ -15,12 +16,20 @@
     line-height: 22px;
     letter-spacing: -0.01em;
     color: #EDF5E1;
+
+    cursor: pointer;
 }
 
 .icon {
     width: 33.51px;
     height: 32px;
     color: #05386B;
+}
+
+.iconActive {
+    width: 33.51px;
+    height: 32px;
+    color: #EDF5E1;
 }
 
 .favSmall {        
@@ -35,4 +44,15 @@
     width: 20.94px;
     height: 20px;
     color: #379683;
+}
+
+.iconSmallActive {
+    width: 20.94px;
+    height: 20px;
+    color: #fff;
+}
+
+.fav:hover {
+    background: #5CDB95;
+    color: #fff;
 }

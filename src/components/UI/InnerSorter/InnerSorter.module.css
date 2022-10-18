@@ -12,8 +12,8 @@
 .content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 1044px;
+    align-items: stretch;
+    width: 1044px;
 }
 
 .content::after {
@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
 
     font-family: 'Open Sans', sans-serif;
@@ -45,19 +46,9 @@
 
 .catalog a:hover, a:active {
     font-weight: 400;
+    font-size: 20px;
 }
 
 .catalog span {
     padding: 0 35px 0 10px;
-}
-
-.icon {
-    color: #05386B;
-    height: 20px;
-    margin: 0 10px;    
-}
-
-.view {
-    margin-left: 90px;
-    opacity: 50%;
 }

@@ -1,9 +1,8 @@
 .card {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    justify-content: space-between;
     width: 830px;
-    height: 404px;
     margin: 0 50px 50px 10px;
 
     background: #05386B;
@@ -27,6 +26,12 @@
     letter-spacing: 0.07em;
     color: #EDF5E1;
     padding: 25px 25px 14px 0;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .content {

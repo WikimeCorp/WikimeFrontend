@@ -1,0 +1,27 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60px;
+}
+
+.content button {
+    margin: 5px;
+    background-color: #fff;    
+    cursor: pointer;
+    color: #05386B;
+}
+
+.icon {
+    height: 20px;
+    opacity: 50%;
+}
+
+.icon:hover {
+    opacity: 100%;
+}
+
+.iconActive {    
+    height: 20px;
+    opacity: 100%;
+}
