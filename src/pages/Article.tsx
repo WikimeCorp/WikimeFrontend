@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Comment from "../components/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import "../styles/Article.css";
@@ -62,6 +63,7 @@ const Article: FC = () => {
             </div>
             <div className="comments">
                 <h1>Комментарии</h1>
+                <Comment />
             </div>
         </div>
     );
