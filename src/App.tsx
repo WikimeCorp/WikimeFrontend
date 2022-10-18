@@ -4,10 +4,14 @@ import Navbar from './components/UI/Navbar/Navbar';
 import ArticleList from './components/ArticleList';
 import List from './pages/List';
 import Article from './pages/Article';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
-    <Article />
+    <Routes>
+      <Route path='/' element={<List/>} />
+      <Route path='/article' element={<Article/>} />
+    </Routes>
   );
 };
 
