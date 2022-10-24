@@ -20,6 +20,10 @@
     align-items: center;   
 }
 
-h1, h2 {
-    margin: 25px 0;
+.error-text h1 {
+    margin: 10px 0;
+}
+
+.error-text h2 {
+    margin: 30px 0;
 }

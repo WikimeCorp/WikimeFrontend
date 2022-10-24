@@ -3,23 +3,21 @@ import App from './App';
 import "./styles/App.css"
 import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ErrorPage from './pages/ErrorPage';
+import { BrowserRouter } from 'react-router-dom';
+import { StrictMode } from 'react';
 // import reportWebVitals from './reportWebVitals';
 
 const store = setupStore();
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />
-  },
-]);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <RouterProvider router={router} />
-  </Provider>,
+  <StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </StrictMode>
+  ,
   document.getElementById('root') as HTMLElement
 );
 
