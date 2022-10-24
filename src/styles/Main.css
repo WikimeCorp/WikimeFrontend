@@ -1,0 +1,88 @@
+.Main-page {
+    background-color: #05386B;
+}
+
+.landing {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+    padding-top: 45px;
+    padding-bottom: 70px;
+
+    background: url("../styles/img/Background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    /* background: rgba(5, 56, 107, 0.8); */
+    box-shadow: inset 0px 0px 30px 15px #05386B;
+}
+
+.landing-anime {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin-right: 70px;
+
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 30px;
+
+    color: #EDF5E1;
+}
+
+.landing-anime img {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+
+    filter: drop-shadow(0px 0px 20px rgba(237, 245, 225, 0.3));
+    border-radius: 10px;
+}
+
+.landing-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 419px;
+}
+
+.landing-info h1{
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 53px;
+    text-align: center;
+    letter-spacing: 0.07em;
+
+    color: #EDF5E1;
+}
+
+.landing-info button {
+    margin-top: 50px;
+    padding: 15px 30px;
+
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.popular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 45px;
+    margin-bottom: 145px;
+}
+
+.popular h1{
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 45px;
+    letter-spacing: 0.07em;
+
+    color: #EDF5E1;
+}
