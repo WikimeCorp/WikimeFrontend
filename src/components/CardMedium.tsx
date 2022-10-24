@@ -4,12 +4,15 @@ import cl from "./CardMedium.module.css"
 import MainButton from "./UI/button/main/MainButton";
 import FavoriteButton from "./UI/button/favorite/FavouriteButton";
 import { IArticle } from "../models/IArticle"
+import { useNavigate } from "react-router-dom";
 
 interface CardMediumProps {
   article: IArticle;
 }
 
 const CardMedium: FC<CardMediumProps> = ({article}) => {
+
+    const navigate = useNavigate();
 
     return (
         <div className={cl.card}>
@@ -30,7 +33,7 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
                       <p>Рейтинг</p>
                       <span>4.7</span>
                     </div>
-                    <MainButton>Подробнее</MainButton>
+                    <MainButton onClick={() => navigate('/article')}>Подробнее</MainButton>
                   </div>
                 </div>
               </div>

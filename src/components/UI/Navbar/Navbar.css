@@ -87,17 +87,20 @@
     justify-content: space-between;
 
     padding-left: 20px;
-    width: 40%;
+    width: 40%;     
 }
 
 .links a {
     text-decoration: none;
     cursor: pointer;
     padding-right: 20px;
-
+    
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 18px;     
+}
+
+.not-active {     
     color: #379683;
 }
 
@@ -105,7 +108,7 @@
     color: #8EE4AF
 }
 
-.links a:active {
+.active {
     color: #05386B;
 }
 

@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import MainButton from "../button/main/MainButton";
 import "./Navbar.css"
 
@@ -7,9 +10,9 @@ const Navbar = () => {
             <div className="content">
                 <p className="logo">WIKIME</p>
                 <div className="links">
-                    <a href="#">Статьи</a>
-                    <a href="#">Добавить</a>
-                    <a href="#">Админ</a>
+                    <NavLink to="/" className={({isActive}) => isActive ? 'active' : 'not-active'}>Статьи</NavLink>
+                    <NavLink to="/add" className={({isActive}) => isActive ? 'active' : 'not-active'}>Добавить</NavLink>
+                    <NavLink to="/admin" className={({isActive}) => isActive ? 'active' : 'not-active'}>Админ</NavLink>
                 </div>
                 <div className="contentR">
                     <form>                    
@@ -18,7 +21,8 @@ const Navbar = () => {
                     <button>Войти</button>
                 </div>                            
             </div>
-            <hr className="line" />  
+            <hr className="line" />
+            <Outlet />  
         </div>              
     );
 };

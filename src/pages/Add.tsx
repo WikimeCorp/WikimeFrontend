@@ -1,9 +1,10 @@
 import MainButton from "../components/UI/button/main/MainButton";
-import "../styles/Add.css"
+import "../styles/Add.css";
 
 const Add = () => {
     return (
-        <form className="Add-page">
+        <div className="Add-page">
+        <form className="add">
             <h1>Название</h1>
             <input type="text" placeholder="Напишите название..."/>
             <h1>Обложка</h1>
@@ -39,6 +40,7 @@ const Add = () => {
                 <button className="btn-save">Сохранить</button>
             </div>            
         </form>
+        </div>
     );
 };
 
