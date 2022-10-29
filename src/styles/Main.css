@@ -13,7 +13,6 @@
 
     background: url("../styles/img/Background.jpg") no-repeat center center fixed;
     background-size: cover;
-    /* background: rgba(5, 56, 107, 0.8); */
     box-shadow: inset 0px 0px 30px 15px #05386B;
 }
 

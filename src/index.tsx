@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
 import { BrowserRouter } from 'react-router-dom';
 import { StrictMode } from 'react';
+
 // import reportWebVitals from './reportWebVitals';
 
 const store = setupStore();

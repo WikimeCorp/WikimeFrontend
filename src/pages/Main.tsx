@@ -20,7 +20,7 @@ const Main: FC = () => {
                 </div>
             </div>
             <div className='popular'>
-                <h1>Популярное</h1>                                
+                <h1>Популярное</h1>                                 
             </div>
         </div>
     );
