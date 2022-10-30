@@ -7,7 +7,8 @@ import ErrorPage from './pages/ErrorPage';
 import Add from './pages/Add';
 import Main from './pages/Main';
 
-const App = () => {
+const App = () => { 
+
   return (
     <Routes>
       <Route path='/' element={<Navbar/>}>
