@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import EmblaCarousel from '../components/Carousel/Carousel';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { fetchArticles } from '../store/action-creators/article';
-import CardSmall from '../components/CardSmall';
+import CardSmall from '../components/Cards/CardSmall';
 
 const Main: FC = () => {
     const navigate = useNavigate();    

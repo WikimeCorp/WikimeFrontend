@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from "react";
 import art from "../styles/img/Art.png";
 import cl from "./CardMedium.module.css"
-import MainButton from "./UI/button/main/MainButton";
-import FavoriteButton from "./UI/button/favorite/FavouriteButton";
-import { IArticle } from "../models/IArticle"
+import MainButton from "../UI/button/main/MainButton";
+import FavoriteButton from "../UI/button/favorite/FavouriteButton";
+import { IArticle } from "../../models/IArticle"
 import { useNavigate } from "react-router-dom";
 
 interface CardMediumProps {

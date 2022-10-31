@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { fetchArticles } from "../store/action-creators/article";
 import cl from "./Articles.module.css"
-import CardSmall from "./CardSmall";
+import CardSmall from "./Cards/CardSmall";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 
 

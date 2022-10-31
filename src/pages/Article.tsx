@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Comment from "../components/Comment";
+import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import "../styles/Article.css";

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import cl from "./Comment.module.css";
-import art from "../styles/img/Art.png";
+import art from "../../styles/img/Art.png";
 
 
 const Comment: FC = () => {
