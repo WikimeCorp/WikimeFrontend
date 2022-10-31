@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState, useCallback, useEffect } from 'react'
+import { FC, ReactNode, useState, useCallback, useEffect } from 'react'
 import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
 import "./embla.css";
 import PrevButton from './PrevButton';
@@ -16,6 +16,7 @@ const EmblaCarousel: FC<Props> = ({options, slides}) => {
     skipSnaps: false,
     draggable: false,
   });
+  console.log(embla)
 
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -25,17 +26,20 @@ const EmblaCarousel: FC<Props> = ({options, slides}) => {
 
 
   const onSelect = useCallback(() => {
-    if (!embla) return;
-    setPrevBtnEnabled(embla.canScrollPrev());
-    setNextBtnEnabled(embla.canScrollNext());
+    if (embla) {
+      setPrevBtnEnabled(embla.canScrollPrev());
+      setNextBtnEnabled(embla.canScrollNext());
+    }
   }, [embla]);
 
 
   useEffect(() => {
-    if (!embla) return;
-    embla.on("select", onSelect);
-    onSelect();
-  }, [embla, onSelect]);
+    if (embla) {
+      embla.on("select", onSelect);
+      onSelect();
+      embla.reInit();
+    }
+  }, [embla, onSelect, slides]);
 
   return (
     <div className="embla">
