@@ -5,12 +5,15 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/UI/Navbar/Navbar';
 import ErrorPage from './pages/ErrorPage';
 import Add from './pages/Add';
+import Main from './pages/Main';
 
-const App = () => {
+const App = () => { 
+
   return (
     <Routes>
       <Route path='/' element={<Navbar/>}>
-        <Route index element={<List/>}/>
+        <Route index element={<Main/>}/>
+        <Route path='/list' element={<List/>}/>
         <Route path='article' element={<Article/>}/>        
         <Route path='add' element={<Add/>}/>        
         <Route path='*' element={<ErrorPage/>}/>        

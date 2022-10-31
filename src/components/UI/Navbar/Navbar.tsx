@@ -10,7 +10,7 @@ const Navbar = () => {
             <div className="content">
                 <p className="logo">WIKIME</p>
                 <div className="links">
-                    <NavLink to="/" className={({isActive}) => isActive ? 'active' : 'not-active'}>Статьи</NavLink>
+                    <NavLink to="/list" className={({isActive}) => isActive ? 'active' : 'not-active'}>Статьи</NavLink>
                     <NavLink to="/add" className={({isActive}) => isActive ? 'active' : 'not-active'}>Добавить</NavLink>
                     <NavLink to="/admin" className={({isActive}) => isActive ? 'active' : 'not-active'}>Админ</NavLink>
                 </div>
