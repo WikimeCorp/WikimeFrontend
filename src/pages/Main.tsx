@@ -1,30 +1,34 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import "../styles/Main.css";
 import art from "../styles/img/Art.png";
 import MainButton from '../components/UI/button/main/MainButton';
 import { useNavigate } from 'react-router-dom';
 import EmblaCarousel from '../components/Carousel/Carousel';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchArticles } from '../store/action-creators/article';
 import CardSmall from '../components/Cards/CardSmall';
+import { useGetAnimesQuery } from '../services/anime';
 
 const Main: FC = () => {
+
+    const { data: animes, isLoading } = useGetAnimesQuery();
     const navigate = useNavigate();    
-  
-    const dispatch = useAppDispatch();
-    const {articles, error, isloading} = useAppSelector(state => state.articleReducer)
+    
+    if (isLoading) {
+        return <div>Loading</div>
+    };
 
-    useEffect(() => {
-        dispatch(fetchArticles())
-    }, [])
+    if (!animes) {
+        return <div>No articles :(</div>
+    };
 
-    const slides = Array.from(articles.map(article => <CardSmall article={article}/>));
+    const slides = Array.from(animes.map(anime => <CardSmall article={anime}/>));
 
     return(
         <div className='Main-page'>
             <div className='landing'>
                 <div className='landing-anime'>
-                    <img src={art}/>
+                    <div className='poster'>
+                        <img src={art} alt='poster'/>
+                    </div>
                     <span>Мастера Меча Онлайн: Прогрессив — Ария в беззвёздной ночи</span>
                 </div>
                 <div className='landing-info'>

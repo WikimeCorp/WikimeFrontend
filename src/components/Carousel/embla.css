@@ -44,7 +44,7 @@
 
 .embla__slide__item {
   position: absolute;
-  display: block;
+  display: flex;
   top: 53%;
   left: 50%;
   width: auto;

@@ -3,11 +3,11 @@ import art from "../styles/img/Art.png";
 import cl from "./CardSmall.module.css";
 import FavoriteButton from "../UI/button/favorite/FavouriteButton";
 import MainButton from "../UI/button/main/MainButton";
-import { IArticle } from "../../models/IArticle"
+import { IAnime } from "../../types/IAnime"
 import { useNavigate } from "react-router-dom";
 
 interface CardSmallProps {
-    article: IArticle;
+    article: IAnime;
 }
 
 const CardSmall: FC<CardSmallProps> = ({article}) => {
@@ -17,7 +17,9 @@ const CardSmall: FC<CardSmallProps> = ({article}) => {
     return (
         <div className={cl.card}>
             <div className={cl.art}>
-                <img src={article.url}/>
+                <div className={cl.centerCropped}>
+                    <img src={article.poster} alt="poster"/>
+                </div>
                 <FavoriteButton></FavoriteButton>
                 <p>4.7</p>
             </div>

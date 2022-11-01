@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IArticle } from "../../models/IArticle";
+import { IAnime } from "../../types/IAnime";
 import { fetchArticles } from "../action-creators/article";
 
 
 interface ArticleState {
-    articles: IArticle[];
+    articles: IAnime[];
     isloading: boolean;
     error: string;
 };
@@ -20,7 +20,7 @@ export const articleSlice = createSlice({
     initialState,
     reducers : {},
     extraReducers: {
-        [fetchArticles.fulfilled.type]: (state, action: PayloadAction<IArticle[]>) => {
+        [fetchArticles.fulfilled.type]: (state, action: PayloadAction<IAnime[]>) => {
             state.isloading = false;
             state.error = '';
             state.articles = action.payload;

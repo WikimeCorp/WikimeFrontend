@@ -29,14 +29,31 @@
     color: #EDF5E1;
 }
 
-.landing-anime img {
+.poster {    
+    width: 400px;
+    height: 400px;
+    overflow:hidden;
+    filter: drop-shadow(0px 0px 20px rgba(237, 245, 225, 0.3));
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.poster img {
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);   
+}
+
+/* .landing-anime img {
     width: 400px;
     height: 400px;
     margin-bottom: 20px;
 
     filter: drop-shadow(0px 0px 20px rgba(237, 245, 225, 0.3));
     border-radius: 10px;
-}
+} */
 
 .landing-info {
     display: flex;
