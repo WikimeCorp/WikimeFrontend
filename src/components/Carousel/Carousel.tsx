@@ -16,7 +16,6 @@ const EmblaCarousel: FC<Props> = ({options, slides}) => {
     skipSnaps: false,
     draggable: false,
   });
-  console.log(embla)
 
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);

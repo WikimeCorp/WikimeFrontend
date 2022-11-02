@@ -1,5 +1,4 @@
 import { FC, useState, useEffect } from "react";
-import art from "../styles/img/Art.png";
 import cl from "./CardMedium.module.css"
 import MainButton from "../UI/button/main/MainButton";
 import FavoriteButton from "../UI/button/favorite/FavouriteButton";
@@ -20,11 +19,15 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
             <img src={article.poster} alt="poster"/>
           </div>
           <div className={cl.cardContent}>
-            <h1>{article.title}</h1>
+            <div className={cl.titleContainer}>
+              <div className={cl.title}>
+                {article.title}
+              </div>
+            </div>
             <div className={cl.content}>
-              <p>
+              <div className={cl.text}>
                 {article.description} 
-              </p>
+              </div>
               <div className={cl.ui}>
                 <FavoriteButton>Добавить в избранное</FavoriteButton>
                 <div className={cl.rateAndBtn}>

@@ -17,7 +17,7 @@
     height: 400px;
     border-radius: 10px 0px 0px 10px;
     margin-right: 25px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .poster img {
@@ -28,15 +28,25 @@
     transform: translateX(-50%); 
 }
 
-.card h1 {
+.titleContainer {
+    max-height: 135px;
+    width: 481px;
+    padding: 25px 25px 14px 0;   
+}
+
+.title {    
     font-family: 'Dressedless Pro';
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
     letter-spacing: 0.07em;
-    color: #EDF5E1;
-    padding: 25px 25px 14px 0;
-    width: 481px;
+    color: #EDF5E1; 
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis color;
 }
 
 .cardContent {
@@ -52,12 +62,24 @@
     padding-bottom: 10px;
 }
 
-.content p {
+.text {
     max-width: 277px;
-    max-height: 228px;
-    margin-bottom: 27px;
+    height: 257px;
+    /* margin-bottom: 27px; */
     color: #D4EDD3;
     line-height: 26px;
+    overflow: hidden;
+    position: relative;
+}
+
+.text::after {    
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(180deg, transparent, #05386B 50%);
 }
 
 .ui {
