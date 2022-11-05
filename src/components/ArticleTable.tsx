@@ -21,7 +21,7 @@ const ArticleTable: FC = () => {
     return (
         <div className={cl.table}>
             {animes.map(article =>
-                <CardSmall article={article}/>
+                <CardSmall key={article.id} article={article}/>
             )}
         </div>
     );

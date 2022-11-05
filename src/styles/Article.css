@@ -46,13 +46,23 @@
     max-width: 320px;
 }
 
-.art img {
-    width: 320px;
+.art-img {
+    max-width: 320px;
+    min-width: 320px;
     height: 400px;
     margin-bottom: 25px;
-
+    overflow: hidden;
+    
     filter: drop-shadow(0px 0px 10px #D4EDD3);
     border-radius: 10px;
+}
+
+.art-img img {    
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
 }
 
 .art button {
@@ -167,11 +177,20 @@
     gap: 2rem;
 }
 
-.pictures-content img {
+.pictures-content-art {
     height: 250px;
     width: 225px;
 
-    border-radius: 10px
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pictures-content-art img {    
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
 }
 
 .comments {

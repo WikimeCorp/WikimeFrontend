@@ -3,7 +3,7 @@ import "../styles/Main.css";
 import art from "../styles/img/Art.png";
 import MainButton from '../components/UI/button/main/MainButton';
 import { useNavigate } from 'react-router-dom';
-import EmblaCarousel from '../components/Carousel/Carousel';
+import Carousel from '../components/Carousel/Carousel';
 import CardSmall from '../components/Cards/CardSmall';
 import { useGetAnimesQuery } from '../services/anime';
 
@@ -38,7 +38,7 @@ const Main: FC = () => {
             </div>
             <div className='popular'>
                 <h1>Популярное</h1>
-                <EmblaCarousel slides={slides}/>                                 
+                <Carousel slides={slides}/>                                 
             </div>
         </div>
     );

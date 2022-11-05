@@ -11,15 +11,25 @@
     border-radius: 10px;
 }
 
-.card h2 {
+.titleContainer {
+    max-height: 68px;
+    /* width: 481px; */
+    padding: 10px;  
+}
+
+.title {
     font-family: 'Dressedless Pro';
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.07em;
     color: #EDF5E1;
-    padding: 10px;
-    max-height: 68px;
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis color;    
 }
 
 .card button {

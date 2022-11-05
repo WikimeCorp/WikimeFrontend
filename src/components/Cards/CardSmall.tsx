@@ -22,9 +22,13 @@ const CardSmall: FC<CardSmallProps> = ({article}) => {
                 </div>
                 <FavoriteButton></FavoriteButton>
                 <p>4.7</p>
+            </div>            
+            <div className={cl.titleContainer}>
+              <div className={cl.title}>
+                {article.title}
+              </div>
             </div>
-            <h2>{article.title}</h2>
-            <MainButton onClick={() => navigate('/article')}>Подробнее</MainButton>
+            <MainButton onClick={() => navigate(`articles/${article.id}`)}>Подробнее</MainButton>
         </div>
     );
 };

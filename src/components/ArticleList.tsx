@@ -17,7 +17,7 @@ const ArticleList: FC = () => {
     return (
         <div className={cl.list}>
             {animes.map(article =>
-                <CardMedium article={article}/>
+                <CardMedium key={article.id} article={article}/>
             )}
         </div>
     );
