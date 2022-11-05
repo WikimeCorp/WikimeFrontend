@@ -1,16 +1,20 @@
+import userEvent from "@testing-library/user-event";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
-import { useGetAnimeQuery, useGetAnimesQuery } from "../services/anime";
+import { useGetAnimeQuery } from "../services/anime";
+import { useGetUserQuery } from "../services/users";
 import "../styles/Article.css";
 
 const Article: FC = () => {
 
     const { id } = useParams();
-    const { data: anime, isLoading } = useGetAnimeQuery(String(id));
-    
+
+    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
+    const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
+
     if (isLoading) {
         return <div>Loading</div>
     };
@@ -18,15 +22,13 @@ const Article: FC = () => {
     if (!anime) {
         return <div>Anime not found :(</div>
     };
-
-    const slides = Array.from(anime.images.map(anime => <img src={anime}/>));
     
     return (
-        <div key={anime.id} className="Article-page">
+        <div key={id} className="Article-page">
             <div className="info">
                 <div className="art">
                     <div className="art-img">
-                        <img key={anime.id} src={anime.poster}/>
+                        <img src={anime.poster}/>
                     </div>
                     <FavoriteButton>Добавить в избранное</FavoriteButton>
                     <span>В избранном у 37 пользователей</span>
@@ -59,7 +61,7 @@ const Article: FC = () => {
             <div className="description">
                 <h1>Описание</h1>
                 <p>{anime.description}</p>
-                <span>Автор: <b>{anime.author}</b></span>
+                <span>Автор: <b>{user?.nickname}</b></span>
             </div>
             <div className="pictures">
                 <h1>Арты и кадры</h1>

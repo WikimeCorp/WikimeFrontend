@@ -33,7 +33,7 @@ const Main: FC = () => {
                 </div>
                 <div className='landing-info'>
                     <h1>Онлайн энциклопедия аниме</h1>
-                    <MainButton onClick={() => navigate('/list')}>Перейти к статьям</MainButton>
+                    <MainButton onClick={() => navigate('/articles')}>Перейти к статьям</MainButton>
                 </div>
             </div>
             <div className='popular'>

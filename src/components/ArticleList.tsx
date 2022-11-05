@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import cl from "./Articles.module.css"
 import CardMedium from "./Cards/CardMedium";
 import { useGetAnimesQuery } from "../services/anime";

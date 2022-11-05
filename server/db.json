@@ -108,5 +108,17 @@
             "releaseDate": "31.10.2021",
             "author": 0
         }
+    ],
+
+    "users": [
+        {            
+            "id": 0,
+            "nickname": "Anime Lover",
+            "photo": "https://areatopik.com/wp-content/uploads/2022/07/Sword-Art-Onlie-P-I-A-1-Pictures-2-scaled.jpg",
+            "role": "admin",
+            "favorites": [0, 1, 2, 3, 4, 5],
+            "watched": [0, 1, 2, 3, 4, 5],
+            "added": [0, 1, 2, 3, 4, 5]
+        }
     ]
 }
