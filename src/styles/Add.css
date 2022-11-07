@@ -21,18 +21,8 @@
     letter-spacing: -0.02em;
 }
 
-.add input {
-    margin: 10px;
-    margin-bottom: 0;
-    padding: 20px 25px;
-    width: 100%;
-    max-width: 845px;
 
-    background-color: #EDF5E1;
-    border-radius: 10px;
-}
-
-.add button {
+/* .add button {
     margin: 10px 10px 0 10px;
     padding: 10px 25px;
     max-width: max-content;
@@ -44,7 +34,7 @@
     font-weight: 700;
     color: #FFFFFF;
     cursor: pointer;
-}
+} */
 
 .btns-genres {
     color: #EDF5E1;
@@ -53,13 +43,8 @@
 
 .container-save {
     display: flex;
-    justify-content: center;
-}
-
-.btn-save {
-    margin: 30px;
-    padding: 15px 30px;    
-    font-size: 24px;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
 .add hr {
@@ -67,23 +52,4 @@
     width: 100%;
     background-color: #EDF5E1;
     border: 1px solid #EDF5E1;
-}
-
-.add h1 {
-    padding: 50px 10px 0 10px;
-    font-weight: 700;
-    font-size: 34px;
-    line-height: 46px;
-    letter-spacing: -0.02em;
-    color: #05386B;
-}
-
-.add h2 {
-    padding: 25px 10px 0 10px;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 33px;
-
-    letter-spacing: -0.02em;
-    color: #05386B;
 }

@@ -3,11 +3,11 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { animeAPI } from '../services/anime';
 import { usersAPI } from '../services/users';
 import listReducer from './reducers/ListSlice';
-import articleReducer from './reducers/ArticleSlice';
+import genresReducer from './reducers/GenresSlice';
 
 const rootReducer = combineReducers({
-    articleReducer,
     listReducer,
+    genresReducer,
     [animeAPI.reducerPath]: animeAPI.reducer,
     [usersAPI.reducerPath]: usersAPI.reducer,
 });
