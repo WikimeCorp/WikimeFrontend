@@ -3,27 +3,25 @@ import { fetchArticles } from "../store/action-creators/article";
 import cl from "./Articles.module.css"
 import CardSmall from "./Cards/CardSmall";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useGetAnimesQuery } from "../services/anime";
 
 
 const ArticleTable: FC = () => {
-    const {articles, error, isloading} = useAppSelector(state => state.articleReducer)
-    const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(fetchArticles()) 
-    }, [])
+    const { data: animes, isLoading } = useGetAnimesQuery();
+    
+    if (isLoading) {
+        return <div>Loading</div>
+    };
 
-    if (isloading) {
-        return <h1>Loading</h1>
-    }
-    if (error) {
-        return <h1>{error}</h1>
-    }
+    if (!animes) {
+        return <div>No articles :(</div>
+    };
 
     return (
         <div className={cl.table}>
-            {articles.map(article =>
-                <CardSmall article={article}/>
+            {animes.map(article =>
+                <CardSmall key={article.id} article={article}/>
             )}
         </div>
     );

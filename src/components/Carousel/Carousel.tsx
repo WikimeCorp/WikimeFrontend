@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState, useCallback, useEffect } from 'react'
-import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
+import useCarousel, { EmblaOptionsType } from 'embla-carousel-react'
 import "./embla.css";
 import PrevButton from './PrevButton';
 import NextButton from './NextButton';
@@ -9,14 +9,13 @@ interface Props {
   slides: ReactNode[]
 }
 
-const EmblaCarousel: FC<Props> = ({options, slides}) => {
+const Carousel: FC<Props> = ({options, slides}) => {
 
-  const [viewportRef, embla] = useEmblaCarousel({
+  const [viewportRef, embla] = useCarousel({
     slidesToScroll: 4, 
     skipSnaps: false,
     draggable: false,
   });
-  console.log(embla)
 
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -62,4 +61,4 @@ const EmblaCarousel: FC<Props> = ({options, slides}) => {
   );
 };
 
-export default EmblaCarousel;
+export default Carousel;

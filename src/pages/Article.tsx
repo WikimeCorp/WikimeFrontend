@@ -1,30 +1,51 @@
+import userEvent from "@testing-library/user-event";
 import { FC } from "react";
+import { useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
+import { useGetAnimeQuery } from "../services/anime";
+import { useGetUserQuery } from "../services/users";
 import "../styles/Article.css";
-import art from "../styles/img/Art.png";
 
 const Article: FC = () => {
+
+    const { id } = useParams();
+
+    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
+    const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
+
+    if (isLoading) {
+        return <div>Loading</div>
+    };
+
+    if (!anime) {
+        return <div>Anime not found :(</div>
+    };
+    
     return (
-        <div className="Article-page">
+        <div key={id} className="Article-page">
             <div className="info">
                 <div className="art">
-                    <img src={art}/>
+                    <div className="art-img">
+                        <img src={anime.poster}/>
+                    </div>
                     <FavoriteButton>Добавить в избранное</FavoriteButton>
                     <span>В избранном у 37 пользователей</span>
                 </div>
                 <div className="info-content">
-                    <h1>Мастера Меча Онлайн: Прогрессив — Ария в беззвёздной ночи</h1>
+                    <h1>{anime.title}</h1>
                     <div className="info-content-main">
                         <div className="info-description">
-                            <p><span>Оригинальное название:</span>劇場版 ソードアート・オンライン プログレッシブ 星なき夜のアリア</p>
+                            <p><span>Оригинальное название:</span>{anime.originTitle}</p>
                             <p className="info-genres">
                                 <span>Жанры:</span>
-                                Экшен Фэнтези Приключения Романтика Игры
+                                {anime.geners.map((item) =>
+                                    `${item} `
+                                )}
                             </p>
-                            <p><span>Режиссёр:</span>Рэки Кавахара</p>
-                            <p><span>Дата выхода:</span>31.10.2021</p>
+                            <p><span>Режиссёр:</span>{anime.director}</p>
+                            <p><span>Дата выхода:</span>{anime.releaseDate}</p>
                         </div>
                         <div className="info-ui">
                             <span>4.7</span>
@@ -39,26 +60,17 @@ const Article: FC = () => {
             </div>
             <div className="description">
                 <h1>Описание</h1>
-                <p>Асуна Юки была лучшей ученицей, усердно готовилась к вступительным 
-                    экзаменам в старшую школу, но это было до того, как она одолжила у 
-                    брата игровую систему виртуальной реальности и оказалась в ловушке 
-                    Sword Art Online вместе с десятью тысячами других напуганных игроков. 
-                    Проходит время, и Асуна начинает бояться, что станет с её жизнью за 
-                    пределами фантастического мира. Какой неудачницей она может оказаться 
-                    в глазах сверстников и родителей. Не желая ждать в сторонке, пока более 
-                    опытные игроки пройдут игру, Асуна использует свои способности к обучению, 
-                    чтобы изучить механику игры и владение мечом. Её быстрота впечатляет Кирито, 
-                    профессионального геймера, который приглашает Асуну присоединиться к лучшим 
-                    игрокам на передовой. Готова ли Асуна поменять рейтинг класса на рейтинг игрока 
-                    и присоединиться к Кирито?</p>
-                <span>Автор: <b>Twinqssly</b></span>
+                <p>{anime.description}</p>
+                <span>Автор: <b>{user?.nickname}</b></span>
             </div>
             <div className="pictures">
                 <h1>Арты и кадры</h1>
                 <div className="pictures-content">
-                    <img src={art}/>
-                    <img src={art}/>
-                    <img src={art}/>
+                    {anime.images.map((art, idx) =>
+                        <div className="pictures-content-art">
+                            <img key={idx} src={art}/>
+                        </div>                        
+                    )}
                 </div>
             </div>
             <div className="comments">

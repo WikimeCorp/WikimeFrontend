@@ -8,8 +8,8 @@ const SideBar = () => {
                 <h1>Жанры</h1>
             </div>
             <div className={cl.links}>
-                {Genres.map(genre =>
-                    <a href="#">
+                {Genres.map((genre, idx) =>
+                    <a key={idx} href="#">
                         <label>
                             <input autoComplete="off" type="checkbox"/>
                             {genre}

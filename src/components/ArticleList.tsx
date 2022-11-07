@@ -1,28 +1,23 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import cl from "./Articles.module.css"
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { fetchArticles } from "../store/action-creators/article";
 import CardMedium from "./Cards/CardMedium";
+import { useGetAnimesQuery } from "../services/anime";
 
 const ArticleList: FC = () => {
-    const dispatch = useAppDispatch()
-    const {articles, error, isloading} = useAppSelector(state => state.articleReducer)
+    const { data: animes, isLoading } = useGetAnimesQuery();
+    
+    if (isLoading) {
+        return <div>Loading</div>
+    };
 
-    useEffect(() => {
-        dispatch(fetchArticles())
-    }, [])
-
-    if (isloading) {
-        return <h1>Loading</h1>
-    }
-    if (error) {
-        return <h1>{error}</h1>
-    }
+    if (!animes) {
+        return <div>No articles :(</div>
+    };
 
     return (
         <div className={cl.list}>
-            {articles.map(article =>
-                <CardMedium article={article}/>
+            {animes.map(article =>
+                <CardMedium key={article.id} article={article}/>
             )}
         </div>
     );
