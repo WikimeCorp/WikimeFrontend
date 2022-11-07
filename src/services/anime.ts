@@ -53,6 +53,34 @@ export const animeAPI = createApi({
             },
             invalidatesTags: (result, error, id) => [{ type: 'Anime', id }],
         }),
+
+        getPoster: build.query<string, string>({
+            query: (id) => `anime/${id}/poster`,
+            providesTags: (result, error, id) => [{ type: 'Anime', id}],
+        }),
+
+        updatePoster: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
+            query: ({ id, ...patch }) => ({
+             url: `anime/${id}/poster`,
+             method: 'PUT',
+             body: patch,
+            }),
+            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
+         }),
+
+         getImgs: build.query<string[], string>({
+            query: (id) => `anime/${id}/imgs`,
+            providesTags: (result, error, id) => [{ type: 'Anime', id}],
+        }),
+
+        addImgs: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
+            query: ({ id, ...patch }) => ({
+             url: `anime/${id}/imgs`,
+             method: 'PUT',
+             body: patch,
+            }),
+            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
+         }),
     }),
 });
 
@@ -62,4 +90,7 @@ export const {
     useAddAnimeMutation,
     useUpdateAnimeMutation,
     useDeleteAnimeMutation,
+    useGetPosterQuery,
+    useUpdatePosterMutation,
+    useGetImgsQuery
 } = animeAPI;
