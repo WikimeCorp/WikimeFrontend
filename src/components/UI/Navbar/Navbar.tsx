@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import MainButton from "../button/main/MainButton";
 import "./Navbar.css"
 

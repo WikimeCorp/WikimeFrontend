@@ -12,9 +12,14 @@ const Add = () => {
 
     const onSubmit = async (formFields: FormTextFields) => {
         if(formFields) {
-            await addArticle(formFields).unwrap();
-            dispatch(clearGenres());
+            try {
+                const payload = await addArticle(formFields).unwrap();
+                dispatch(clearGenres());
+                console.log('fulfilled', payload)
+            } catch (error) {
+            console.error('rejected', error);
         }
+    }   
     };
 
     return (

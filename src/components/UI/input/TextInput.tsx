@@ -1,25 +1,14 @@
-import { ForwardRefRenderFunction, InputHTMLAttributes, forwardRef } from "react";
+import { InputHTMLAttributes, forwardRef } from "react";
 import cl from "./TextInput.module.css";
 
 
-interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
-    name?: string;
-    ref: string;
-};
+type InputProps = React.DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
-const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = ({ name, ...otherProps }, ref) => {
-    return (
-        <label>
-            <input 
-                className={cl.text}
-                {...otherProps}
-                name={name}
-                ref={ref}            
-            />
-        </label>
-    );
-};
-
-const TextInput = forwardRef(Input);
+const TextInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => (    
+    <input className={cl.text} ref={ref} {...props} />
+));
 
 export default TextInput;
