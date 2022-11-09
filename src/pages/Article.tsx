@@ -12,12 +12,16 @@ const Article: FC = () => {
 
     const { id } = useParams();
 
-    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
+    const { data: anime, isLoading, isSuccess, isError } = useGetAnimeQuery(String(id));
     const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
 
     if (isLoading) {
         return <div>Loading</div>
     };
+
+    if(isError) {
+        console.log("error")
+    }
 
     if (!anime) {
         return <div>Anime not found :(</div>
@@ -40,7 +44,7 @@ const Article: FC = () => {
                             <p><span>Оригинальное название:</span>{anime.originTitle}</p>
                             <p className="info-genres">
                                 <span>Жанры:</span>
-                                {anime.geners.map((item) =>
+                                {anime.genres.map((item) =>
                                     `${item} `
                                 )}
                             </p>
@@ -63,6 +67,7 @@ const Article: FC = () => {
                 <p>{anime.description}</p>
                 <span>Автор: <b>{user?.nickname}</b></span>
             </div>
+            {anime.images &&                     
             <div className="pictures">
                 <h1>Арты и кадры</h1>
                 <div className="pictures-content">
@@ -72,7 +77,7 @@ const Article: FC = () => {
                         </div>                        
                     )}
                 </div>
-            </div>
+            </div>}
             <div className="comments">
                 <h1>Комментарии</h1>
                 <Comment />
