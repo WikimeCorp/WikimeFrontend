@@ -25,3 +25,8 @@
     height: 20px;
     opacity: 100%;
 }
+
+.iconActive:hover, :active, :target {
+    background-color: #fff;
+    color: #05386B;
+}

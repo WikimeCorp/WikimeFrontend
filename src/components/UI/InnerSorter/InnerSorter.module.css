@@ -37,18 +37,38 @@
     color: #05386B;
 }
 
-.catalog a {
+.btnSort {
     padding: 0 15px;
     text-decoration: none;
     color: #05386B;
-    cursor: pointer;    
+    cursor: pointer; 
+    background-color: inherit;
+    font-size: 20px;   
+    font-weight: inherit;
+    font-family: inherit;
 }
 
-.catalog a:hover, a:active {
+.btnSortActive {
+    padding: 0 15px;
+    text-decoration: none;
+    color: #05386B;
+    cursor: pointer; 
+    background-color: inherit;
+    font-size: 20px;   
     font-weight: 400;
-    font-size: 20px;
+    font-family: inherit;
+} 
+
+.btnSort:hover {
+    font-weight: 400;
 }
 
-.catalog span {
+.btnSort:active,
+.btnSortActive:active {
+    color: #05386B;
+    background: inherit;
+}
+
+.catalogSort {
     padding: 0 35px 0 10px;
 }
