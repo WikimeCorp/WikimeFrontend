@@ -26,7 +26,9 @@
     opacity: 100%;
 }
 
-.iconActive:hover, :active, :target {
+.iconActive:hover, 
+.iconActive:active, 
+.iconActive:target {
     background-color: #fff;
     color: #05386B;
 }

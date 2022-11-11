@@ -6,10 +6,9 @@ import { faStar as starReg } from '@fortawesome/free-regular-svg-icons';
 
 interface Props{
     children?: string;
-    onClick?: () => void;
 }
 
-const FavoriteButton: FC<Props> = ({children, onClick}) => {
+const FavoriteButton: FC<Props> = ({children}) => {
 
     const [active, setActive] = useState<boolean>(false)
 
@@ -23,7 +22,8 @@ const FavoriteButton: FC<Props> = ({children, onClick}) => {
                 <button onClick={handleClick} className={cl.fav}>
                     <FontAwesomeIcon icon={starSol} className={cl.iconActive}/>        
                 </button>
-                : <button onClick={handleClick} className={cl.fav}>
+                : 
+                <button onClick={handleClick} className={cl.fav}>
                     {children}
                     <FontAwesomeIcon icon={starSol} className={cl.icon}/>        
                 </button>
@@ -31,10 +31,10 @@ const FavoriteButton: FC<Props> = ({children, onClick}) => {
     };
 
     return (
-        <button onClick={onClick} className={cl.favSmall}>
+        <button onClick={handleClick} className={cl.favSmall}>
             {active ?
                 <FontAwesomeIcon icon={starSol} className={cl.iconSmallActive}/>
-                : <FontAwesomeIcon icon={starSol} className={cl.iconSmall}/>
+                : <FontAwesomeIcon icon={starReg} className={cl.iconSmall}/>
             }
         </button>
     );    
