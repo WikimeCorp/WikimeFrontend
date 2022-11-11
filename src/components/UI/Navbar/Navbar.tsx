@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import LoginButton from "../button/auth/login/LoginButton";
 import MainButton from "../button/main/MainButton";
 import "./Navbar.css"
 
@@ -16,7 +17,7 @@ const Navbar = () => {
                     <form>                    
                         <input type="search" placeholder="Поиск"/>
                     </form>
-                    <button>Войти</button>
+                    <LoginButton>Войти</LoginButton>
                 </div>                            
             </div>
             <hr className="line" />

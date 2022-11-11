@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import cl from "./CardMedium.module.css"
 import MainButton from "../UI/button/main/MainButton";
 import FavoriteButton from "../UI/button/favorite/FavouriteButton";

@@ -2,21 +2,28 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { animeAPI } from '../services/anime';
 import { usersAPI } from '../services/users';
+import { authAPI } from '../services/auth';
 import listReducer from './reducers/ListSlice';
 import genresReducer from './reducers/GenresSlice';
+import authReducer from './reducers/AuthSlice';
 
 const rootReducer = combineReducers({
     listReducer,
     genresReducer,
     [animeAPI.reducerPath]: animeAPI.reducer,
     [usersAPI.reducerPath]: usersAPI.reducer,
+    [authAPI.reducerPath]: authAPI.reducer,
+    auth: authReducer,
 });
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(animeAPI.middleware, usersAPI.middleware),
+            getDefaultMiddleware().concat(
+                animeAPI.middleware, 
+                usersAPI.middleware,
+                authAPI.middleware),
     });
 };
 
