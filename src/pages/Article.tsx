@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";

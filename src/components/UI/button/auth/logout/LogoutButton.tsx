@@ -6,10 +6,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
 }
 
-const LogoutButton: FC<Props> = ({children, onClick, ...props}) => {
-    const { logout } = useAuth0();
+const LogoutButton: FC<Props> = ({children, ...props}) => {
+    // const { logout } = useAuth0();
     return (
-        <button onClick={() => logout({ returnTo: window.location.origin })} className={cl.main} {...props}>
+        <button className={cl.main} {...props}>
             {children}
         </button>
     );

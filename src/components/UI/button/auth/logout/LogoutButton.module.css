@@ -1,0 +1,18 @@
+.main {
+    padding: 7px 20px;
+    margin: 10px;
+
+    border: 1.5px solid #5CDB95;
+    border-radius: 5px;
+    
+    font-size: 18px;
+    font-weight: 700;
+    color: #5CDB95;
+    cursor: pointer;
+    background: inherit;
+}
+
+.main:hover {
+    background: #5CDB95;
+    color: #fff;
+}

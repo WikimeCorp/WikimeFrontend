@@ -1,12 +1,12 @@
 import cl from "./InnerSorter.module.css"
 import ViewButton from "../button/view/ViewButtons";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { selectSort } from "../../../store/reducers/ListSlice";
+import { selectSort } from "../../../store/reducers/BtnsSlice";
 
 const InnerSorter = () => {
 
     const Label: string[] = [ "popular", "new", "rate", "date" ];
-    const active = useAppSelector(state => state.listReducer.sort);
+    const active = useAppSelector(state => state.btnsReducer.sort);
     const dispatch = useAppDispatch();
 
     return(

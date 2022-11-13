@@ -12,7 +12,7 @@ interface Props {
 const Carousel: FC<Props> = ({options, slides}) => {
 
   const [viewportRef, embla] = useCarousel({
-    slidesToScroll: 4, 
+    slidesToScroll: options?.slidesToScroll, 
     skipSnaps: false,
     draggable: false,
   });
