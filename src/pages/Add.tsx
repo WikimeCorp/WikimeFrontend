@@ -1,4 +1,4 @@
-import TextForm from "../components/UI/Form/TextForm";
+import TextForm from "../components/UI/forms/addArticle/TextForm";
 import { useAppDispatch } from "../hooks/redux";
 import { useAddAnimeMutation } from "../services/anime";
 import { clearGenres } from "../store/reducers/GenresSlice";

@@ -41,25 +41,6 @@
     color: #379683;
 }
 
-.content button {   
-    margin-left: 40px;
-    padding: 8px 20px;
-    max-width: max-content;
-
-    background: #5CDB95;
-    border-radius: 5px;
-    
-    font-size: 18px;
-    font-weight: 700;
-    color: #FFFFFF;
-    cursor: pointer;
-}
-
-.content button:hover, .content button:active {
-    background: #05386B;
-    color: #EDF5E1;
-}
-
 .contentR {
     display: flex;
     flex-direction: row;
