@@ -13,7 +13,8 @@ interface BtnsState {
         fav: boolean;
         viewed: boolean;
         added: boolean;
-    }
+    };
+    addAdmins: boolean[];
 };
 
 const initialState: BtnsState = {
@@ -29,6 +30,7 @@ const initialState: BtnsState = {
         viewed: false,
         added: false,
     },
+    addAdmins: [ false, false ],
 };
 
 interface changeViewUserProps {
@@ -53,8 +55,17 @@ export const btnsSlice = createSlice({
             state.usersLists[action.payload as keyof typeof state.usersLists] = 
             !state.usersLists[action.payload as keyof typeof state.usersLists];
         },
-    }
+        openAdding: (state, action: PayloadAction<number>) => {
+            state.addAdmins[action.payload] = !state.addAdmins[action.payload];
+        },
+    },
 });
 
-export const { selectSort, changeView, changeViewUser, changeViewUserLists } = btnsSlice.actions;
+export const {
+    selectSort, 
+    changeView, 
+    changeViewUser, 
+    changeViewUserLists, 
+    openAdding 
+} = btnsSlice.actions;
 export default btnsSlice.reducer;

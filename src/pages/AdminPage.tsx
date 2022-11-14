@@ -1,25 +1,37 @@
 import { FC } from "react";
 import AdminItem from "../components/AdminItem";
-import MainButton from "../components/UI/button/main/MainButton";
+import PlusButton from "../components/UI/button/add_admin/PlusButton";
 import AdminForm from "../components/UI/forms/addAdmin/AdminForm";
-import TextInput from "../components/UI/input/TextInput";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { openAdding } from "../store/reducers/BtnsSlice";
 import  "../styles/AdminPage.css";
 
 const AdminPage: FC = () => {
 
+    const isOpen = useAppSelector(state => state.btnsReducer.addAdmins);
+    const dispatch = useAppDispatch();
+
     return (
         <div className="admin-page">
             <div className="admins">
-                <h1>администраторы</h1>
+                <div className="admins-title">
+                    <h1>администраторы</h1>
+                    <PlusButton onClick={() => dispatch(openAdding(0))}/>
+                </div>   
+                {isOpen[0] && <AdminForm />}             
                 {[0,1,2,3,4].map((item) =>
                     <AdminItem key={item}/>)}
-                <AdminForm />
+                
             </div>
             <div className="admins">
-                <h1>модераторы</h1>
+                <div className="admins-title">
+                    <h1>модераторы</h1>
+                    <PlusButton  onClick={() => dispatch(openAdding(1))}/>
+                </div>    
+                {isOpen[1] && <AdminForm />}            
                 {[0,1,2,3,4,5,6].map((item) =>
                     <AdminItem key={item}/>)}
-                <AdminForm />
+                
             </div>
         </div>
     );
