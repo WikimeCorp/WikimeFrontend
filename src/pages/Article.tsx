@@ -33,7 +33,7 @@ const Article: FC = () => {
                     <div className="art-img">
                         <img src={anime.poster}/>
                     </div>
-                    <FavoriteButton>Добавить в избранное</FavoriteButton>
+                    <FavoriteButton inArciclePage>Добавить в избранное</FavoriteButton>
                     <span>В избранном у 37 пользователей</span>
                 </div>
                 <div className="info-content">

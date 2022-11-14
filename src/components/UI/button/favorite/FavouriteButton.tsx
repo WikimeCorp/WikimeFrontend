@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as starSol } from '@fortawesome/free-solid-svg-icons';
 import { faStar as starReg } from '@fortawesome/free-regular-svg-icons';
 
+
 interface Props{
     children?: string;
+    inArciclePage?: boolean;
 }
 
-const FavoriteButton: FC<Props> = ({children}) => {
+const FavoriteButton: FC<Props> = ({ children, inArciclePage }) => {
 
     const [active, setActive] = useState<boolean>(false)
 
@@ -19,7 +21,8 @@ const FavoriteButton: FC<Props> = ({children}) => {
     if (children?.length) {
         return (
             active ?
-                <button onClick={handleClick} className={cl.fav}>
+                <button onClick={handleClick} className={ inArciclePage ? cl.inFav : cl.fav}>
+                    {inArciclePage && <span>В избранном</span>}
                     <FontAwesomeIcon icon={starSol} className={cl.iconActive}/>        
                 </button>
                 : 
