@@ -1,0 +1,112 @@
+.user-page h2 {
+    padding: 25px 0;
+    max-width: min-content;
+
+    text-align: center;
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 45px;
+    letter-spacing: 0.07em;
+
+    color: #379683;
+}
+
+.user-page h1 {
+    padding: 0;
+
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 45px;
+    letter-spacing: 0.07em;
+
+    color: #05386B;
+}
+
+.user-page a {
+    margin-bottom: 10px;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.02em;
+
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size .3s;
+
+    color: #5CDB95;
+}
+
+.user-page a:hover {
+    background-size: 100% 1px;
+    font-weight: 400;
+}
+
+.user-page {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin: 70px 0;
+}
+
+.user-info {
+    margin: 0 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-info-photo {
+    width: 230px;
+    height: 230px;
+    overflow:hidden;
+
+    border: 2px solid #EDF5E1;
+    filter: drop-shadow(0px 0px 10px rgba(92, 219, 149, 0.5));
+    border-radius: 10px;
+}
+
+.user-info-photo img {
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+}
+
+.user-content {
+    width: 70vw;
+}
+
+.user-content-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-content-title {
+    background-color: #EDF5E1;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 2rem;
+    width: 90%;
+}
+
+.user-content-title-main {
+    display: flex;
+}

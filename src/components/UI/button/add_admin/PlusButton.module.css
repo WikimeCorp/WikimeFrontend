@@ -1,0 +1,16 @@
+.container {
+    margin: 0 1rem;    
+    padding-top: 0.3rem;
+    background-color: inherit;    
+    cursor: pointer;
+    color: #5CDB95;
+}
+
+.icon {
+    height: 30px;
+    opacity: 0.5;
+}
+
+.icon:hover, .icon:target {
+    opacity: 1;
+}

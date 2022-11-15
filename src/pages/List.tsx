@@ -7,7 +7,7 @@ import { useAppSelector } from "../hooks/redux";
 import "../styles/List.css"
 
 const List: FC = () => {
-    const View = useAppSelector(state => state.listReducer.isListView);
+    const View = useAppSelector(state => state.btnsReducer.isListView);
 
     return (
         <div className="list-page">

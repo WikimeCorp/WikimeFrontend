@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 35px;
+    align-items: center;
+}
+
+.error {
+    margin: 0 35px;
+    font-size: 16px;
+    color: #DB675C;
+}
