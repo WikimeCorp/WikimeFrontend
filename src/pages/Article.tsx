@@ -1,9 +1,9 @@
-import userEvent from "@testing-library/user-event";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
+import RateButton from "../components/UI/button/rate/RateButton";
 import { useGetAnimeQuery } from "../services/anime";
 import { useGetUserQuery } from "../services/users";
 import "../styles/Article.css";
@@ -34,7 +34,7 @@ const Article: FC = () => {
                     <div className="art-img">
                         <img src={anime.poster}/>
                     </div>
-                    <FavoriteButton>Добавить в избранное</FavoriteButton>
+                    <FavoriteButton inArciclePage>Добавить в избранное</FavoriteButton>
                     <span>В избранном у 37 пользователей</span>
                 </div>
                 <div className="info-content">
@@ -52,12 +52,15 @@ const Article: FC = () => {
                             <p><span>Дата выхода:</span>{anime.releaseDate}</p>
                         </div>
                         <div className="info-ui">
-                            <span>4.7</span>
-                            <p>1487 оценок</p>
-                            <MainButton>Оценить</MainButton>
-                            <div className="edit">
+                            <div className="info-ui-rate">
+                                <span>4.7</span>
+                                <p>1487 оценок</p>                           
+                                <RateButton>Оценить</RateButton> 
+                            </div>                                                       
+                            {/* <div className="edit">
                                 <MainButton>Редактировать статью</MainButton>
-                            </div>                                                        
+                            </div> */}
+                            <MainButton>Редактировать статью</MainButton>
                         </div>
                     </div>
                 </div>
@@ -72,7 +75,7 @@ const Article: FC = () => {
                 <h1>Арты и кадры</h1>
                 <div className="pictures-content">
                     {anime.images.map((art, idx) =>
-                        <div className="pictures-content-art">
+                        <div className="pictures-content-art" key={idx}>
                             <img key={idx} src={art}/>
                         </div>                        
                     )}

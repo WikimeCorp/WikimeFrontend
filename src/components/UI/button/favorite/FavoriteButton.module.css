@@ -20,6 +20,12 @@
     cursor: pointer;
 }
 
+.fav:hover,
+.fav:target {
+    background: #5CDB95;
+    color: #fff;
+}
+
 .icon {
     width: 33.51px;
     height: 32px;
@@ -35,24 +41,59 @@
 .favSmall {        
     width: 40px;
     height: 40px;
+
     background-color: #05386B;
     border: 1px solid #05386B;
     border-radius: 5px 0px 0px 5px;
+    color: #379683;
+
+    cursor: pointer;
+}
+
+.favSmall:hover,
+.favSmall:target {
+    background: #5CDB95;
+    color:#fff;
 }
 
 .iconSmall {
     width: 20.94px;
     height: 20px;
-    color: #379683;
+    color: inherit;
 }
 
 .iconSmallActive {
     width: 20.94px;
     height: 20px;
-    color: #fff;
+    color: #EDF5E1;
 }
 
-.fav:hover {
-    background: #5CDB95;
-    color: #fff;
+.inFav {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    max-width: 162px;
+    height: 64px;
+
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    
+    cursor: pointer;
+
+    background-color: #05386B;
+    border: 1px solid #EDF5E1;
+    opacity: 0.8;
+}
+
+.inFav:hover,
+.inFav:target {
+    opacity: 1;
+}
+
+.inFav span {
+    margin-left: 25%;
 }

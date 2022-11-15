@@ -6,6 +6,8 @@ import Navbar from './components/UI/Navbar/Navbar';
 import ErrorPage from './pages/ErrorPage';
 import Add from './pages/Add';
 import Main from './pages/Main';
+import UserPage from './pages/UserPage';
+import AdminPage from './pages/AdminPage';
 
 const App = () => { 
 
@@ -14,10 +16,12 @@ const App = () => {
       <Route path='/' element={<Navbar />}>
         <Route index element={<Main />}/>
         <Route path='articles' element={<List />}/>
-        <Route path='article/:id' element={<Article />}/>        
-        <Route path='add' element={<Add />}/>        
-        <Route path='*' element={<ErrorPage />}/>        
+        <Route path='article/:id' element={<Article />} key='article/:id'/>        
+        <Route path='add' element={<Add />}/>
+        <Route path='user' element={<UserPage />}/>               
+        <Route path='admin' element={<AdminPage />}/>               
       </Route>
+      <Route path='*' element={<ErrorPage />}/> 
     </Routes>
   );
 };

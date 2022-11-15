@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { FormTextFields } from "../../../types/FormTextFields";
-import GenreButton from "../button/genre/GenreButton";
-import MainButton from "../button/main/MainButton";
-import TextInput from "../input/TextInput";
-import Genres from "../../../utils/Genres";
-import { useAppSelector } from "../../../hooks/redux";
+import { FormTextFields } from "../../../../types/FormTextFields";
+import GenreButton from "../../button/genre/GenreButton";
+import MainButton from "../../button/main/MainButton";
+import TextInput from "../../input/TextInput";
+import Genres from "../../../../utils/Genres";
+import { useAppSelector } from "../../../../hooks/redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import cl from "./TextForm.module.css";
-import TextArea from "../input/TextArea";
+import TextArea from "../../input/TextArea";
 
 
 interface TextFormProps {

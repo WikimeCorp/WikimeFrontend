@@ -1,7 +1,6 @@
 .list {
     display: flex;
     flex-direction: column;
-    padding-left: 15%;
     width: 100%;
     align-items: center;
 }
@@ -12,5 +11,4 @@
     align-content: flex-start;
     gap: 0;
     flex-wrap: wrap;
-    padding-left: 10%;
 }
