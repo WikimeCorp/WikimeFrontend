@@ -20,7 +20,7 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
         register,
         handleSubmit,
         formState: { errors, isValid },
-      } = useForm<FormTextFields>({mode: "onBlur"});
+    } = useForm<FormTextFields>({mode: "onBlur"});
 
     const GenresField = useAppSelector(state => state.genresReducer.genres);
 

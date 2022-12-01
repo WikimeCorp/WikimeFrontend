@@ -8,6 +8,7 @@ import Add from './pages/Add';
 import Main from './pages/Main';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/AdminPage';
+import AddPhotos from './pages/AddPhotos';
 
 const App = () => { 
 
@@ -17,7 +18,8 @@ const App = () => {
         <Route index element={<Main />}/>
         <Route path='articles' element={<List />}/>
         <Route path='article/:id' element={<Article />} key='article/:id'/>        
-        <Route path='add' element={<Add />}/>
+        <Route path='add' element={<Add />}/> 
+        <Route path='add/photos' element={<AddPhotos />}/>
         <Route path='user' element={<UserPage />}/>               
         <Route path='admin' element={<AdminPage />}/>               
       </Route>

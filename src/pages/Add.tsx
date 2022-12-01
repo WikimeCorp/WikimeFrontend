@@ -1,3 +1,5 @@
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import TextForm from "../components/UI/forms/addArticle/TextForm";
 import { useAppDispatch } from "../hooks/redux";
 import { useAddAnimeMutation } from "../services/anime";
@@ -5,10 +7,11 @@ import { clearGenres } from "../store/reducers/GenresSlice";
 import "../styles/Add.css";
 import { FormTextFields } from "../types/FormTextFields";
 
-const Add = () => {
+const Add: FC = () => {
 
     const [addArticle, { isError }] = useAddAnimeMutation();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const onSubmit = async (formFields: FormTextFields) => {
         if(formFields) {
@@ -17,9 +20,10 @@ const Add = () => {
                 dispatch(clearGenres());
                 console.log('fulfilled', payload)
             } catch (error) {
-            console.error('rejected', error);
-        }
-    }   
+                console.error('rejected', error);
+            }
+            navigate('/add/photos');
+        }   
     };
 
     return (

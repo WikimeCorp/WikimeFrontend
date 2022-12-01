@@ -131,6 +131,30 @@
         "Триллер"
       ],
       "id": 6
+    },
+    {
+      "title": "w3rw",
+      "originTitle": "wrw3r",
+      "director": "wr3wr",
+      "releaseDate": "23/20/2002",
+      "description": "wfwfweaf rger wfw",
+      "genres": [
+        "Сэйнэн",
+        "Боевые искусства"
+      ],
+      "id": 7
+    },
+    {
+      "title": "нанана",
+      "originTitle": "аоаоаов",
+      "director": "аоатма",
+      "releaseDate": "23.04.2002",
+      "description": "птуодиоаитоапла влаьв",
+      "genres": [
+        "Сэйнэн",
+        "Вампиры"
+      ],
+      "id": 8
     }
   ],
   "users": [
