@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import cl from "./CrossButton.module.css";
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-    onClick?: () => void;
-}
 
-const CrossButton: FC<Props> = ({onClick}) => {
+
+const CrossButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({...props}) => {
 
     return (
-        <button onClick={onClick} className={cl.container}>
+        <button className={cl.container} {...props}>
             <FontAwesomeIcon 
                 icon={faXmark} 
                 className={cl.icon}

@@ -11,6 +11,8 @@
     font-weight: 700;
     color: #5CDB95;
     cursor: pointer;
+
+    transition: 0.2s;
 }
 
 .main:hover,

@@ -1,7 +1,7 @@
 .container {
     margin: 5px;
     padding: 0 1rem;
-    background-color: inherit;    
+    background: none;   
     cursor: pointer;
     color: #5CDB95;
 }

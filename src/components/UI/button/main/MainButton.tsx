@@ -8,7 +8,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const MainButton: FC<Props> = ({children, onClick, ...props}) => {
     return (
-        <button onClick={onClick} className={cl.main} {...props}>
+        <button 
+            onClick={onClick} 
+            className={cl.main} 
+            {...props}
+        >
             {children}
         </button>
     );
