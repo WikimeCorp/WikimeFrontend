@@ -1,36 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getAccessToken, getCode, getJWToken } from "../actions/authActions";
 
-type AuthState = {
-  id: string | null,
-  token: string | null,
+interface authState {
+    code?: string;
+    accessToken?: string;
+    JWT?: string;
+    loading: boolean;
+    error: string | null; 
 };
 
-const initialState: AuthState = {
-    id: null,
-    token: null,
+const initialState: authState = {
+    loading: false,
+    error: null
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser: (
-            state,
-            { payload: { id, token } }: PayloadAction<{ id: string; token: string }>
-        ) => {
-            state.id = id;
-            state.token = token;
-        },
-        removeUser: (state) => {
-            state.id = null;
-            state.token = null;
-        },
+        setCode: {
+            reducer: (state, action: PayloadAction<string>) => {
+                state.code = action.payload;
+            },
+            prepare: getCode
+        }
     },
+    extraReducers: (builder) => {
+        builder
+        .addCase(getAccessToken.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(getAccessToken.fulfilled, (state, action) => {
+            state.accessToken = action.payload.token;
+            state.loading = false;
+        })      
+        
+        .addCase(getJWToken.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(getJWToken.fulfilled, (state, action) => {
+            state.JWT = action.payload.AuthToken;
+            localStorage.setItem('userToken', action.payload.AuthToken);
+            state.loading = false;
+        })      
+    }
 });
 
-export const { setUser, removeUser } = authSlice.actions;
+export const { setCode } = authSlice.actions;
 export default authSlice.reducer;
-
-export const selectCurrentUser = (state: RootState) => state.auth.id;
