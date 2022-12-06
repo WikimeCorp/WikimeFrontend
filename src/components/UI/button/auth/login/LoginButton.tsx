@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux';
-import { getAccessToken, getAuthorizeCodeHref, getJWToken } from '../../../../../store/actions/authActions';
+import { useAuth } from '../../../../../hooks/useAuth';
+import { getAuthorizeCodeHref } from '../../../../../store/actions/authActions';
 import { setCode } from '../../../../../store/reducers/AuthSlice';
 import cl from "./LoginButton.module.css";
 
@@ -12,7 +13,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const LoginButton: FC<Props> = ({children, ...props}) => {
 
     const dispatch = useAppDispatch();
-    const code = useAppSelector(state => state.VkAuth.code);    
+    const code = useAppSelector(state => state.VkAuth.code); 
+    const auth = useAuth();   
     
     const handleClick = () => {
         window.location.href = getAuthorizeCodeHref();        
@@ -22,11 +24,8 @@ const LoginButton: FC<Props> = ({children, ...props}) => {
         dispatch(setCode());
     };
 
-    if(code !== undefined) {
-        dispatch(getAccessToken())
-            .then(() => 
-                dispatch(getJWToken())
-            );
+    if(code && !auth.user) {
+        auth.signin();
     };
 
     return (

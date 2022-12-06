@@ -44,15 +44,13 @@
 .centerCropped {
     width: 230px;
     height: 296.63px;
-    overflow:hidden;
+    overflow: hidden;
     border-radius: 10px;
 }
 
 .centerCropped img {
-    min-height: 100%;
-    max-height: 100%;
+    height: 100%;
     min-width: 100%;
-    max-width: 100%;
     left: 50%;
     position: relative;
     transform: translateX(-50%);    

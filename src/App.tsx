@@ -9,22 +9,53 @@ import Main from './pages/Main';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/AdminPage';
 import AddPhotos from './pages/AddPhotos';
+import { AuthProvider, RequireAuth } from './context/context';
 
 const App = () => { 
 
   return (
-    <Routes>
+    <AuthProvider>
+      <Routes>
       <Route path='/' element={<Navbar />}>
         <Route index element={<Main />}/>
         <Route path='articles' element={<List />}/>
         <Route path='article/:id' element={<Article />} key='article/:id'/>        
-        <Route path='add' element={<Add />}/> 
-        <Route path='add/photos' element={<AddPhotos />}/>
-        <Route path='user' element={<UserPage />}/>               
-        <Route path='admin' element={<AdminPage />}/>               
+        <Route 
+          path='add' 
+          element={
+            <RequireAuth>
+              <Add />
+            </RequireAuth>
+          }
+        /> 
+        <Route 
+          path='add/photos' 
+          element={
+            <RequireAuth>
+              <AddPhotos />
+            </RequireAuth>
+          }
+        />
+        <Route 
+          path='user' 
+          element={
+            <RequireAuth>
+              <UserPage />
+            </RequireAuth>
+          }
+        />               
+        <Route 
+          path='admin' 
+          element={
+            <RequireAuth>
+              <AdminPage />
+            </RequireAuth>
+          }
+          />               
       </Route>
       <Route path='*' element={<ErrorPage />}/> 
     </Routes>
+    </AuthProvider>    
   );
 };
 

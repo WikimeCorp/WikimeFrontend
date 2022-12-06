@@ -4,12 +4,14 @@ import { animeAPI } from '../services/anime';
 import btnsReducer from './reducers/BtnsSlice';
 import genresReducer from './reducers/GenresSlice';
 import authReduser from './reducers/AuthSlice';
+import { authAPI } from '../services/auth';
 
 const rootReducer = combineReducers({
     btnsReducer,
     genresReducer,
     [animeAPI.reducerPath]: animeAPI.reducer,
     VkAuth: authReduser,
+    [authAPI.reducerPath]: authAPI.reducer, 
 });
 
 export const setupStore = () => {
@@ -18,6 +20,7 @@ export const setupStore = () => {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(
                 animeAPI.middleware,
+                authAPI.middleware,
             ),
     });
 };
