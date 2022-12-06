@@ -5,7 +5,6 @@ import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import RateButton from "../components/UI/button/rate/RateButton";
 import { useGetAnimeQuery } from "../services/anime";
-import { useGetUserQuery } from "../services/users";
 import "../styles/Article.css";
 
 const Article: FC = () => {
@@ -13,7 +12,7 @@ const Article: FC = () => {
     const { id } = useParams();
 
     const { data: anime, isLoading, isSuccess, isError } = useGetAnimeQuery(String(id));
-    const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
+    //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
 
     if (isLoading) {
         return <div>Loading</div>
@@ -68,7 +67,7 @@ const Article: FC = () => {
             <div className="description">
                 <h1>Описание</h1>
                 <p>{anime.description}</p>
-                <span>Автор: <b>{user?.nickname}</b></span>
+                {/* <span>Автор: <b>{user?.nickname}</b></span> */}
             </div>
             {anime.images &&                     
             <div className="pictures">

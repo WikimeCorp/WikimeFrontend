@@ -3,6 +3,7 @@ import AdminItem from "../components/AdminItem";
 import PlusButton from "../components/UI/button/add_admin/PlusButton";
 import AdminForm from "../components/UI/forms/addAdmin/AdminForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useAuth } from "../hooks/useAuth";
 import { openAdding } from "../store/reducers/BtnsSlice";
 import  "../styles/AdminPage.css";
 
@@ -10,6 +11,7 @@ const AdminPage: FC = () => {
 
     const isOpen = useAppSelector(state => state.btnsReducer.addAdmins);
     const dispatch = useAppDispatch();
+    const auth = useAuth();
 
     return (
         <div className="admin-page">

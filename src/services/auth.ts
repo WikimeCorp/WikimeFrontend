@@ -1,42 +1,27 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store/store';
-import { User } from '../types/User';
+import { IUser } from '../types/IUser';
 
 
-export interface UserResponse {
-  user: User
-  token: string
-}
-
-export interface LoginRequest {
-  username: string
-  password: string
-}
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
 
 export const authAPI = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/',
-    prepareHeaders: (headers, { getState }) => {
-      // By default, if we have a token in the store, let's use that for authenticated requests
-      const token = (getState() as RootState).auth.token
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
-  endpoints: (builder) => ({
-    login: builder.mutation<UserResponse, LoginRequest>({
-      query: (credentials) => ({
-        url: 'login',
-        method: 'POST',
-        body: credentials,
-      }),
+    reducerPath: 'authAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: `http://${apiHost}:${apiPort}/`,
+        prepareHeaders: headers => {
+            const token = localStorage.getItem('userToken');
+            if (token) {
+                headers.set('authorization', `Bearer ${token}`);
+            };
+            return headers;
+        },
     }),
-    protected: builder.mutation<{ message: string }, void>({
-      query: () => 'protected',
-    }),
+    endpoints: (builder) => ({
+        getUser: builder.query<IUser, void>({
+            query: () => `/user`
+        }),
   }),
 })
 
-export const { useLoginMutation, useProtectedMutation } = authAPI;
+export const { useGetUserQuery } = authAPI;

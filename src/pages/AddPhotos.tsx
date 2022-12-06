@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import CrossButton from "../components/UI/button/cross/CrossButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import ImgInput from "../components/UI/input/ImgInput";
@@ -11,6 +12,8 @@ type Art = {
 };
 
 const AddPhotos: FC = () => {
+
+    const navigate = useNavigate();
 
     const [poster, setPoster] = useState<Art>();
     const [arts, setArts] = useState<Art[]>([]);
