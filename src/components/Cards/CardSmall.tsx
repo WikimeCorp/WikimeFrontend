@@ -1,5 +1,4 @@
 import { FC } from "react";
-import art from "../styles/img/Art.png";
 import cl from "./CardSmall.module.css";
 import FavoriteButton from "../UI/button/favorite/FavouriteButton";
 import MainButton from "../UI/button/main/MainButton";

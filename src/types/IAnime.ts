@@ -4,7 +4,7 @@ export interface IAnime {
     poster: string;
     originTitle: string;
     description: string;
-    geners: string[];
+    genres: string[];
     images: string[];
     director: string;
     releaseDate: string;

@@ -38,7 +38,7 @@ const Main: FC = () => {
             </div>
             <div className='popular'>
                 <h1>Популярное</h1>
-                <Carousel slides={slides}/>                                 
+                <Carousel slides={slides} options={{ slidesToScroll: 4 }}/>                                 
             </div>
         </div>
     );

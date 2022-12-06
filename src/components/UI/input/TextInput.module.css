@@ -1,0 +1,27 @@
+.text {
+    margin: 10px;
+    margin-bottom: 0;
+    padding: 20px 25px;
+    width: 100%;
+    max-width: 845px;
+
+    background-color: #EDF5E1;
+    border-radius: 10px;
+
+    color: #05386B;
+    caret-color: #05386B;
+    outline: none;
+
+    font-size: 20px;     
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+}
+
+.text::placeholder {
+    color: #379683;
+}
+
+.text:focus {
+    border: 1.5px solid #379683;;
+}

@@ -1,8 +1,6 @@
-import { FC, useEffect } from "react";
-import { fetchArticles } from "../store/action-creators/article";
+import { FC } from "react";
 import cl from "./Articles.module.css"
 import CardSmall from "./Cards/CardSmall";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useGetAnimesQuery } from "../services/anime";
 
 

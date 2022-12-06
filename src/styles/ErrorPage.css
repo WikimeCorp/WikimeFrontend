@@ -22,8 +22,10 @@
 
 .error-text h1 {
     margin: 10px 0;
+    color: inherit;
 }
 
 .error-text h2 {
     margin: 30px 0;
+    color: inherit;
 }

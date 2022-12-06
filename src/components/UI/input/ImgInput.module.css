@@ -1,0 +1,58 @@
+.inputFile {
+	position: relative;
+	display: flex;    
+    width: max-content;
+}
+
+.inputFile span {
+	position: relative;
+	display: inline-block;
+	padding: 7px 15px;
+    box-sizing: border-box;
+	border: none;
+    
+	margin: 10px;
+
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+
+	font-size: 18px;
+    font-weight: 700;
+	vertical-align: middle;
+	color: #EDF5E1;
+	text-align: center;
+
+	border-radius: 10px;
+	background-color: #379683;
+	
+	transition: background-color 0.2s;
+}
+.inputFile input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+ 
+/* Focus */
+/* .inputFile input[type=file]:focus + span {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+} */
+ 
+/* Hover/active */
+.inputFile:hover span {
+	background-color: #5CDB95;
+    color: #fff;
+}
+.inputFile:active span {
+	background-color: #5CDB95;
+    color: #fff;
+}
+ 
+/* Disabled */
+.inputFile input[type=file]:disabled + span {
+	background-color: #eee;
+}

@@ -1,0 +1,22 @@
+.main {
+    margin-left: 40px;
+    padding: 8px 20px;
+    max-width: max-content;
+
+    background: inherit;
+    border: 1.5px solid #5CDB95;
+    border-radius: 7px;
+    
+    font-size: 18px;
+    font-weight: 700;
+    color: #5CDB95;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.main:hover,
+.main:target {
+    background: #5CDB95;
+    color: #fff;
+}

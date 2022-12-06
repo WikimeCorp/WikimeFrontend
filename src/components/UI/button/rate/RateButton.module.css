@@ -1,0 +1,132 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.main {
+    padding: 10px 25px;
+    margin: 10px;
+
+    background: #379683;
+    border-radius: 7px;
+    border: none;
+    
+    font-size: 20px;
+    font-weight: 700;
+    color: #EDF5E1;
+    cursor: pointer;
+}
+
+.main:hover {
+    background: #5CDB95;
+    color: #fff;
+}
+
+.main:disabled,
+.main:disabled:hover {
+    background: #379683;    
+    color: #EDF5E1;
+    opacity: 0.7;
+    cursor: default;
+}
+
+.active {
+    padding: 10px 25px;
+    margin: 10px 10px 0 10px;
+
+    background: #5CDB95;
+    border-radius: 7px;
+    border: none;
+    
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+}
+
+.marks {
+    display: flex;
+    width: 200px;
+    border-radius: 0;
+    margin-bottom: 1rem;
+    margin-top: 0.4rem;
+}
+
+.marks button:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.marks button:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.marksItem {
+    padding: 2px 10px;
+    min-width: 40px;
+
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: 0.07em;
+
+    color: #fff;
+    background-color: rgba(55, 150, 131, 0.25);
+    opacity: 0.7;
+}
+
+.marksItem:hover,
+.marksItem:target {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.userMark {
+    padding: 2px 10px;
+    margin-left: 1rem;
+    min-width: 40px;
+
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: 0.07em;
+
+    color: #D4EDD3;
+    background-color: rgba(55, 150, 131, 0.25);
+    border-radius: 10px;
+}
+
+.change {
+    padding: 0.3rem 1.3rem;
+    margin: 10px;
+
+    background-color: #05386B;
+    border: 1px solid #EDF5E1;
+    border-radius: 7px;
+    opacity: 0.8;    
+    
+    font-size: 16px;
+    font-weight: 400;
+    color: #EDF5E1;
+    cursor: pointer;
+}
+
+.change:hover,
+.change:target {
+    opacity: 1;
+}

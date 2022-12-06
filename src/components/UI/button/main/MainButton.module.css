@@ -10,9 +10,19 @@
     font-weight: 700;
     color: #EDF5E1;
     cursor: pointer;
+
+    transition: background-color 0.2s;
 }
 
 .main:hover {
     background: #5CDB95;
     color: #fff;
+}
+
+.main:disabled,
+.main:disabled:hover {
+    background: #379683;    
+    color: #EDF5E1;
+    opacity: 0.7;
+    cursor: default;
 }
