@@ -7,34 +7,35 @@ import RateButton from "../components/UI/button/rate/RateButton";
 import { useGetAnimeQuery } from "../services/anime";
 import "../styles/Article.css";
 
+
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
+
 const Article: FC = () => {
-
     const { id } = useParams();
-
-    const { data: anime, isLoading, isSuccess, isError } = useGetAnimeQuery(String(id));
+    const { data: anime, isLoading } = useGetAnimeQuery(String(id));
     //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
 
     if (isLoading) {
         return <div>Loading</div>
     };
 
-    if(isError) {
-        console.log("error")
-    }
-
     if (!anime) {
         return <div>Anime not found :(</div>
     };
+
+    const ratesCount = anime.rating.five + anime.rating.four + anime.rating.three 
+        + anime.rating.two + anime.rating.one;
     
     return (
         <div key={id} className="Article-page">
             <div className="info">
                 <div className="art">
                     <div className="art-img">
-                        <img src={anime.poster}/>
+                        <img src={`http://${apiHost}:${apiPort}${anime.poster}`} alt='poster'/>
                     </div>
                     <FavoriteButton inArciclePage>Добавить в избранное</FavoriteButton>
-                    <span>В избранном у 37 пользователей</span>
+                    <span>В избранном у {anime.rating.inFavorites} пользователей</span>
                 </div>
                 <div className="info-content">
                     <h1>{anime.title}</h1>
@@ -52,13 +53,10 @@ const Article: FC = () => {
                         </div>
                         <div className="info-ui">
                             <div className="info-ui-rate">
-                                <span>4.7</span>
-                                <p>1487 оценок</p>                           
+                                <span>{anime.rating.average}</span>
+                                <p>{ratesCount} оценок</p>                           
                                 <RateButton>Оценить</RateButton> 
-                            </div>                                                       
-                            {/* <div className="edit">
-                                <MainButton>Редактировать статью</MainButton>
-                            </div> */}
+                            </div>
                             <MainButton>Редактировать статью</MainButton>
                         </div>
                     </div>
@@ -75,7 +73,7 @@ const Article: FC = () => {
                 <div className="pictures-content">
                     {anime.images.map((art, idx) =>
                         <div className="pictures-content-art" key={idx}>
-                            <img key={idx} src={art}/>
+                            <img key={idx} src={`http://${apiHost}:${apiPort}${art}`} alt='art'/>
                         </div>                        
                     )}
                 </div>

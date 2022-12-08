@@ -2,8 +2,9 @@ import { FC } from "react";
 import cl from "./Articles.module.css"
 import CardMedium from "./Cards/CardMedium";
 import { useGetAnimesQuery } from "../services/anime";
+import CardSmall from "./Cards/CardSmall";
 
-const ArticleList: FC = () => {
+const ArticleList: FC<{isList: boolean}> = ({isList}) => {
     const { data: animes, isLoading } = useGetAnimesQuery();
     
     if (isLoading) {
@@ -15,9 +16,12 @@ const ArticleList: FC = () => {
     };
 
     return (
-        <div className={cl.list}>
+        <div className={isList ? cl.list : cl.table}>
             {animes.map(article =>
+                isList ?
                 <CardMedium key={article.id} article={article}/>
+                :
+                <CardSmall key={article.id} article={article}/>
             )}
         </div>
     );

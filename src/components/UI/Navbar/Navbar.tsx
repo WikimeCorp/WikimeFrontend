@@ -1,11 +1,25 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { useAuth } from "../../../hooks/useAuth";
+import { setCode } from "../../../store/reducers/AuthSlice";
 import LoginButton from "../button/auth/login/LoginButton";
 import LogoutButton from "../button/auth/logout/LogoutButton";
 import "./Navbar.css"
 
 const Navbar = () => {
-    const user = useAuth().user;
+    const auth = useAuth();
+    const user = auth.user;
+
+    const dispatch = useAppDispatch();
+    const {code, loading} = useAppSelector(state => state.VkAuth);
+  
+    if (window.location.search.includes('code')) {
+      dispatch(setCode());
+    };
+
+    if (code && !loading) {
+      auth.signin();
+    };
 
     return (
         <div className="navbar">
@@ -24,12 +38,13 @@ const Navbar = () => {
                     <form>                    
                         <input type="search" placeholder="Поиск"/>
                     </form>
-                    {user ?
+                    {/* {user ?
                         <LogoutButton>Выйти</LogoutButton>
                         :
                         <LoginButton>Войти</LoginButton>
-                    }
-                    
+                    } */}
+                    <LoginButton>Войти</LoginButton>
+                    <LogoutButton>Выйти</LogoutButton>
                 </div>                            
             </div>
             <hr className="line" />

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import ArticleList from "../components/ArticleList";
-import ArticleTable from "../components/ArticleTable";
 import LogoutButton from "../components/UI/button/auth/logout/LogoutButton";
 import OpenButton from "../components/UI/button/open_list/OpenButton";
 import ViewButton from "../components/UI/button/view/ViewButtons";
@@ -14,7 +13,7 @@ const UserPage: FC = () => {
 
     const { data: animes, isLoading } = useGetAnimesQuery();
     const { fav: favType, viewed: viewedType, added: addedType } = 
-        useAppSelector(state => state.btnsReducer.isListViewUser);
+            useAppSelector(state => state.btnsReducer.isListViewUser);
     const { fav, viewed, added } = useAppSelector(state => state.btnsReducer.usersLists);
     const dispatch = useAppDispatch();
     
@@ -44,9 +43,9 @@ const UserPage: FC = () => {
                             <h1>избранное</h1>
                             <OpenButton active={fav} onClick={() => dispatch(changeViewUserLists("fav"))}/>
                         </div>                        
-                        { fav && <ViewButton userPage={true} item={"fav"}/> }
+                        { fav && <ViewButton userPage={true} item={"fav"} /> }
                     </div> 
-                    { fav && (favType ? <ArticleList /> : <ArticleTable />) }
+                    { fav && <ArticleList isList={favType}/>}
                 </div>
                 <div className="user-content-item">
                     <div className="user-content-title">
@@ -56,7 +55,7 @@ const UserPage: FC = () => {
                         </div>                        
                         { viewed && <ViewButton userPage={true} item={"viewed"}/> }
                     </div>                    
-                    { viewed && (viewedType ? <ArticleList /> : <ArticleTable />) }
+                    { viewed && <ArticleList isList={viewedType} />}
                 </div>
                 <div className="user-content-item">
                     <div className="user-content-title">
@@ -66,7 +65,7 @@ const UserPage: FC = () => {
                         </div>                        
                         { added && <ViewButton userPage={true} item={"added"}/> }
                     </div>                    
-                    { added && (addedType ? <ArticleList /> : <ArticleTable />) }
+                    { added && <ArticleList isList={addedType} />}
                 </div>
             </div>
         </div>

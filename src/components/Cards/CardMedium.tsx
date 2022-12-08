@@ -5,6 +5,10 @@ import FavoriteButton from "../UI/button/favorite/FavouriteButton";
 import { IAnime } from "../../types/IAnime"
 import { useNavigate } from "react-router-dom";
 
+
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
+
 interface CardMediumProps {
   article: IAnime;
 }
@@ -16,7 +20,7 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
     return (
         <div  className={cl.card}>
           <div className={cl.poster}>
-            <img src={article.poster} alt="poster"/>
+            <img src={`http://${apiHost}:${apiPort}${article.poster}`} alt="poster"/>
           </div>
           <div className={cl.cardContent}>
             <div className={cl.titleContainer}>
@@ -33,7 +37,7 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
                 <div className={cl.rateAndBtn}>
                   <div className={cl.rate}>                      
                     <p>Рейтинг</p>
-                    <span>4.7</span>
+                    <span>{article.rating.average}</span>
                   </div>
                   <MainButton onClick={() => navigate(`/article/${article.id}`)}>Подробнее</MainButton>
                 </div>

@@ -5,22 +5,26 @@ import MainButton from "../UI/button/main/MainButton";
 import { IAnime } from "../../types/IAnime"
 import { useNavigate } from "react-router-dom";
 
+
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
+
 interface CardSmallProps {
     article: IAnime;
 }
 
 const CardSmall: FC<CardSmallProps> = ({article}) => {
-
+    
     const navigate = useNavigate();
 
     return (
         <div className={cl.card}>
             <div className={cl.art}>
                 <div className={cl.centerCropped}>
-                    <img src={article.poster} alt="poster"/>
+                    <img src={`http://${apiHost}:${apiPort}${article.poster}`} alt="poster"/>
                 </div>
                 <FavoriteButton></FavoriteButton>
-                <p>4.7</p>
+                <p>{article.rating.average}</p>
             </div>            
             <div className={cl.titleContainer}>
               <div className={cl.title}>

@@ -1,5 +1,5 @@
 export interface IUser {
-    userId: number,
+    id: number,
     nickname: string,
     role: string,
     favorites: number[],

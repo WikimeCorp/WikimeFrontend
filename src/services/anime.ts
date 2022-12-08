@@ -2,13 +2,41 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import type { IAnime } from '../types/IAnime';
 
 
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
+
 type AnimeRespone = IAnime[];
 
 export const animeAPI = createApi({
     reducerPath: 'animeAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001/'}),
-    tagTypes: ['Anime'],
+    baseQuery: fetchBaseQuery({baseUrl: `http://${apiHost}:${apiPort}/anime/`}),
+    tagTypes: ['Anime', 'Popular', 'IdsPopular'],
     endpoints: (build) => ({
+        getIds: build.query<number[], number | void>({
+            query: (count: number = 16) => ({
+                url: `popular`,
+                params: {
+                    count: count
+                }
+            }),
+            providesTags: ['IdsPopular']
+        }),
+        getPopularAnimes: build.query<AnimeRespone, number[]>({
+            query: (ids: number[]) => {
+                const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
+                return {
+                    url: `list`,
+                    params: args, 
+                }
+            },
+            providesTags: (result) =>
+                result
+                ? [
+                    ...result.map(({ id }) => ({ type: 'Popular' as const, id })),
+                    { type: 'Popular', id: 'LIST' },
+                ]
+                : [{ type: 'Popular', id: 'LIST' }],
+        }),
 
         getAnimes: build.query<AnimeRespone, void>({
             query: () => 'anime',
@@ -85,6 +113,8 @@ export const animeAPI = createApi({
 });
 
 export const {
+    useGetIdsQuery,
+    useGetPopularAnimesQuery,
     useGetAnimesQuery,
     useGetAnimeQuery,
     useAddAnimeMutation,

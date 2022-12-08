@@ -35,15 +35,13 @@ export const getAccessToken = createAsyncThunk<
 >(
     'auth/access_token',
     async (_, { getState, rejectWithValue}) => {
-        const code = getState().VkAuth.code;
-        
-        const response = await fetch(`http://localhost:${littleBoyPort}/access_token?code=${code}`);
-        
-        if (!response.ok) {
-            return rejectWithValue('Error');            
-        };
-
-        return (await response.json()) as VkResponse;          
+        try {
+            const code = getState().VkAuth.code;            
+            const response = await fetch(`http://localhost:${littleBoyPort}/access_token?code=${code}`);            
+            return (await response.json()) as VkResponse;    
+        } catch (error) {
+            return rejectWithValue('Не удалось получить Access Token');
+        }                
     }
 );
 
@@ -51,20 +49,23 @@ type JWTResponse = {
     AuthToken: string;
 };
 
-export const getJWToken = createAsyncThunk<JWTResponse, void, {state: RootState}>(
+export const getJWToken = createAsyncThunk<JWTResponse, void, {state: RootState, rejectValue: string}>(
     'auth/JWToken',
-    async function(_, { getState }) {
-        const accessToken = getState().VkAuth.accessToken;
-        const settings = {
-            method: 'POST',
-            body: JSON.stringify({
-                AuthToken: accessToken,
-            })
-        };
+    async function(_, { getState, rejectWithValue }) {
+        try {
+            const accessToken = getState().VkAuth.accessToken;
+            const settings = {
+                method: 'POST',
+                body: JSON.stringify({
+                    AuthToken: accessToken,
+                })
+            };
 
-        const response = await fetch(`http://192.168.0.112:3030/auth/vk`, settings);
-
-        return (await response.json()) as JWTResponse;
+            const response = await fetch(`http://${apiHost}:${apiPort}/auth/vk`, settings);
+            return (await response.json()) as JWTResponse;  
+        } catch (error) {
+            return rejectWithValue('Не удалось получить JWT');
+        }        
     }
 );
 
@@ -76,22 +77,17 @@ type ErrorResponse = {
 export const getUserInfo = createAsyncThunk<
     IUser, 
     void, 
-    {state: RootState, rejectValue: string}
+    {state: RootState, rejectValue: ErrorResponse}
 >(
     'auth/userInfo',
-    async (_, { getState, rejectWithValue}) => {
+    async (_, {}) => {
         const token = localStorage.getItem('userToken');
         const settings = {
             method: 'GET',
-            headers: { 'authorization': `Bearer ${token}` },
+            headers: { 'authorization': `${token}` },
         };
         
-        const response = await fetch(`http://${apiHost}:${apiPort}/user`, settings);
-        
-        if (!response.ok) {
-            return rejectWithValue('Error');            
-        };
-
+        const response = await fetch(`http://${apiHost}:${apiPort}/users/current`, settings);
         return (await response.json()) as IUser;          
     }
 );

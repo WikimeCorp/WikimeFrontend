@@ -9,4 +9,14 @@ export interface IAnime {
     director: string;
     releaseDate: string;
     author: number;
+    rating: {
+        five: number;
+        four: number;
+        three: number;
+        two: number;
+        one: number;
+        inFavorites: number;
+        average: number;
+        watched: number;
+    }
 }
