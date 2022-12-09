@@ -53,6 +53,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function RequireAuth({ children }: { children: JSX.Element }) {
     const auth = useAuth();
 
+    if(auth.user === undefined) {
+        window.location.href = getAuthorizeCodeHref();  
+    }
+
     return children;
 };
   

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../types/IUser";
 import { getAccessToken, getCode, getJWToken, getUserInfo } from "../actions/authActions";
-import { RootState } from "../store";
+
 
 interface authState {
     code: string | null;

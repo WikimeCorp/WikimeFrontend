@@ -33,7 +33,7 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
                 {article.description} 
               </div>
               <div className={cl.ui}>
-                <FavoriteButton>Добавить в избранное</FavoriteButton>
+                <FavoriteButton id={article.id}>Добавить в избранное</FavoriteButton>
                 <div className={cl.rateAndBtn}>
                   <div className={cl.rate}>                      
                     <p>Рейтинг</p>

@@ -4,14 +4,19 @@ import LogoutButton from "../components/UI/button/auth/logout/LogoutButton";
 import OpenButton from "../components/UI/button/open_list/OpenButton";
 import ViewButton from "../components/UI/button/view/ViewButtons";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useAuth } from "../hooks/useAuth";
 import { useGetAnimesQuery } from "../services/anime";
 import { changeViewUserLists } from "../store/reducers/BtnsSlice";
 import art from "../styles/img/Art.png";
 import "../styles/UserPage.css";
 
-const UserPage: FC = () => {
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
 
+const UserPage: FC = () => {
+    const auth = useAuth();
     const { data: animes, isLoading } = useGetAnimesQuery();
+    
     const { fav: favType, viewed: viewedType, added: addedType } = 
             useAppSelector(state => state.btnsReducer.isListViewUser);
     const { fav, viewed, added } = useAppSelector(state => state.btnsReducer.usersLists);
@@ -29,9 +34,9 @@ const UserPage: FC = () => {
         <div className="user-page">
             <div className="user-info">
                 <div className="user-info-photo">
-                    <img src={art}/>
+                    <img src={`http://${apiHost}:${apiPort}${auth.user}`}/>
                 </div>
-                <h2>Murimonai</h2>
+                <h2>{auth.user?.nickname}</h2>
                 <a href="#">Изменить никнейм</a>
                 <a href="#">Изменить аватар</a>
                 <LogoutButton>Выйти</LogoutButton>
@@ -57,16 +62,18 @@ const UserPage: FC = () => {
                     </div>                    
                     { viewed && <ArticleList isList={viewedType} />}
                 </div>
-                <div className="user-content-item">
-                    <div className="user-content-title">
-                        <div className="user-content-title-main">
-                            <h1>добавленное</h1>
-                            <OpenButton active={added} onClick={() => dispatch(changeViewUserLists("added"))}/>
-                        </div>                        
-                        { added && <ViewButton userPage={true} item={"added"}/> }
-                    </div>                    
-                    { added && <ArticleList isList={addedType} />}
-                </div>
+                {auth.user?.role !== "user" &&
+                    <div className="user-content-item">
+                        <div className="user-content-title">
+                            <div className="user-content-title-main">
+                                <h1>добавленное</h1>
+                                <OpenButton active={added} onClick={() => dispatch(changeViewUserLists("added"))}/>
+                            </div>                        
+                            { added && <ViewButton userPage={true} item={"added"}/> }
+                        </div>                    
+                        { added && <ArticleList isList={addedType} />}
+                    </div>
+                }
             </div>
         </div>
     );

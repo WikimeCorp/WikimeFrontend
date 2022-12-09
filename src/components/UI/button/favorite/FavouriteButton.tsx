@@ -3,19 +3,27 @@ import cl from "./FavoriteButton.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as starSol } from '@fortawesome/free-solid-svg-icons';
 import { faStar as starReg } from '@fortawesome/free-regular-svg-icons';
+import { useAuth } from "../../../../hooks/useAuth";
 
 
 interface Props{
     children?: string;
     inArciclePage?: boolean;
+    id: number;
 }
 
-const FavoriteButton: FC<Props> = ({ children, inArciclePage }) => {
+const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
+    const auth = useAuth();
 
-    const [active, setActive] = useState<boolean>(false)
+    const [active, setActive] = useState<boolean>(!!auth.user?.favorites.includes(id))
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        setActive(!active);
+        if (auth.user) {
+            setActive(!active);
+            // запрос на добавление/удаление из избранного
+        } else {
+            // войти
+        }        
     }   
 
     if (children?.length) {
