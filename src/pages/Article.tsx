@@ -1,11 +1,13 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import RateButton from "../components/UI/button/rate/RateButton";
+import { useAppDispatch } from "../hooks/redux";
 import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
+import { addToWatched } from "../store/actions/userActions";
 import "../styles/Article.css";
 
 
@@ -15,9 +17,18 @@ const apiPort = process.env.REACT_APP_API_PORT;
 const Article: FC = () => {
 
     const { id } = useParams();
+
     const auth = useAuth();
-    const { data: anime, isLoading } = useGetAnimeQuery(String(id));
+    const dispatch = useAppDispatch();
+
+    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
     //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
+
+    useEffect(() => {
+        if (auth.user && isSuccess) {
+            dispatch(addToWatched(Number(id)));
+        };
+    },[isSuccess]) 
 
     if (isLoading) {
         return <div>Loading</div>
@@ -25,10 +36,16 @@ const Article: FC = () => {
 
     if (!anime) {
         return <div>Anime not found :(</div>
-    };
-
+    };       
+    
     const ratesCount = anime.rating.five + anime.rating.four + anime.rating.three 
         + anime.rating.two + anime.rating.one;
+    const ratesWord: string = ((ratesCount % 10 === 1) && (ratesCount !== 11)) ?
+        "оценка" : "оценок";
+
+    const inFavCount = anime.rating.inFavorites;
+    const inFavUsers: string = ((inFavCount % 10 === 1) && (inFavCount !== 11)) ?
+        "пользователя" : "пользователей";
     
     return (
         <div key={id} className="Article-page">
@@ -38,7 +55,7 @@ const Article: FC = () => {
                         <img src={`http://${apiHost}${anime.poster}`} alt='poster'/>
                     </div>
                     <FavoriteButton id={anime.id} inArciclePage>Добавить в избранное</FavoriteButton>
-                    <span>В избранном у {anime.rating.inFavorites} пользователей</span>
+                    <span>В избранном у {inFavCount} {inFavUsers}</span>
                 </div>
                 <div className="info-content">
                     <h1>{anime.title}</h1>

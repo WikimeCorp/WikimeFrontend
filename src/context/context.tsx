@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getAccessToken, getAuthorizeCodeHref, getJWToken, getUserInfo } from "../store/actions/authActions";
 import { logout } from "../store/reducers/AuthSlice";
+import { clean } from "../store/reducers/UserSlice";
 import { IUser } from "../types/IUser";
 
 
@@ -36,7 +37,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const signout = () => {
-        navigate('../')
+        dispatch(clean());
+        navigate('../');
         window.scrollTo(0,0);
         return dispatch(logout());
     };

@@ -37,6 +37,7 @@ export const addToFavorites = createAsyncThunk<any, number, {rejectValue: string
     }
 );
 
+
 export const removeFromFavorites = createAsyncThunk<any, number, {rejectValue: string}>(
     'user/removeFromFavorites',
     async (id, {rejectWithValue, dispatch}) => {
@@ -61,5 +62,30 @@ export const removeFromFavorites = createAsyncThunk<any, number, {rejectValue: s
         } catch (error) {
             return rejectWithValue('Не удалось удалить аниме из избранного');
         };                 
+    }
+);
+
+export const addToWatched = createAsyncThunk<any, number, {rejectValue: string}>(
+    'user/addToWatched',
+    async (id, {rejectWithValue, dispatch}) => {
+        try {
+            const token = localStorage.getItem('userToken');
+            const settings = {
+                method: 'POST',
+                headers: { 'authorization': `${token}` },
+                body: JSON.stringify({
+                    "animeId": id
+                })
+            };
+            
+            const response = await fetch(`http://${apiHost}/users/current/watched`, settings);
+            
+            if (!response.ok) {
+                throw new Error("Server error.");
+            };
+
+        } catch (error) {
+            return rejectWithValue('Не удалось добавить аниме в просмотренное');
+        }         
     }
 );
