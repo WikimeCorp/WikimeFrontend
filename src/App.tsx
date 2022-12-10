@@ -9,7 +9,7 @@ import Main from './pages/Main';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/AdminPage';
 import AddPhotos from './pages/AddPhotos';
-import { AuthProvider, RequireAuth } from './context/context';
+import { AuthProvider, RequireAuth, RequireAuthAdmin } from './context/context';
 import Modal from './components/UI/Modal/Modal';
 
 const App = () => { 
@@ -38,7 +38,7 @@ const App = () => {
           />               
           <Route 
             path='admin' 
-            element={<RequireAuth><AdminPage /></RequireAuth>}
+            element={<RequireAuthAdmin><AdminPage /></RequireAuthAdmin>}
           />               
         </Route>
         <Route path='*' element={<ErrorPage />}/> 

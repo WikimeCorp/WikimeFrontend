@@ -12,6 +12,11 @@ interface ParamsIds {
     genres: string[];
 };
 
+type RatingBody = {
+    id: number;
+    rating: number;
+};
+
 export const animeAPI = createApi({
     reducerPath: 'animeAPI',
     baseQuery: fetchBaseQuery({baseUrl: `http://${apiHost}/anime`}),
@@ -77,11 +82,15 @@ export const animeAPI = createApi({
         }),
 
         addAnime: build.mutation<IAnime, Partial<IAnime>>({
-            query: (body) => ({
-                url: ``,
-                method: 'POST',
-                body,
-            }),
+            query: (body) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: ``,
+                    method: 'POST',
+                    headers: { 'authorization': `${token}` },
+                    body,
+                }
+            },
             invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
         }),
 
@@ -91,51 +100,70 @@ export const animeAPI = createApi({
         }),
 
         updateAnime: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
-           query: ({ id, ...patch }) => ({
-            url: `${id}`,
-            method: 'PUT',
-            body: patch,
-           }),
+           query: ({ id, ...patch }) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}`,
+                    method: 'PUT',
+                    headers: { 'authorization': `${token}` },
+                    body: patch,
+                }
+            },
            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
         }),
 
         deleteAnime: build.mutation<{ succes: boolean; id: number }, number>({
             query(id) {
+                const token = localStorage.getItem('userToken');
                 return {
                     url: `${id}`,
                     method: 'DELETE',
+                    headers: { 'authorization': `${token}` },
                 }
             },
             invalidatesTags: (result, error, id) => [{ type: 'Anime', id }],
         }),
 
-        getPoster: build.query<string, string>({
-            query: (id) => `${id}/poster`,
-            providesTags: (result, error, id) => [{ type: 'Anime', id}],
-        }),
-
-        updatePoster: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
-            query: ({ id, ...patch }) => ({
-             url: `${id}/poster`,
-             method: 'PUT',
-             body: patch,
-            }),
+        addPoster: build.mutation<void, Pick<IAnime, 'id'> & File>({
+            query: ({ id, ...patch }) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}/poster`,
+                    method: 'PUT',
+                    headers: { 'authorization': `${token}` },
+                    body: patch,
+                }
+            },
             invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
          }),
 
-         getImgs: build.query<string[], string>({
-            query: (id) => `${id}/imgs`,
-            providesTags: (result, error, id) => [{ type: 'Anime', id}],
-        }),
-
-        addImgs: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
-            query: ({ id, ...patch }) => ({
-             url: `${id}/imgs`,
-             method: 'PUT',
-             body: patch,
-            }),
+        addImgs: build.mutation<void, Pick<IAnime, 'id'> & File[]>({
+            query: ({ id, ...patch }) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}/poster`,
+                    method: 'PUT',
+                    headers: { 'authorization': `${token}` },
+                    body: patch,
+                }
+            },
             invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
          }),
+
+         addRating: build.mutation<IAnime, RatingBody>({
+            query: ({id, rating}) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}/rating`,
+                    method: 'POST',
+                    headers: { 'authorization': `${token}` },
+                    body: JSON.stringify({
+                        "rating": rating
+                    })
+                }
+            },
+            invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
+        }),
     }),
 });
 
@@ -148,7 +176,6 @@ export const {
     useAddAnimeMutation,
     useUpdateAnimeMutation,
     useDeleteAnimeMutation,
-    useGetPosterQuery,
-    useUpdatePosterMutation,
-    useGetImgsQuery
+    useAddPosterMutation,
+    useAddRatingMutation
 } = animeAPI;

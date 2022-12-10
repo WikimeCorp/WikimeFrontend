@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useAuth } from "../hooks/useAuth";
 import { getAccessToken, getAuthorizeCodeHref, getJWToken, getUserInfo } from "../store/actions/authActions";
 import { logout } from "../store/reducers/AuthSlice";
 import { clean } from "../store/reducers/UserSlice";
@@ -54,6 +55,25 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
 
     if(!token) {
         window.location.href = getAuthorizeCodeHref();  
+    }
+
+    return children;
+};
+
+export function RequireAuthAdmin({ children }: { children: JSX.Element }) {
+    
+    const token = localStorage.getItem('userToken');
+    const navigate = useNavigate();
+
+    if(!token) {
+        window.location.href = getAuthorizeCodeHref();  
+    }
+
+    const user = useAuth().user;
+
+    if (user?.role !== "admin") {
+        navigate('../');
+        window.scrollTo(0,0);
     }
 
     return children;
