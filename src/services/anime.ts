@@ -7,14 +7,19 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 type AnimeRespone = IAnime[];
 
+interface ParamsIds {
+    sortBy: string;
+    genres: string[];
+};
+
 export const animeAPI = createApi({
     reducerPath: 'animeAPI',
-    baseQuery: fetchBaseQuery({baseUrl: `http://${apiHost}:${apiPort}/anime/`}),
-    tagTypes: ['Anime', 'Popular', 'IdsPopular'],
+    baseQuery: fetchBaseQuery({baseUrl: `http://${apiHost}/anime`}),
+    tagTypes: ['Anime', 'Ids', 'Popular', 'IdsPopular'],
     endpoints: (build) => ({
-        getIds: build.query<number[], number | void>({
+        getIdsPopular: build.query<number[], number | void>({
             query: (count: number = 16) => ({
-                url: `popular`,
+                url: `/popular`,
                 params: {
                     count: count
                 }
@@ -23,9 +28,11 @@ export const animeAPI = createApi({
         }),
         getPopularAnimes: build.query<AnimeRespone, number[]>({
             query: (ids: number[]) => {
+
                 const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
+
                 return {
-                    url: `list`,
+                    url: `/list`,
                     params: args, 
                 }
             },
@@ -38,9 +45,29 @@ export const animeAPI = createApi({
                 : [{ type: 'Popular', id: 'LIST' }],
         }),
 
-        getAnimes: build.query<AnimeRespone, void>({
-            query: () => 'anime',
-            providesTags: (result) =>
+        getIds: build.query<number[], ParamsIds>({
+            query: (paramsIds: ParamsIds) => {
+
+                const args = paramsIds.genres.length > 0 ? 
+                    { sortBy: paramsIds.sortBy, genres: paramsIds.genres.join(',')}
+                    : { sortBy: paramsIds.sortBy };
+
+                return {
+                    url: ``,
+                    params: args,
+                }
+            },
+            providesTags: ['Ids']
+        }),
+        getAnimes: build.query<AnimeRespone, number[]>({
+            query: (ids: number[]) => {
+                const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
+                return {
+                    url: `/list`,
+                    params: args, 
+                }
+            },
+            providesTags: (result, error, ids) =>
                 result
                 ? [
                     ...result.map(({ id }) => ({ type: 'Anime' as const, id })),
@@ -51,7 +78,7 @@ export const animeAPI = createApi({
 
         addAnime: build.mutation<IAnime, Partial<IAnime>>({
             query: (body) => ({
-                url: `anime`,
+                url: ``,
                 method: 'POST',
                 body,
             }),
@@ -59,13 +86,13 @@ export const animeAPI = createApi({
         }),
 
         getAnime: build.query<IAnime, string>({
-            query: (id) => `anime/${id}`,
+            query: (id) => `${id}`,
             providesTags: (result, error, id) => [{ type: 'Anime', id}],
         }),
 
         updateAnime: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
            query: ({ id, ...patch }) => ({
-            url: `anime/${id}`,
+            url: `${id}`,
             method: 'PUT',
             body: patch,
            }),
@@ -75,7 +102,7 @@ export const animeAPI = createApi({
         deleteAnime: build.mutation<{ succes: boolean; id: number }, number>({
             query(id) {
                 return {
-                    url: `anime/${id}`,
+                    url: `${id}`,
                     method: 'DELETE',
                 }
             },
@@ -83,13 +110,13 @@ export const animeAPI = createApi({
         }),
 
         getPoster: build.query<string, string>({
-            query: (id) => `anime/${id}/poster`,
+            query: (id) => `${id}/poster`,
             providesTags: (result, error, id) => [{ type: 'Anime', id}],
         }),
 
         updatePoster: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
             query: ({ id, ...patch }) => ({
-             url: `anime/${id}/poster`,
+             url: `${id}/poster`,
              method: 'PUT',
              body: patch,
             }),
@@ -97,13 +124,13 @@ export const animeAPI = createApi({
          }),
 
          getImgs: build.query<string[], string>({
-            query: (id) => `anime/${id}/imgs`,
+            query: (id) => `${id}/imgs`,
             providesTags: (result, error, id) => [{ type: 'Anime', id}],
         }),
 
         addImgs: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
             query: ({ id, ...patch }) => ({
-             url: `anime/${id}/imgs`,
+             url: `${id}/imgs`,
              method: 'PUT',
              body: patch,
             }),
@@ -113,8 +140,9 @@ export const animeAPI = createApi({
 });
 
 export const {
-    useGetIdsQuery,
+    useGetIdsPopularQuery,
     useGetPopularAnimesQuery,
+    useGetIdsQuery,
     useGetAnimesQuery,
     useGetAnimeQuery,
     useAddAnimeMutation,

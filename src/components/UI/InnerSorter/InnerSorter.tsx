@@ -5,7 +5,7 @@ import { selectSort } from "../../../store/reducers/BtnsSlice";
 
 const InnerSorter = () => {
 
-    const Label: string[] = [ "popular", "new", "rate", "date" ];
+    const Label: string[] = [ "favorites", "dateAdded", "rating", "releaseDate" ];
     const active = useAppSelector(state => state.btnsReducer.sort);
     const dispatch = useAppDispatch();
 

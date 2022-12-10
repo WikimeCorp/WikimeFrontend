@@ -17,7 +17,7 @@ export const genresSlice = createSlice({
             state.genres.push(action.payload);
         },
         deleteGenre: (state, action: PayloadAction<string>) => {
-            state.genres = state.genres.filter(item => item === action.payload);
+            state.genres = state.genres.filter(item => item !== action.payload);
         },
         clearGenres: (state) => {
             state.genres.length = 0;

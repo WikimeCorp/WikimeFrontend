@@ -32,9 +32,9 @@ const Article: FC = () => {
             <div className="info">
                 <div className="art">
                     <div className="art-img">
-                        <img src={`http://${apiHost}:${apiPort}${anime.poster}`} alt='poster'/>
+                        <img src={`http://${apiHost}${anime.poster}`} alt='poster'/>
                     </div>
-                    <FavoriteButton inArciclePage>Добавить в избранное</FavoriteButton>
+                    <FavoriteButton id={anime.id} inArciclePage>Добавить в избранное</FavoriteButton>
                     <span>В избранном у {anime.rating.inFavorites} пользователей</span>
                 </div>
                 <div className="info-content">
@@ -73,7 +73,7 @@ const Article: FC = () => {
                 <div className="pictures-content">
                     {anime.images.map((art, idx) =>
                         <div className="pictures-content-art" key={idx}>
-                            <img key={idx} src={`http://${apiHost}:${apiPort}${art}`} alt='art'/>
+                            <img key={idx} src={`http://${apiHost}${art}`} alt='art'/>
                         </div>                        
                     )}
                 </div>

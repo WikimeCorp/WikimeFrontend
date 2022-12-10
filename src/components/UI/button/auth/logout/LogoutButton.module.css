@@ -3,7 +3,7 @@
     margin: 10px;
 
     border: 1.5px solid #5CDB95;
-    border-radius: 5px;
+    border-radius: 7px;
     
     font-size: 18px;
     font-weight: 700;
@@ -12,7 +12,8 @@
     background: inherit;
 }
 
-.main:hover {
+.main:hover,
+.main:target {
     background: #5CDB95;
     color: #fff;
 }

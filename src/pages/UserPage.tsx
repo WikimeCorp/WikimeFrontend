@@ -15,26 +15,26 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 const UserPage: FC = () => {
     const auth = useAuth();
-    const { data: animes, isLoading } = useGetAnimesQuery();
+    //const { data: animes, isLoading } = useGetAnimesQuery();
     
     const { fav: favType, viewed: viewedType, added: addedType } = 
             useAppSelector(state => state.btnsReducer.isListViewUser);
     const { fav, viewed, added } = useAppSelector(state => state.btnsReducer.usersLists);
     const dispatch = useAppDispatch();
     
-    if (isLoading) {
-        return <div>Loading</div>
-    };
+    // if (isLoading) {
+    //     return <div>Loading</div>
+    // };
 
-    if (!animes) {
-        return <div>No articles :(</div>
-    };
+    // if (!animes) {
+    //     return <div>No articles :(</div>
+    // };
 
     return(
         <div className="user-page">
             <div className="user-info">
                 <div className="user-info-photo">
-                    <img src={`http://${apiHost}:${apiPort}${auth.user}`}/>
+                    <img src={`http://${apiHost}:${apiPort}${auth.user?.avatar}`}/>
                 </div>
                 <h2>{auth.user?.nickname}</h2>
                 <a href="#">Изменить никнейм</a>
@@ -50,7 +50,7 @@ const UserPage: FC = () => {
                         </div>                        
                         { fav && <ViewButton userPage={true} item={"fav"} /> }
                     </div> 
-                    { fav && <ArticleList isList={favType}/>}
+                    {/* { fav && <ArticleList isList={favType}/>} */}
                 </div>
                 <div className="user-content-item">
                     <div className="user-content-title">
@@ -60,7 +60,7 @@ const UserPage: FC = () => {
                         </div>                        
                         { viewed && <ViewButton userPage={true} item={"viewed"}/> }
                     </div>                    
-                    { viewed && <ArticleList isList={viewedType} />}
+                    {/* { viewed && <ArticleList isList={viewedType} />} */}
                 </div>
                 {auth.user?.role !== "user" &&
                     <div className="user-content-item">
@@ -71,7 +71,7 @@ const UserPage: FC = () => {
                             </div>                        
                             { added && <ViewButton userPage={true} item={"added"}/> }
                         </div>                    
-                        { added && <ArticleList isList={addedType} />}
+                        {/* { added && <ArticleList isList={addedType} />} */}
                     </div>
                 }
             </div>

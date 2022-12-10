@@ -15,4 +15,11 @@
 
 .last {
     height: 20px;
+    background-color: inherit;
+}
+
+.nothing {
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }

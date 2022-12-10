@@ -4,10 +4,13 @@ import { animeAPI } from '../services/anime';
 import btnsReducer from './reducers/BtnsSlice';
 import genresReducer from './reducers/GenresSlice';
 import authReduser from './reducers/AuthSlice';
+import scrollReducer from './reducers/ScrollSlice';
+
 
 const rootReducer = combineReducers({
     btnsReducer,
     genresReducer,
+    scrollReducer,
     [animeAPI.reducerPath]: animeAPI.reducer,
     VkAuth: authReduser,
 });

@@ -20,7 +20,7 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
     return (
         <div  className={cl.card}>
           <div className={cl.poster}>
-            <img src={`http://${apiHost}:${apiPort}${article.poster}`} alt="poster"/>
+            <img src={article.poster && `http://${apiHost}${article.poster}`} alt="poster"/>
           </div>
           <div className={cl.cardContent}>
             <div className={cl.titleContainer}>

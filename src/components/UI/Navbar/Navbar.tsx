@@ -24,7 +24,10 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <div className="content">
-                <p className="logo">WIKIME</p>
+                {/* <p className="logo">WIKIME</p> */}
+                <p className="logo">
+                    <NavLink to="../">WIKIME</NavLink>
+                </p>
                 <div className="links">
                     <NavLink to="/articles" className={({isActive}) => isActive ? 'active' : 'not-active'}>Статьи</NavLink>
                     {user && user.role !== "user" &&

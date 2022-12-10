@@ -10,6 +10,7 @@ import UserPage from './pages/UserPage';
 import AdminPage from './pages/AdminPage';
 import AddPhotos from './pages/AddPhotos';
 import { AuthProvider, RequireAuth } from './context/context';
+import FavoriteButton from './components/UI/button/favorite/FavouriteButton';
 
 const App = () => { 
 

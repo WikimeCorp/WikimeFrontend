@@ -61,7 +61,7 @@ export const getJWToken = createAsyncThunk<JWTResponse, void, {state: RootState,
                 })
             };
 
-            const response = await fetch(`http://${apiHost}:${apiPort}/auth/vk`, settings);
+            const response = await fetch(`http://${apiHost}/auth/vk`, settings);
             return (await response.json()) as JWTResponse;  
         } catch (error) {
             return rejectWithValue('Не удалось получить JWT');
@@ -87,7 +87,8 @@ export const getUserInfo = createAsyncThunk<
             headers: { 'authorization': `${token}` },
         };
         
-        const response = await fetch(`http://${apiHost}:${apiPort}/users/current`, settings);
-        return (await response.json()) as IUser;          
+        const response = await fetch(`http://${apiHost}/users/current`, settings).then(response => response.json());
+
+        return (await response) as IUser;          
     }
 );

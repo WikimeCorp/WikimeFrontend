@@ -21,7 +21,7 @@ const CardSmall: FC<CardSmallProps> = ({article}) => {
         <div className={cl.card}>
             <div className={cl.art}>
                 <div className={cl.centerCropped}>
-                    <img src={`http://${apiHost}:${apiPort}${article.poster}`} alt="poster"/>
+                    <img src={article.poster && `http://${apiHost}${article.poster}`} alt="poster"/>
                 </div>
                 <FavoriteButton id={article.id}></FavoriteButton>
                 <p>{article.rating.average}</p>

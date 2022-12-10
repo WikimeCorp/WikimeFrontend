@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface BtnsState {
     sort: string;
+    genres: string[];
     isListView: boolean;
     isListViewUser: {
         fav: boolean;
@@ -18,7 +19,8 @@ interface BtnsState {
 };
 
 const initialState: BtnsState = {
-    sort: "popular",
+    sort: "favorites",
+    genres: [],
     isListView: true,
     isListViewUser: {
         fav: false,
@@ -58,6 +60,12 @@ export const btnsSlice = createSlice({
         openAdding: (state, action: PayloadAction<number>) => {
             state.addAdmins[action.payload] = !state.addAdmins[action.payload];
         },
+        addGenre: (state, action: PayloadAction<string>) => {
+            state.genres.push(action.payload);
+        },
+        deleteGenre: (state, action: PayloadAction<string>) => {
+            state.genres = state.genres.filter(item => item !== action.payload);
+        },
     },
 });
 
@@ -66,6 +74,8 @@ export const {
     changeView, 
     changeViewUser, 
     changeViewUserLists, 
-    openAdding 
+    openAdding,
+    addGenre,
+    deleteGenre 
 } = btnsSlice.actions;
 export default btnsSlice.reducer;

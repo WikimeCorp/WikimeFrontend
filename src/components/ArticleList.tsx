@@ -1,43 +1,61 @@
-import { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import cl from "./Articles.module.css"
 import CardMedium from "./Cards/CardMedium";
-import { useGetAnimesQuery } from "../services/anime";
+import { animeAPI, useGetAnimesQuery, useGetIdsQuery } from "../services/anime";
 import CardSmall from "./Cards/CardSmall";
 import { useObserver } from "../hooks/useObserver";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { IAnime } from "../types/IAnime";
+import { setData, nextPage, setTotal, addData } from "../store/reducers/ScrollSlice";
+
 
 const ArticleList: FC<{isList: boolean}> = ({isList}) => {
-    const { data: animes, isLoading } = useGetAnimesQuery();
-    const lastElement = useRef<HTMLDivElement>(null!);
-    // const observer = useRef<IntersectionObserver | null>(null);
     
-    if (!animes) {
-        return <div>No articles :(</div>
+    const { sort: active, genres } = useAppSelector(state => state.btnsReducer);
+    const { begin, end } = useAppSelector(state => state.scrollReducer);
+    const dispatch = useAppDispatch();
+
+    const { data: ids_animes, isSuccess, isFetching } = useGetIdsQuery({sortBy: active, genres: genres});
+    
+    // useEffect(() => {
+    //     if (ids_animes && !isFetching) {
+    //         console.log('DO')
+    //         dispatch(setTotal(ids_animes?.length));
+    //     }     
+    // }, [ids_animes])    
+ 
+    const { data: animes, isLoading, isSuccess: success } = useGetAnimesQuery(ids_animes?.slice(0, 20)!, 
+        {skip: !isSuccess || ids_animes.length === 0});
+
+
+    if (isLoading) {
+        <div>loading</div>
     };
 
-    // useEffect(() => {
-    //     if (isLoading) return;
-    //     if (observer.current) observer.current.disconnect();
-    //     let callback = function(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
-    //         // добавить условие, чтобы отрабатывало только тогда, когда № стр < общего числа стр
-    //         if (entries[0].isIntersecting) {
-    //             // новый запрос
-    //         }
-    //     };
-    //     observer.current = new IntersectionObserver(callback);
-    //     observer.current.observe(lastElement.current);
-    // }, [isLoading])
+    // const lastElement = useRef<HTMLDivElement>(null);
+    // useObserver(lastElement, page < totalPages, isLoading)
 
-    useObserver(lastElement, false, isLoading, () => {})
+    if (ids_animes && ids_animes?.length < 1) {
+        return (
+            <div className={cl.nothing}>
+                <h2>Ничего не найдено</h2>
+            </div>            
+        )
+    }; 
 
+    if (animes === undefined) {
+        return <div>No animes</div>
+    }
+    
     return (
         <div className={isList ? cl.list : cl.table}>
-            {animes.map(article =>
+            {animes!.map(article =>
                 isList ?
-                <CardMedium key={article.id} article={article}/>
+                <CardMedium key={article!.id} article={article!}/>
                 :
-                <CardSmall key={article.id} article={article}/>
+                <CardSmall key={article!.id} article={article!}/>
             )}
-            <div className={cl.last} ref={lastElement} />
+            {/* <div className={cl.last} ref={lastElement} /> */}
         </div>
     );
 };

@@ -5,13 +5,13 @@ import MainButton from '../components/UI/button/main/MainButton';
 import { useNavigate } from 'react-router-dom';
 import Carousel from '../components/Carousel/Carousel';
 import CardSmall from '../components/Cards/CardSmall';
-import { useGetAnimesQuery, useGetIdsQuery, useGetPopularAnimesQuery } from '../services/anime';
+import { useGetAnimesQuery, useGetIdsPopularQuery, useGetPopularAnimesQuery } from '../services/anime';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
 
 const Main: FC = () => {
-    const { data: ids_animes, isSuccess } = useGetIdsQuery();
+    const { data: ids_animes, isSuccess } = useGetIdsPopularQuery();
     const { data: animes, isLoading, error } = useGetPopularAnimesQuery(ids_animes!, {skip: !isSuccess && !ids_animes})
     const navigate = useNavigate(); 
 
@@ -42,9 +42,9 @@ const Main: FC = () => {
     return(
         <div className='Main-page'>
             <div className='landing'>
-                <div className='landing-anime'>
+                <div className='landing-anime' onClick={() => navigate(`/article/${animes[0].id}`)}>
                     <div className='poster'>
-                        <img src={`http://${apiHost}:${apiPort}${animes[0].poster}`} alt='poster'/>
+                        <img src={`http://${apiHost}${animes[0].poster}`} alt='poster'/>
                     </div>
                     <span>{animes[0].title}</span>
                 </div>

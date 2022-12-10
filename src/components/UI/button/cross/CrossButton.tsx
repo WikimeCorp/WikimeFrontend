@@ -4,7 +4,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import cl from "./CrossButton.module.css";
 
 
-
 const CrossButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({...props}) => {
 
     return (
