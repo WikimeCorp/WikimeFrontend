@@ -1,4 +1,7 @@
 import { ButtonHTMLAttributes, FC, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../../../hooks/useAuth';
 import cl from "./RateButton.module.css"
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,8 +10,27 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const RateButton: FC<Props> = ({children, ...props}) => {
 
+    const location = useLocation();
+    const auth = useAuth();
+    const isAuth = !!auth.user;
+
     const [ isActive, setActive ] = useState(false);
     const [ rate, setRate ] = useState<number | null>(null);
+
+    if (!isAuth) {
+        return (
+            <Link to={`/signin`} state={{ backgroundLocation: location }}>
+                <div className={cl.container}>
+                    <button
+                        className={cl.main} 
+                        {...props}
+                    >
+                        {children}
+                    </button>        
+            </div>
+            </Link>
+        );
+    };
 
     return (
         !rate ?

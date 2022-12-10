@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const LogoutButton: FC<Props> = ({children, ...props}) => {
-    // const { logout } = useAuth0();
+    
     const auth = useAuth();
 
     const handleClick = () => {

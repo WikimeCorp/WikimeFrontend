@@ -10,6 +10,8 @@
     color: #5CDB95;
     cursor: pointer;
     background: inherit;
+
+    transition: 0.2s;
 }
 
 .main:hover,

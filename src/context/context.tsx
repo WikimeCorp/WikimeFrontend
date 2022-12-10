@@ -1,4 +1,5 @@
 import React, { createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getAccessToken, getAuthorizeCodeHref, getJWToken, getUserInfo } from "../store/actions/authActions";
 import { logout } from "../store/reducers/AuthSlice";
@@ -16,6 +17,7 @@ export const AuthContext = createContext<AuthContextType>(null!);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const dispatch = useAppDispatch(); 
+    const navigate = useNavigate();
     const user = useAppSelector(state => state.VkAuth.user);
     const token = localStorage.getItem('userToken');
 
@@ -34,6 +36,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const signout = () => {
+        navigate('../')
+        window.scrollTo(0,0);
         return dispatch(logout());
     };
 

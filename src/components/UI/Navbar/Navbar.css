@@ -102,3 +102,22 @@
     background-color: #8EE4AF;    
     border: 1px solid #8EE4AF;
 }
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 1rem;
+    margin-left: 40px;
+    overflow: hidden;
+
+    outline: 1px solid #5CDB95;
+    border-radius: 8px;    
+}
+
+.avatar img {
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%); 
+}

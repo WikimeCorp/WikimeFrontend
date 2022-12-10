@@ -1,28 +1,24 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import LoginButton from "../button/auth/login/LoginButton";
 import cl from "./Modal.module.css";
 
-interface Props {
-    children: React.ReactNode;
-    visible: boolean;
-    setVisible: (arg: boolean) => void;
-}
 
-const Modal: FC<Props> = ({ children, visible, setVisible }) => {
+const Modal: FC = () => {
 
-    const rootClasses = [cl.modal];
-
-    if (visible) {
-        rootClasses.push(cl.active);
-        console.log('VISIBLE')
-    };
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(-1);
+    }
 
     return (
-        <div className={rootClasses.join('')} onClick={() => setVisible(false)}>
+        <div className={cl.modal} onClick={handleClick}>
             <div 
                 className={cl.content}
                 onClick={(e) => e.stopPropagation()}
             >
-                {children}
+                <h2>Необходимо авторизоваться</h2>
+                <LoginButton>Войти через VK</LoginButton>
             </div>
         </div>
     )

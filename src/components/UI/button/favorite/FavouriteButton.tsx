@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as starSol } from '@fortawesome/free-solid-svg-icons';
 import { faStar as starReg } from '@fortawesome/free-regular-svg-icons';
 import { useAuth } from "../../../../hooks/useAuth";
-import Modal from "../../Modal/Modal";
-import LoginButton from "../auth/login/LoginButton";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 interface Props {
@@ -16,6 +16,7 @@ interface Props {
 
 const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
 
+    const location = useLocation();
     const auth = useAuth();
     const isAuth = !!auth.user;
 
@@ -23,22 +24,40 @@ const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
     const [visible, setVisible] = useState<boolean>(false);
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        if (isAuth) {            
-            setActive(!active);
-            // запрос на добавление/удаление из избранного
-        } else {
-            // войти
-            setVisible(true);
-        }        
-    }   
+        if(isAuth)
+        setActive(!active);       
+    };
+
+    if (isAuth) {
+        if (children?.length) {
+            return (
+                active?
+                <button onClick={handleClick} className={ inArciclePage ? cl.inFav : cl.fav}>
+                    {inArciclePage && <span>В избранном</span>}
+                    <FontAwesomeIcon icon={starSol} className={cl.iconActive}/>        
+                </button>
+                : 
+                <button onClick={handleClick} className={cl.fav}>
+                    {children}
+                    <FontAwesomeIcon icon={starSol} className={cl.icon}/>        
+                </button>
+            );
+        };
+    
+        return (
+            <button onClick={handleClick} className={cl.favSmall}>
+                {active?
+                    <FontAwesomeIcon icon={starSol} className={cl.iconSmallActive}/>
+                    : <FontAwesomeIcon icon={starReg} className={cl.iconSmall}/>
+                }
+            </button>
+        );    
+    };    
 
     if (children?.length) {
         return (
-            <>
-            <Modal visible={visible} setVisible={setVisible}>
-                <LoginButton>Войти через VK</LoginButton>
-            </Modal>
-            {active ?
+            <Link to={`/signin`} state={{ backgroundLocation: location }}>
+            {active?
                 <button onClick={handleClick} className={ inArciclePage ? cl.inFav : cl.fav}>
                     {inArciclePage && <span>В избранном</span>}
                     <FontAwesomeIcon icon={starSol} className={cl.iconActive}/>        
@@ -48,23 +67,19 @@ const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
                     {children}
                     <FontAwesomeIcon icon={starSol} className={cl.icon}/>        
                 </button>}
-            </>
+            </Link>
         );
     };
 
     return (
-        <>
-            <Modal visible={visible} setVisible={setVisible}>
-                <h1>Вход на WIKIME</h1>
-                <LoginButton>Войти через VK</LoginButton>
-            </Modal>
+        <Link to={`/signin`} state={{ backgroundLocation: location }}>
             <button onClick={handleClick} className={cl.favSmall}>
-                {active ?
+                {active?
                     <FontAwesomeIcon icon={starSol} className={cl.iconSmallActive}/>
                     : <FontAwesomeIcon icon={starReg} className={cl.iconSmall}/>
                 }
             </button>
-        </>
+        </Link>
     );    
 };
 

@@ -3,8 +3,9 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { useAuth } from "../../../hooks/useAuth";
 import { setCode } from "../../../store/reducers/AuthSlice";
 import LoginButton from "../button/auth/login/LoginButton";
-import LogoutButton from "../button/auth/logout/LogoutButton";
 import "./Navbar.css"
+
+const apiHost = process.env.REACT_APP_API_HOST;
 
 const Navbar = () => {
     const auth = useAuth();
@@ -24,7 +25,6 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <div className="content">
-                {/* <p className="logo">WIKIME</p> */}
                 <p className="logo">
                     <NavLink to="../">WIKIME</NavLink>
                 </p>
@@ -41,13 +41,13 @@ const Navbar = () => {
                     <form>                    
                         <input type="search" placeholder="Поиск"/>
                     </form>
-                    {/* {user ?
-                        <LogoutButton>Выйти</LogoutButton>
+                    {user ?
+                        <NavLink to='/user' className="avatar">
+                            <img src={`http://${apiHost}${auth.user?.avatar}`} />
+                        </NavLink>
                         :
                         <LoginButton>Войти</LoginButton>
-                    } */}
-                    <LoginButton>Войти</LoginButton>
-                    <LogoutButton>Выйти</LogoutButton>
+                    }
                 </div>                            
             </div>
             <hr className="line" />

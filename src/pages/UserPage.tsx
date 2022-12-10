@@ -5,9 +5,7 @@ import OpenButton from "../components/UI/button/open_list/OpenButton";
 import ViewButton from "../components/UI/button/view/ViewButtons";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAuth } from "../hooks/useAuth";
-import { useGetAnimesQuery } from "../services/anime";
 import { changeViewUserLists } from "../store/reducers/BtnsSlice";
-import art from "../styles/img/Art.png";
 import "../styles/UserPage.css";
 
 const apiHost = process.env.REACT_APP_API_HOST;
@@ -15,7 +13,6 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 const UserPage: FC = () => {
     const auth = useAuth();
-    //const { data: animes, isLoading } = useGetAnimesQuery();
     
     const { fav: favType, viewed: viewedType, added: addedType } = 
             useAppSelector(state => state.btnsReducer.isListViewUser);
@@ -34,7 +31,7 @@ const UserPage: FC = () => {
         <div className="user-page">
             <div className="user-info">
                 <div className="user-info-photo">
-                    <img src={`http://${apiHost}:${apiPort}${auth.user?.avatar}`}/>
+                    <img src={`http://${apiHost}${auth.user?.avatar}`}/>
                 </div>
                 <h2>{auth.user?.nickname}</h2>
                 <a href="#">Изменить никнейм</a>

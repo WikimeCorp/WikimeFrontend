@@ -4,6 +4,7 @@ import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import RateButton from "../components/UI/button/rate/RateButton";
+import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
 import "../styles/Article.css";
 
@@ -12,7 +13,9 @@ const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
 
 const Article: FC = () => {
+
     const { id } = useParams();
+    const auth = useAuth();
     const { data: anime, isLoading } = useGetAnimeQuery(String(id));
     //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
 
@@ -57,7 +60,9 @@ const Article: FC = () => {
                                 <p>{ratesCount} оценок</p>                           
                                 <RateButton>Оценить</RateButton> 
                             </div>
-                            <MainButton>Редактировать статью</MainButton>
+                            {auth.user && auth.user.role !== "user" && 
+                                <MainButton>Редактировать статью</MainButton>
+                            }
                         </div>
                     </div>
                 </div>
