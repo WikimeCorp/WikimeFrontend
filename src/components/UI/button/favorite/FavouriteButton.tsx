@@ -6,6 +6,8 @@ import { faStar as starReg } from '@fortawesome/free-regular-svg-icons';
 import { useAuth } from "../../../../hooks/useAuth";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { addToFavorites, removeFromFavorites } from "../../../../store/actions/userActions";
 
 
 interface Props {
@@ -17,15 +19,20 @@ interface Props {
 const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
 
     const location = useLocation();
+
     const auth = useAuth();
     const isAuth = !!auth.user;
 
-    const [active, setActive] = useState<boolean>(false);
-    const [visible, setVisible] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+    const favList = useAppSelector(state => state.userReduser.favorites);
+    const active = favList.includes(id);
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        if(isAuth)
-        setActive(!active);       
+        if (active) {
+            dispatch(removeFromFavorites(id));
+        } else {
+            dispatch(addToFavorites(id));
+        };     
     };
 
     if (isAuth) {
@@ -58,12 +65,12 @@ const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
         return (
             <Link to={`/signin`} state={{ backgroundLocation: location }}>
             {active?
-                <button onClick={handleClick} className={ inArciclePage ? cl.inFav : cl.fav}>
+                <button className={ inArciclePage ? cl.inFav : cl.fav}>
                     {inArciclePage && <span>В избранном</span>}
                     <FontAwesomeIcon icon={starSol} className={cl.iconActive}/>        
                 </button>
                 : 
-                <button onClick={handleClick} className={cl.fav}>
+                <button className={cl.fav}>
                     {children}
                     <FontAwesomeIcon icon={starSol} className={cl.icon}/>        
                 </button>}
@@ -73,7 +80,7 @@ const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
 
     return (
         <Link to={`/signin`} state={{ backgroundLocation: location }}>
-            <button onClick={handleClick} className={cl.favSmall}>
+            <button className={cl.favSmall}>
                 {active?
                     <FontAwesomeIcon icon={starSol} className={cl.iconSmallActive}/>
                     : <FontAwesomeIcon icon={starReg} className={cl.iconSmall}/>

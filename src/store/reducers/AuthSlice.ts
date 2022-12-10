@@ -73,8 +73,7 @@ export const authSlice = createSlice({
         .addCase(getUserInfo.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload?.error_message;
-        })    
-        
+        })            
     }
 });
 

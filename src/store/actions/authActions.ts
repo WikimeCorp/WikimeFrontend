@@ -87,7 +87,8 @@ export const getUserInfo = createAsyncThunk<
             headers: { 'authorization': `${token}` },
         };
         
-        const response = await fetch(`http://${apiHost}/users/current`, settings).then(response => response.json());
+        const response = await fetch(`http://${apiHost}/users/current`, settings)
+        .then(response => response.json());
 
         return (await response) as IUser;          
     }
