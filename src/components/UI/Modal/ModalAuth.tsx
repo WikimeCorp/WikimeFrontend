@@ -4,7 +4,7 @@ import LoginButton from "../button/auth/login/LoginButton";
 import cl from "./Modal.module.css";
 
 
-const Modal: FC = () => {
+const ModalAuth: FC = () => {
 
     const navigate = useNavigate();
     const handleClick = () => {
@@ -24,4 +24,4 @@ const Modal: FC = () => {
     )
 };
 
-export default Modal;
+export default ModalAuth;

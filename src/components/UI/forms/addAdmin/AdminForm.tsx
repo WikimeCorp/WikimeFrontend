@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import MainButton from "../../button/main/MainButton";
-import AdminInput from "../../input/AdminInput";
+import TextInput from "../../input/TextInput";
 import cl from "./AdminForm.module.css";
 
 
@@ -21,7 +21,8 @@ const AdminForm: FC = () => {
     
     return (
         <form className={cl.container} onSubmit={onSubmit}>
-            <AdminInput
+            <TextInput
+                light
                 placeholder="Введите id пользователя..." 
                 {...register("userID", { required: {value: true, message: "Обязательное поле"}, pattern: { value: /\d+/, message: "id содержит только цифры"} })}
             />

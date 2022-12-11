@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LogoutButton from "../components/UI/button/auth/logout/LogoutButton";
 import OpenButton from "../components/UI/button/open_list/OpenButton";
 import ViewButton from "../components/UI/button/view/ViewButtons";
@@ -13,6 +14,7 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 const UserPage: FC = () => {
 
+    const location = useLocation();
     const auth = useAuth();
     const dispatch = useAppDispatch();
 
@@ -27,8 +29,14 @@ const UserPage: FC = () => {
                     <img src={`http://${apiHost}${auth.user?.avatar}`}/>
                 </div>
                 <h2>{auth.user?.nickname}</h2>
-                <a href="#">Изменить никнейм</a>
-                <a href="#">Изменить аватар</a>
+                <Link to={`/update_nickname`} state={{ backgroundLocation: location }}>
+                    Изменить никнейм
+                </Link>
+                <Link to={`/update_avatar`} state={{ backgroundLocation: location }}>
+                    Изменить аватар
+                </Link>
+                {/* <a href="#">Изменить никнейм</a>
+                <a href="#">Изменить аватар</a> */}
                 <LogoutButton>Выйти</LogoutButton>
             </div>
             <div className="user-content">

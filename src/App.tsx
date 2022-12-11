@@ -10,7 +10,9 @@ import UserPage from './pages/UserPage';
 import AdminPage from './pages/AdminPage';
 import AddPhotos from './pages/AddPhotos';
 import { AuthProvider, RequireAuth, RequireAuthAdmin } from './context/context';
-import Modal from './components/UI/Modal/Modal';
+import ModalAuth from './components/UI/Modal/ModalAuth';
+import ModalNickname from './components/UI/Modal/ModalNickname';
+import ModalAvatar from './components/UI/Modal/ModalAvatar';
 
 const App = () => { 
 
@@ -45,7 +47,9 @@ const App = () => {
     </Routes>
     {state?.backgroundLocation && (
         <Routes>
-          <Route path="/signin" element={<Modal />} />
+          <Route path="/signin" element={<ModalAuth />} />
+          <Route path="/update_nickname" element={<ModalNickname />} />
+          <Route path="/update_avatar" element={<ModalAvatar />} />
         </Routes>
     )}
     </AuthProvider>    

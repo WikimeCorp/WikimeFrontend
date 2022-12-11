@@ -5,11 +5,7 @@ import CrossButton from "../components/UI/button/cross/CrossButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import ImgInput from "../components/UI/input/ImgInput";
 import "../styles/Add.css";
-
-type Art = {
-    file: File;
-    url: string;
-};
+import { Art } from "../types/Art";
 
 const AddPhotos: FC = () => {
 

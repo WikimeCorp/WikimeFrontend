@@ -31,3 +31,22 @@ h2 {
     line-height: 27px;
     letter-spacing: 0.07em;
 }
+
+.addPosterWrapper {
+    width: 230px;
+    height: 230px;
+    overflow: hidden;
+    margin-bottom: 10px;
+
+    border: 2px solid #EDF5E1;
+    filter: drop-shadow(0px 0px 10px rgba(92, 219, 149, 0.5));
+    border-radius: 10px;
+}
+
+.addPosterWrapper img {
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;    
+    transform: translateX(-50%);
+}

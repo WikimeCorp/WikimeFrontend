@@ -31,7 +31,7 @@ const CardSmall: FC<CardSmallProps> = ({article}) => {
                 {article.title}
               </div>
             </div>
-            <MainButton onClick={() => navigate(`article/${article.id}`)}>Подробнее</MainButton>
+            <MainButton onClick={() => navigate(`../article/${article.id}`)}>Подробнее</MainButton>
         </div>
     );
 };
