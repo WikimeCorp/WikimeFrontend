@@ -14,15 +14,16 @@ const ModalNickname: FC = () => {
 
     const [nickname, setNickname] = useState<string>();
 
-    const handleClick = () => {
+    const handleClick = () => {  
         navigate(-1);
     }
 
-    const updateClick = () => {
+    const updateClick = () => {     
         if (nickname) {
             dispatch(updateNickname(nickname));
-            handleClick();
-        }        
+            setNickname(undefined);
+        }
+        handleClick();
     };
 
     return (
@@ -35,7 +36,6 @@ const ModalNickname: FC = () => {
                 <TextInput 
                     onChange={e => setNickname(e.target.value)}
                     placeholder="Введите новый никнейм..." 
-                    name="nickname" 
                     light
                 ></TextInput>
                 {nickname &&

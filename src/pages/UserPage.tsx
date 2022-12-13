@@ -21,22 +21,24 @@ const UserPage: FC = () => {
     const { fav: favType, viewed: viewedType, added: addedType } = 
             useAppSelector(state => state.btnsReducer.isListViewUser);
     const { fav, viewed, added } = useAppSelector(state => state.btnsReducer.usersLists);
+    const { nickname, avatar } = useAppSelector(state => state.userReduser);
+
+    const imgUrl = (avatar && avatar.includes('images')) ? 
+        `http://${apiHost}${auth.user?.avatar}` : avatar;
     
     return(
         <div className="user-page">
             <div className="user-info">
                 <div className="user-info-photo">
-                    <img src={`http://${apiHost}${auth.user?.avatar}`}/>
+                    <img src={imgUrl}/>
                 </div>
-                <h2>{auth.user?.nickname}</h2>
+                <h2>{nickname}</h2>
                 <Link to={`/update_nickname`} state={{ backgroundLocation: location }}>
                     Изменить никнейм
                 </Link>
                 <Link to={`/update_avatar`} state={{ backgroundLocation: location }}>
                     Изменить аватар
                 </Link>
-                {/* <a href="#">Изменить никнейм</a>
-                <a href="#">Изменить аватар</a> */}
                 <LogoutButton>Выйти</LogoutButton>
             </div>
             <div className="user-content">

@@ -2,16 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getUserInfo } from "../actions/authActions";
 import { 
     addToFavorites, addToWatched, getAdmins, getModerators, 
-    removeFromFavorites, resetRole, updateNickname, updateRole 
+    removeFromFavorites, resetRole, updateAvatar, updateNickname, updateRole 
 } from "../actions/userActions";
 
 
 interface userState {
+    avatar?: string;
     favorites: number[];
     watched: number[];
     nickname: string;
-    moderators: number[];
-    admins: number[];
+    moderators?: number[];
+    admins?: number[];
     loading: boolean;
     error?: string | null;
 };
@@ -20,10 +21,7 @@ const initialState: userState = {
     favorites: [],
     watched: [],
     nickname: '',
-    moderators: [],
-    admins: [],
-    loading: false,
-    error: null,
+    loading: false
 };
 
 export const userSlice = createSlice({
@@ -32,6 +30,7 @@ export const userSlice = createSlice({
     reducers: {
         addFav: (state, action: PayloadAction<number>) => {
             state.favorites = [...state.favorites, action.payload];
+
         },
         delFav: (state, action: PayloadAction<number>) => {
             state.favorites = state.favorites.filter(item => item !== action.payload);
@@ -41,16 +40,19 @@ export const userSlice = createSlice({
             state.watched = [];
         },
         addWatched: (state, action: PayloadAction<number>) => {
-            if (!state.watched.includes(action.payload))
-                state.watched = [...state.watched, action.payload];
+            state.watched = [...state.watched, action.payload];
         },
         updateNick: (state, action: PayloadAction<string>) => {
             state.nickname = action.payload;
+        },
+        updateAva: (state, action: PayloadAction<string>) => {
+            state.avatar = action.payload;
         }
     },
     extraReducers: (builder) => {
         builder
         .addCase(getUserInfo.fulfilled, (state, action) => {
+            state.avatar = action.payload.avatar;
             state.favorites = action.payload.favorites;
             state.nickname = action.payload.nickname;
             state.watched = action.payload.watched;
@@ -109,8 +111,13 @@ export const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         }) 
+
+        .addCase(updateAvatar.rejected, (state, action ) => {
+            state.loading = false;
+            state.error = action.payload;
+        }) 
     }
 });
 
-export const { addFav, delFav, clean, addWatched, updateNick } = userSlice.actions;
+export const { addFav, delFav, clean, addWatched, updateNick, updateAva } = userSlice.actions;
 export default userSlice.reducer;

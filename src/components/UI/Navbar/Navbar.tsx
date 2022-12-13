@@ -13,6 +13,7 @@ const Navbar = () => {
 
     const dispatch = useAppDispatch();
     const {code, loading} = useAppSelector(state => state.VkAuth);
+    const { avatar } = useAppSelector(state => state.userReduser);
   
     if (window.location.search.includes('code')) {
       dispatch(setCode());
@@ -21,6 +22,9 @@ const Navbar = () => {
     if (code && !loading) {
       auth.signin();
     };
+
+    const imgUrl = (user && avatar && avatar.includes('images')) ? 
+        `http://${apiHost}${auth.user?.avatar}` : avatar;
 
     return (
         <div className="navbar">
@@ -33,7 +37,7 @@ const Navbar = () => {
                     {user && user.role !== "user" &&
                         <NavLink to="/add" className={({isActive}) => isActive ? 'active' : 'not-active'}>Добавить</NavLink>
                     }
-                    {user && user.role === "admin" &&
+                    {user && user.role !== "user" && user.role !== "moderator" &&
                         <NavLink to="/admin" className={({isActive}) => isActive ? 'active' : 'not-active'}>Админ</NavLink>
                     }
                 </div>
@@ -41,9 +45,9 @@ const Navbar = () => {
                     <form>                    
                         <input type="search" placeholder="Поиск"/>
                     </form>
-                    {user ?
+                    {user && user.avatar ?
                         <NavLink to='/user' className="avatar">
-                            <img src={`http://${apiHost}${auth.user?.avatar}`} />
+                            <img src={imgUrl} />
                         </NavLink>
                         :
                         <LoginButton>Войти</LoginButton>

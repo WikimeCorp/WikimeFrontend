@@ -39,7 +39,7 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
                     <p>Рейтинг</p>
                     <span>{article.rating.average}</span>
                   </div>
-                  <MainButton onClick={() => navigate(`/article/${article.id}`)}>Подробнее</MainButton>
+                  <MainButton onClick={() => navigate(`../article/${article.id}`)}>Подробнее</MainButton>
                 </div>
               </div>
             </div>

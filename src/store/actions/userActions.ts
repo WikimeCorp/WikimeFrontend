@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addFav, addWatched, delFav } from "../reducers/UserSlice";
+import { addFav, addWatched, delFav, updateNick } from "../reducers/UserSlice";
 
 
 const apiHost = process.env.REACT_APP_API_HOST;
@@ -92,7 +92,7 @@ export const updateNickname = createAsyncThunk<any, string, {rejectValue: string
         try {
             const token = localStorage.getItem('userToken');
             const settings = {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'authorization': `${token}` },
                 body: JSON.stringify({
                     "nickname": name
@@ -105,7 +105,7 @@ export const updateNickname = createAsyncThunk<any, string, {rejectValue: string
                 throw new Error("Server error.");
             };
 
-            dispatch(updateNickname(name));
+            dispatch(updateNick(name));
 
         } catch (error) {
             return rejectWithValue('Не удалось изменить никнейм');
@@ -170,7 +170,7 @@ export const updateRole = createAsyncThunk<any, updateRoleRequest, {rejectValue:
         try {
             const token = localStorage.getItem('userToken');
             const settings = {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'authorization': `${token}` },
                 params: {
                     roleName: role
@@ -207,6 +207,29 @@ export const resetRole = createAsyncThunk<any, number, {rejectValue: string}>(
 
         } catch (error) {
             return rejectWithValue('Не удалось удалить роль');
+        }         
+    }
+);
+
+export const updateAvatar = createAsyncThunk<any, FormData, {rejectValue: string}>(
+    'user/updateAvatar',
+    async (photo, {rejectWithValue, dispatch}) => {
+        try {
+            const token = localStorage.getItem('userToken');
+            const settings = {
+                method: 'POST',
+                headers: { 'authorization': `${token}` },
+                body: photo
+            };
+            
+            const response = await fetch(`http://${apiHost}/users/current/avatar`, settings);
+            
+            if (!response.ok) {
+                throw new Error("Server error.");
+            };
+
+        } catch (error) {
+            return rejectWithValue('Не удалось изменить аватар');
         }         
     }
 );

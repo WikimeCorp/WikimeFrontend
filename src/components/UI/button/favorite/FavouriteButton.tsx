@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { addToFavorites, removeFromFavorites } from "../../../../store/actions/userActions";
+import { animeAPI } from "../../../../services/anime";
 
 
 interface Props {
@@ -32,7 +33,7 @@ const FavoriteButton: FC<Props> = ({ children, inArciclePage, id }) => {
             dispatch(removeFromFavorites(id));
         } else {
             dispatch(addToFavorites(id));
-        };     
+        };
     };
 
     if (isAuth) {

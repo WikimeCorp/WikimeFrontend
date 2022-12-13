@@ -11,7 +11,7 @@ const UsersArticleList: FC<{isList: boolean, ids: number[]}> = ({isList, ids}) =
     const { begin, end } = useAppSelector(state => state.scrollReducer);
     const dispatch = useAppDispatch();    
    
-    const { data: animes, isLoading, isSuccess: success } = 
+    const { data: animes, isLoading, isSuccess: success, refetch } = 
         useGetAnimesQuery(ids.slice(0, 20), {skip: ids.length < 1});
 
     if (isLoading) {

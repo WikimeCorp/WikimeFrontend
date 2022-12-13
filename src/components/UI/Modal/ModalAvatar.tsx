@@ -1,5 +1,9 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../hooks/redux";
+import { updateAvatar } from "../../../store/actions/userActions";
+import { updateAva } from "../../../store/reducers/UserSlice";
 import { Art } from "../../../types/Art";
 import MainButton from "../button/main/MainButton";
 import ImgInput from "../input/ImgInput";
@@ -9,6 +13,8 @@ import cl from "./Modal.module.css";
 const ModalAvatar: FC = () => {
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
     const handleClick = () => {
         navigate(-1);
     }
@@ -20,6 +26,19 @@ const ModalAvatar: FC = () => {
             const img = event.target.files[0];
             setPoster({file: img, url: URL.createObjectURL(img)});
         };       
+    };
+
+    const updateClick = () => { 
+        if (poster) {
+            const data = new FormData();
+            data.append('file', poster.file);
+
+            dispatch(updateAvatar(data));
+            dispatch(updateAva(poster.url));
+
+            setPoster(undefined);
+        };        
+        handleClick();
     };
 
     return (
@@ -40,7 +59,7 @@ const ModalAvatar: FC = () => {
                     name="poster"
                 />
                 {poster &&
-                    <MainButton>Изменить аватар</MainButton>
+                    <MainButton onClick={updateClick}>Изменить аватар</MainButton>
                 }                
             </div>
         </div>

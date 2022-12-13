@@ -4,7 +4,7 @@ import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import RateButton from "../components/UI/button/rate/RateButton";
-import { useAppDispatch } from "../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
 import { addToWatched } from "../store/actions/userActions";
@@ -17,16 +17,17 @@ const apiPort = process.env.REACT_APP_API_PORT;
 const Article: FC = () => {
 
     const { id } = useParams();
-
+    const id_num = Number(id);
     const auth = useAuth();
     const dispatch = useAppDispatch();
 
+    const watched = useAppSelector(state => state.userReduser.watched);
     const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
     //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
-
+    
     useEffect(() => {
-        if (auth.user && isSuccess) {
-            dispatch(addToWatched(Number(id)));
+        if (auth.user && isSuccess && !watched.includes(id_num)) {
+            dispatch(addToWatched(id_num));
         };
     },[isSuccess]) 
 
@@ -74,7 +75,7 @@ const Article: FC = () => {
                         <div className="info-ui">
                             <div className="info-ui-rate">
                                 <span>{anime.rating.average}</span>
-                                <p>{ratesCount} оценок</p>                           
+                                <p>{ratesCount} {ratesWord}</p>                           
                                 <RateButton>Оценить</RateButton> 
                             </div>
                             {auth.user && auth.user.role !== "user" && 

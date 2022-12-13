@@ -71,7 +71,7 @@ export function RequireAuthAdmin({ children }: { children: JSX.Element }) {
 
     const user = useAuth().user;
 
-    if (user?.role !== "admin") {
+    if (user && user.role !== "admin") {
         navigate('../');
         window.scrollTo(0,0);
     }

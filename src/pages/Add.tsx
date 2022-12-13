@@ -16,6 +16,7 @@ const Add: FC = () => {
     const onSubmit = async (formFields: FormTextFields) => {
         if(formFields) {
             try {
+                console.log(formFields)
                 const payload = await addArticle(formFields).unwrap();
                 dispatch(clearGenres());
                 console.log('fulfilled', payload)
