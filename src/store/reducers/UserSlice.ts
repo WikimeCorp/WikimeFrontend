@@ -9,6 +9,7 @@ import {
 
 interface userState {
     avatar?: string;
+    rated: {id: number, Rate: number}[];
     favorites: number[];
     watched: number[];
     nickname: string;
@@ -21,6 +22,7 @@ interface userState {
 const initialState: userState = {
     favorites: [],
     watched: [],
+    rated: [],
     nickname: '',
     loading: false
 };
@@ -48,7 +50,14 @@ export const userSlice = createSlice({
         },
         updateAva: (state, action: PayloadAction<string>) => {
             state.avatar = action.payload;
-        }
+        },
+        addRate: (state, action: PayloadAction<{id: number, Rate: number}>) => {
+            if (state.rated.some(item => item.id === action.payload.id)) {
+                state.rated = state.rated.filter(item => item.id !== action.payload.id);
+            };
+
+            state.rated = [...state.rated, action.payload];
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -58,6 +67,7 @@ export const userSlice = createSlice({
             state.favorites = payload.favorites;
             state.nickname = payload.nickname;
             state.watched = payload.watched;
+            state.rated = payload.rated;
             state.loading = false;
         })
 
@@ -117,9 +127,9 @@ export const userSlice = createSlice({
         .addCase(updateAvatar.rejected, (state, action ) => {
             state.loading = false;
             state.error = action.payload;
-        }) 
+        })
     }
 });
 
-export const { addFav, delFav, clean, addWatched, updateNick, updateAva } = userSlice.actions;
+export const { addFav, delFav, clean, addWatched, updateNick, updateAva, addRate } = userSlice.actions;
 export default userSlice.reducer;

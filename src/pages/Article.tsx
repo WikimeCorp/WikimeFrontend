@@ -85,7 +85,7 @@ const Article: FC = () => {
                             <div className="info-ui-rate">
                                 <span>{anime.rating.average}</span>
                                 <p>{ratesCount} {ratesWord}</p>                           
-                                <RateButton>Оценить</RateButton> 
+                                <RateButton animeId={anime.id}>Оценить</RateButton> 
                             </div>
                             {auth.user && auth.user.role !== "user" && 
                                 <MainButton onClick={updateClick}>Редактировать статью</MainButton>
