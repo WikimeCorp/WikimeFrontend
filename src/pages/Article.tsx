@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
 import { addToWatched } from "../store/actions/userActions";
+import { setAddAnime } from "../store/reducers/AddAnimeSlice";
+import { addAllGenres } from "../store/reducers/BtnsSlice";
 import "../styles/Article.css";
 
 
@@ -20,6 +22,7 @@ const Article: FC = () => {
     const id_num = Number(id);
     const auth = useAuth();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const watched = useAppSelector(state => state.userReduser.watched);
     const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
@@ -47,6 +50,12 @@ const Article: FC = () => {
     const inFavCount = anime.rating.inFavorites;
     const inFavUsers: string = ((inFavCount % 10 === 1) && (inFavCount !== 11)) ?
         "пользователя" : "пользователей";
+
+    const updateClick = () => {
+        dispatch(setAddAnime(anime));
+        dispatch(addAllGenres(anime.genres));
+        navigate('/add');
+    }
     
     return (
         <div key={id} className="Article-page">
@@ -70,7 +79,7 @@ const Article: FC = () => {
                                 )}
                             </p>
                             <p><span>Режиссёр:</span>{anime.director}</p>
-                            <p><span>Дата выхода:</span>{anime.releaseDate as string}</p>
+                            <p><span>Дата выхода:</span>{anime.releaseDate}</p>
                         </div>
                         <div className="info-ui">
                             <div className="info-ui-rate">
@@ -79,7 +88,7 @@ const Article: FC = () => {
                                 <RateButton>Оценить</RateButton> 
                             </div>
                             {auth.user && auth.user.role !== "user" && 
-                                <MainButton>Редактировать статью</MainButton>
+                                <MainButton onClick={updateClick}>Редактировать статью</MainButton>
                             }
                         </div>
                     </div>

@@ -18,7 +18,7 @@ const AddPhotos: FC = () => {
     const [ addPoster, {isLoading: isLoadingPoster, isSuccess: isSuccessPoster}, ] = useAddPosterMutation();
     const [ addArt, {isLoading: isLoadingArt, isSuccess: isSuccessArt} ] = useAddImgMutation();
 
-    const { id, poster: posterInStore, images: artsInStore } = useAppSelector(state => state.addAnimeReducer);
+    const { id, poster: posterInStore, images: artsInStore, update, releaseDate } = useAppSelector(state => state.addAnimeReducer);
 
     const [poster, setPoster] = useState<Art|undefined>(posterInStore? {file: null, url: posterInStore} : undefined);
     const [arts, setArts] = useState<Arts|undefined>(artsInStore? {files: [], urls: artsInStore} : undefined);
@@ -26,7 +26,6 @@ const AddPhotos: FC = () => {
 
     useEffect(() => {        
         if (!arts && submit && isSuccessPoster) {
-            setSubmit(false);
             dispatch(cleanAddAnime());
             navigate(`../article/${id}`);
         };
@@ -34,11 +33,17 @@ const AddPhotos: FC = () => {
 
     useEffect(() => {
         if (submit && isSuccessArt && isSuccessPoster) {
-            setSubmit(false);
             dispatch(cleanAddAnime());
             navigate(`../article/${id}`);
         };
     }, [isSuccessArt])
+
+    useEffect(() => {
+        if (update && submit) {
+            dispatch(cleanAddAnime());
+            navigate(`../article/${id}`);
+        }
+    }, [submit])
     
     const posterChange: React.ChangeEventHandler<HTMLInputElement> | undefined = (event) => {
 
@@ -91,7 +96,23 @@ const AddPhotos: FC = () => {
                 arts.files.map(art => {
                     const artForm = new FormData();
                     artForm.append('file', art);
-                    addArt({id, imgFile: artForm});                   
+                    addArt({id, imgFile: artForm});                                     
+                });
+            };
+        };
+
+        if (update && id) {
+            if (poster && poster.file) {
+                const posterForm = new FormData();
+                posterForm.append('file', poster.file);
+                addPoster({id, imgFile: posterForm});
+            };
+            
+            if (arts && arts.files.length !== 0) {                
+                arts.files.map(art => {
+                    const artForm = new FormData();
+                    artForm.append('file', art);
+                    addArt({id, imgFile: artForm});                                     
                 });
             };
         };
@@ -143,7 +164,9 @@ const AddPhotos: FC = () => {
                 <hr/>
                 <div className="container-save">
                     <MainButton onClick={prevClick}>Назад</MainButton>
-                    <MainButton type="submit" disabled={!poster}>Добавить статью</MainButton>
+                    <MainButton type="submit" disabled={!poster}>
+                        {update? 'Редактировать' : 'Добавить статью'}                        
+                    </MainButton>
                 </div> 
             </form>
         </div>

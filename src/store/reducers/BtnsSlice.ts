@@ -60,6 +60,9 @@ export const btnsSlice = createSlice({
         openAdding: (state, action: PayloadAction<number>) => {
             state.addAdmins[action.payload] = !state.addAdmins[action.payload];
         },
+        addAllGenres: (state, action: PayloadAction<string[]>) => {
+            state.genres = action.payload;
+        },
         addGenre: (state, action: PayloadAction<string>) => {
             state.genres.push(action.payload);
         },
@@ -76,6 +79,7 @@ export const {
     changeViewUserLists, 
     openAdding,
     addGenre,
-    deleteGenre 
+    deleteGenre,
+    addAllGenres 
 } = btnsSlice.actions;
 export default btnsSlice.reducer;

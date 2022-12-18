@@ -27,9 +27,6 @@ const ArticleList: FC<{isList: boolean}> = ({isList}) => {
     const { data: animes, isLoading, isSuccess: success } = useGetAnimesQuery(ids_animes?.slice(0, 5)!, 
         {skip: !isSuccess});
 
-    console.log(animes)
-
-
     if (isLoading || loadingIds) {
         return (
             <div className={cl.nothing}>

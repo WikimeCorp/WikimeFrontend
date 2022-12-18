@@ -26,31 +26,30 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
     } = useForm<FormTextFields>({mode: "all"});
 
     const dispatch = useAppDispatch();
-    const { id, genres, title, originTitle, description, releaseDate, director} = 
+    const { id, genres, title, originTitle, description, releaseDate, director, update} = 
         useAppSelector(state => state.addAnimeReducer);
 
     const navigate = useNavigate();
 
-    if (id) {
+    if (id !== undefined) {
         setValue('title', title!);
         setValue('originTitle', originTitle!);       
         setValue('director', director!);
         setValue('description', description!);
     };
+    console.log(new Date((releaseDate as number)*1000).toUTCString())
 
     const handleSubmitMain: SubmitHandler<FormTextFields> = (data) => {
         
-        if (!id) {                
-            onSubmit({
-                title: data.title,
-                originTitle: data.originTitle,
-                director: data.director,
-                releaseDate: data.releaseDate.getTime(),
-                description: data.description,
-                genres: genres,
-            });
-        };    
-          
+        onSubmit({
+            title: data.title,
+            originTitle: data.originTitle,
+            director: data.director,
+            releaseDate: Math.floor(data.releaseDate.getTime() / 1000),
+            description: data.description,
+            genres: genres,
+        });
+
         navigate('/add/photos'); 
     };
 
@@ -93,7 +92,7 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
                 <TextInput 
                     type="date"
                     {...register("releaseDate", {required: "Обязательное поле", valueAsDate: true})}
-                    defaultValue={releaseDate && new Date(releaseDate).toISOString().substr(0, 10)}
+                    defaultValue={releaseDate && new Date((releaseDate as number)*1000).toISOString().substring(0,10)}
                 />
                 <div className={cl.error}>
                     {errors?.releaseDate && <p>{errors?.releaseDate?.message ||  "Неверный ввод"}</p>}

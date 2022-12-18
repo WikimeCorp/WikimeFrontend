@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, FC, useState, MouseEvent } from 'react';
-import { useAppDispatch } from '../../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { addGenre, deleteGenre } from '../../../../store/reducers/AddAnimeSlice';
 import cl from "./GenreButton.module.css"
 
@@ -10,7 +10,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const GenreButton: FC<Props> = ({children, onClick, ...props}) => {
 
-    const [active, setActive] = useState<boolean>(false);
+    const currentGenres = useAppSelector(state => state.btnsReducer.genres)
+    const [active, setActive] = useState<boolean>(currentGenres.includes(children));
     const dispatch = useAppDispatch();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
