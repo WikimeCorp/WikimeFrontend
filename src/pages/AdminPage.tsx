@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import AdminItem from "../components/AdminItem";
 import PlusButton from "../components/UI/button/add_admin/PlusButton";
 import AdminForm from "../components/UI/forms/addAdmin/AdminForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { useAuth } from "../hooks/useAuth";
+import { getAdmins, getModerators } from "../store/actions/userActions";
 import { openAdding } from "../store/reducers/BtnsSlice";
 import  "../styles/AdminPage.css";
 
@@ -11,7 +11,12 @@ const AdminPage: FC = () => {
 
     const isOpen = useAppSelector(state => state.btnsReducer.addAdmins);
     const dispatch = useAppDispatch();
-    const auth = useAuth();
+    const { admins, moderators } = useAppSelector(state => state.userReduser)
+
+    useEffect(() => {
+        dispatch(getAdmins());
+        dispatch(getModerators());
+    },[])
 
     return (
         <div className="admin-page">
@@ -21,9 +26,9 @@ const AdminPage: FC = () => {
                     <PlusButton onClick={() => dispatch(openAdding(0))}/>
                 </div>   
                 {isOpen[0] && <AdminForm />}             
-                {[0,1,2,3,4].map((item) =>
-                    <AdminItem key={item}/>)}
-                
+                {admins && admins.map((item) =>
+                    <AdminItem userId={item} key={item}/>
+                )}                
             </div>
             <div className="admins">
                 <div className="admins-title">
@@ -31,9 +36,9 @@ const AdminPage: FC = () => {
                     <PlusButton  onClick={() => dispatch(openAdding(1))}/>
                 </div>    
                 {isOpen[1] && <AdminForm />}            
-                {[0,1,2,3,4,5,6].map((item) =>
-                    <AdminItem key={item}/>)}
-                
+                {moderators && moderators.map((item) =>
+                    <AdminItem userId={item} key={item}/>
+                )}                
             </div>
         </div>
     );

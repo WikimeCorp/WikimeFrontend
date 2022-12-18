@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { IUser } from "../../types/IUser";
 import { addFav, addWatched, delFav, updateNick } from "../reducers/UserSlice";
 
 
@@ -152,6 +153,27 @@ export const getAdmins = createAsyncThunk<getResponse, void, {rejectValue: strin
             .then(response => response.json());
 
             return (await response) as getResponse;
+
+        } catch (error) {
+            return rejectWithValue('Не удалось получить список администраторов');
+        }         
+    }
+);
+
+export const getAdminInfo = createAsyncThunk<IUser, number, {rejectValue: string}>(
+    'user/getAdminInfo',
+    async (id, {rejectWithValue}) => {
+        try {
+            const token = localStorage.getItem('userToken');
+            const settings = {
+                method: 'GET',
+                headers: { 'authorization': `${token}` }
+            };
+            
+            const response = await fetch(`http://${apiHost}/users/${id}`, settings)
+            .then(response => response.json());
+
+            return (await response) as IUser;
 
         } catch (error) {
             return rejectWithValue('Не удалось получить список администраторов');
