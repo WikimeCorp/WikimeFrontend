@@ -28,9 +28,7 @@ export const authSlice = createSlice({
         },
         logout: (state) => {
             localStorage.removeItem('userToken');
-            state.code = null;
-            state.accessToken = undefined;
-            state.user = undefined;
+            state = initialState;
         },
     },
     extraReducers: (builder) => {
@@ -67,7 +65,7 @@ export const authSlice = createSlice({
             state.loading = true;
         })
         .addCase(getUserInfo.fulfilled, (state, action) => {
-            state.user = action.payload;
+            state.user = action.payload as IUser;
             state.loading = false;
         })    
         .addCase(getUserInfo.rejected, (state, action) => {

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, FC, useState, MouseEvent } from 'react';
 import { useAppDispatch } from '../../../../hooks/redux';
-import { addGenre, deleteGenre } from '../../../../store/reducers/GenresSlice';
+import { addGenre, deleteGenre } from '../../../../store/reducers/AddAnimeSlice';
 import cl from "./GenreButton.module.css"
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {

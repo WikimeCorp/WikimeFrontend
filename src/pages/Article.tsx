@@ -32,11 +32,11 @@ const Article: FC = () => {
     },[isSuccess]) 
 
     if (isLoading) {
-        return <div>Loading</div>
+        return <h1>Loading</h1>
     };
 
     if (!anime) {
-        return <div>Anime not found :(</div>
+        return <h1>Anime not found :(</h1>
     };       
     
     const ratesCount = anime.rating.five + anime.rating.four + anime.rating.three 
@@ -70,7 +70,7 @@ const Article: FC = () => {
                                 )}
                             </p>
                             <p><span>Режиссёр:</span>{anime.director}</p>
-                            <p><span>Дата выхода:</span>{anime.releaseDate}</p>
+                            <p><span>Дата выхода:</span>{anime.releaseDate as string}</p>
                         </div>
                         <div className="info-ui">
                             <div className="info-ui-rate">

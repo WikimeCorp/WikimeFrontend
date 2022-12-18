@@ -23,9 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const user = useAppSelector(state => state.VkAuth.user);
     const token = localStorage.getItem('userToken');
 
-    if (token && !user) {
-        dispatch(getUserInfo());
-    };
+    
 
     const signin = () => { 
         return dispatch(getAccessToken())
@@ -35,6 +33,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                             dispatch(getUserInfo())
                         )
                     );                 
+    };
+
+    if (token && !user) {
+        dispatch(getUserInfo()).catch(() => signin());
     };
 
     const signout = () => {
@@ -71,7 +73,7 @@ export function RequireAuthAdmin({ children }: { children: JSX.Element }) {
 
     const user = useAuth().user;
 
-    if (user && user.role !== "admin") {
+    if (user && user.role !== "admin" && user.role !== "root") {
         navigate('../');
         window.scrollTo(0,0);
     }

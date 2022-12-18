@@ -75,12 +75,12 @@ type ErrorResponse = {
 };
 
 export const getUserInfo = createAsyncThunk<
-    IUser, 
+    IUser | ErrorResponse, 
     void, 
     {state: RootState, rejectValue: ErrorResponse}
 >(
     'auth/userInfo',
-    async (_, {}) => {
+    async function(_, {rejectWithValue}) {
         const token = localStorage.getItem('userToken');
         const settings = {
             method: 'GET',
@@ -89,6 +89,11 @@ export const getUserInfo = createAsyncThunk<
         
         const response = await fetch(`http://${apiHost}/users/current`, settings)
         .then(response => response.json());
+
+        if (response.error) {
+            localStorage.removeItem('userToken');
+            return rejectWithValue(response);
+        };
 
         return (await response) as IUser;          
     }

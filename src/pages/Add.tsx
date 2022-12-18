@@ -1,30 +1,27 @@
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
 import TextForm from "../components/UI/forms/addArticle/TextForm";
-import { useAppDispatch } from "../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAddAnimeMutation } from "../services/anime";
-import { clearGenres } from "../store/reducers/GenresSlice";
+import { setAddAnime, setAnimeId } from "../store/reducers/AddAnimeSlice";
 import "../styles/Add.css";
-import { FormTextFields } from "../types/FormTextFields";
+import { IAnime } from "../types/IAnime";
 
 const Add: FC = () => {
 
-    const [addArticle, { isError }] = useAddAnimeMutation();
+    const [ addArticle, {isLoading} ] = useAddAnimeMutation();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
-    const onSubmit = async (formFields: FormTextFields) => {
-        if(formFields) {
+   
+    const onSubmit = async (formFields: Partial<IAnime>) => {
+        if (formFields) {
+            dispatch(setAddAnime(formFields))
             try {
-                console.log(formFields)
                 const payload = await addArticle(formFields).unwrap();
-                dispatch(clearGenres());
-                console.log('fulfilled', payload)
+                dispatch(setAnimeId(payload.animeId));
+                                
             } catch (error) {
                 console.error('rejected', error);
-            }
-            navigate('/add/photos');
-        }   
+            };             
+        };
     };
 
     return (

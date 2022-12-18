@@ -29,7 +29,7 @@ const ModalAvatar: FC = () => {
     };
 
     const updateClick = () => { 
-        if (poster) {
+        if (poster && poster.file) {
             const data = new FormData();
             data.append('file', poster.file);
 

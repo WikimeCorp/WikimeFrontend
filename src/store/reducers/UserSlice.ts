@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from "../../types/IUser";
 import { getUserInfo } from "../actions/authActions";
 import { 
     addToFavorites, addToWatched, getAdmins, getModerators, 
@@ -52,10 +53,11 @@ export const userSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getUserInfo.fulfilled, (state, action) => {
-            state.avatar = action.payload.avatar;
-            state.favorites = action.payload.favorites;
-            state.nickname = action.payload.nickname;
-            state.watched = action.payload.watched;
+            const payload = action.payload as IUser;
+            state.avatar = payload.avatar;
+            state.favorites = payload.favorites;
+            state.nickname = payload.nickname;
+            state.watched = payload.watched;
             state.loading = false;
         })
 

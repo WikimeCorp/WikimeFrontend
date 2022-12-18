@@ -7,7 +7,7 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 type AnimeRespone = IAnime[];
 
-interface ParamsIds {
+type ParamsIds = {
     sortBy: string;
     genres: string[];
 };
@@ -15,6 +15,14 @@ interface ParamsIds {
 type RatingBody = {
     id: number;
     rating: number;
+};
+
+type ImgsBody = {
+    imgFile: FormData;
+};
+
+export type addAnimeResponse = {
+    animeId: number;
 };
 
 export const animeAPI = createApi({
@@ -81,7 +89,7 @@ export const animeAPI = createApi({
                 : [{ type: 'Anime', id: 'LIST' }],
         }),
 
-        addAnime: build.mutation<IAnime, Partial<IAnime>>({
+        addAnime: build.mutation<addAnimeResponse, Partial<IAnime>>({
             query: (body) => {
                 const token = localStorage.getItem('userToken');
                 return {
@@ -124,27 +132,27 @@ export const animeAPI = createApi({
             invalidatesTags: (result, error, id) => [{ type: 'Anime', id }],
         }),
 
-        addPoster: build.mutation<void, Pick<IAnime, 'id'> & File>({
+        addPoster: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
             query: ({ id, ...patch }) => {
                 const token = localStorage.getItem('userToken');
                 return {
                     url: `${id}/poster`,
-                    method: 'PUT',
+                    method: 'POST',
                     headers: { 'authorization': `${token}` },
-                    body: patch,
+                    body: patch.imgFile,
                 }
             },
             invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
          }),
 
-        addImgs: build.mutation<void, Pick<IAnime, 'id'> & File[]>({
+        addImg: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
             query: ({ id, ...patch }) => {
                 const token = localStorage.getItem('userToken');
                 return {
-                    url: `${id}/poster`,
-                    method: 'PUT',
+                    url: `${id}/images`,
+                    method: 'POST',
                     headers: { 'authorization': `${token}` },
-                    body: patch,
+                    body: patch.imgFile,
                 }
             },
             invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
@@ -177,5 +185,6 @@ export const {
     useUpdateAnimeMutation,
     useDeleteAnimeMutation,
     useAddPosterMutation,
+    useAddImgMutation,
     useAddRatingMutation
 } = animeAPI;

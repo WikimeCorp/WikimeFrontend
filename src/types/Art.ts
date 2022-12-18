@@ -1,4 +1,9 @@
 export type Art = {
-    file: File;
+    file: File | null;
     url: string;
+};
+
+export type Arts = {
+    files: File[];
+    urls: string[];
 };

@@ -7,7 +7,7 @@ export interface IAnime {
     genres: string[];
     images: string[];
     director: string;
-    releaseDate: string;
+    releaseDate: string | number;
     author: number;
     rating: {
         five: number;

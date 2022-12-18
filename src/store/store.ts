@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { animeAPI } from '../services/anime';
 import btnsReducer from './reducers/BtnsSlice';
-import genresReducer from './reducers/GenresSlice';
+import addAnimeReducer from './reducers/AddAnimeSlice';
 import authReduser from './reducers/AuthSlice';
 import userReduser from './reducers/UserSlice';
 import scrollReducer from './reducers/ScrollSlice';
@@ -10,7 +10,7 @@ import scrollReducer from './reducers/ScrollSlice';
 
 const rootReducer = combineReducers({
     btnsReducer,
-    genresReducer,
+    addAnimeReducer,
     scrollReducer,
     userReduser,
     [animeAPI.reducerPath]: animeAPI.reducer,
