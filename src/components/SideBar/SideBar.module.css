@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: flex-start;
 
-    border: 1px solid rgba(237, 245, 225, 0.5);
+    border: 1px solid rgb(92, 219, 149, 0.3);
     border-radius: 10px 0px 0px 10px;
     height: max-content;
     width: max-content;
@@ -38,7 +38,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     padding: 5px;
-    background-color: #EDF5E1;
+    background-color: rgb(92, 219, 149, 0.3);
     border-radius: 100%;
     margin: 12px;
 }
@@ -50,7 +50,7 @@
 .header {
     width: 100%;
     padding: 15px 25px;
-    background-color: #EDF5E1;
+    background-color: rgb(92, 219, 149, 0.1);
     border-radius: 10px 0px 0px 10px;
 }
 

@@ -10,8 +10,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const GenreButton: FC<Props> = ({children, onClick, ...props}) => {
 
-    const currentGenres = useAppSelector(state => state.btnsReducer.genres)
-    const [active, setActive] = useState<boolean>(currentGenres.includes(children));
+    const currentGenres = useAppSelector(state => state.addAnimeReducer.genres)
+    const [active, setActive] = useState<boolean>(currentGenres ? currentGenres.includes(children) : false);
     const dispatch = useAppDispatch();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {

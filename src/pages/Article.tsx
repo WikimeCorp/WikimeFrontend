@@ -9,7 +9,6 @@ import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
 import { addToWatched } from "../store/actions/userActions";
 import { setAddAnime } from "../store/reducers/AddAnimeSlice";
-import { addAllGenres } from "../store/reducers/BtnsSlice";
 import "../styles/Article.css";
 import Loading from "./Loading";
 
@@ -36,11 +35,11 @@ const Article: FC = () => {
     },[isSuccess]) 
 
     if (isLoading) {
-        return <Loading/>
+        return <Loading/>;
     };
 
     if (!anime) {
-        return <h1>Anime not found :(</h1>
+        return <h1>Anime not found :(</h1>;
     };       
     
     const ratesCount = anime.rating.five + anime.rating.four + anime.rating.three 
@@ -54,9 +53,8 @@ const Article: FC = () => {
 
     const updateClick = () => {
         dispatch(setAddAnime(anime));
-        dispatch(addAllGenres(anime.genres));
         navigate('/add');
-    }
+    };
     
     return (
         <div key={id} className="Article-page">

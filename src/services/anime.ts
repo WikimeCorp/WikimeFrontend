@@ -5,7 +5,6 @@ import type { IAnime } from '../types/IAnime';
 const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
 
-type AnimeRespone = IAnime[];
 
 type ParamsIds = {
     sortBy: string;
@@ -39,7 +38,7 @@ export const animeAPI = createApi({
             }),
             providesTags: ['IdsPopular']
         }),
-        getPopularAnimes: build.query<AnimeRespone, number[]>({
+        getPopularAnimes: build.query<IAnime[], number[]>({
             query: (ids: number[]) => {
 
                 const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
@@ -72,7 +71,7 @@ export const animeAPI = createApi({
             },
             providesTags: ['Ids']
         }),
-        getAnimes: build.query<AnimeRespone, number[]>({
+        getAnimes: build.query<IAnime[], number[]>({
             query: (ids: number[]) => {
                 const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
                 return {
@@ -84,9 +83,9 @@ export const animeAPI = createApi({
                 result
                 ? [
                     ...result.map(({ id }) => ({ type: 'Anime' as const, id })),
-                    { type: 'Anime', id: 'LIST' },
+                    { type: 'Anime', id: 'PARTIAL-LIST' },
                   ]
-                : [{ type: 'Anime', id: 'LIST' }],
+                : [{ type: 'Anime', id: 'PARTIAL-LIST' }],
         }),
 
         addAnime: build.mutation<addAnimeResponse, Partial<IAnime>>({
@@ -180,6 +179,7 @@ export const {
     useGetPopularAnimesQuery,
     useGetIdsQuery,
     useGetAnimesQuery,
+    useLazyGetAnimesQuery,
     useGetAnimeQuery,
     useAddAnimeMutation,
     useUpdateAnimeMutation,

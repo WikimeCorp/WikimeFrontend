@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IAnime } from "../../types/IAnime";
 
 
 interface ScrollState {
-    data: IAnime[];
     page: number;
     perPage: number;
     total: number;
@@ -13,13 +11,12 @@ interface ScrollState {
 };
 
 const initialState: ScrollState = {
-    data: [],
     page: 0,
-    perPage: 10,
+    perPage: 9,
     total: 0,
     totalPages: 0,
     begin: 0,
-    end: 0,
+    end: 6,
 };
 
 export const scrollSlice = createSlice({
@@ -34,22 +31,14 @@ export const scrollSlice = createSlice({
         },
         nextPage: (state) => {
             state.page = state.page + 1;
-            state.end = (state.page*state.perPage > state.total) ? 
-                state.total : (state.page + 1)*state.perPage;
-        },
-        setData: (state, action: PayloadAction<IAnime[]>) => {
-            state.data = action.payload;
-        },
-        addData: (state, action: PayloadAction<IAnime[]>) => {
-            state.data = [...state.data, ...action.payload];
+            state.end = (state.page * state.perPage > state.total) ? 
+                state.total : (state.page + 1) * state.perPage;
         },
     },
 });
 
 export const {
     setTotal,
-    nextPage,
-    setData,
-    addData
+    nextPage
 } = scrollSlice.actions;
 export default scrollSlice.reducer;

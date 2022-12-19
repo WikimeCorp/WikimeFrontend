@@ -1,33 +1,41 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import cl from "./Articles.module.css"
 import CardMedium from "./Cards/CardMedium";
-import { animeAPI, useGetAnimesQuery, useGetIdsQuery } from "../services/anime";
 import CardSmall from "./Cards/CardSmall";
-import { useObserver } from "../hooks/useObserver";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { IAnime } from "../types/IAnime";
-import { setData, nextPage, setTotal, addData } from "../store/reducers/ScrollSlice";
+import { useGetAnimesQuery, useGetIdsQuery } from "../services/anime";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import MainButton from "./UI/button/main/MainButton";
+import Pagination from "./Pagination/Pagination";
 
 
 const ArticleList: FC<{isList: boolean}> = ({isList}) => {
-    
-    const { sort: active, genres } = useAppSelector(state => state.btnsReducer);
-    const { begin, end } = useAppSelector(state => state.scrollReducer);
-    const dispatch = useAppDispatch();
 
-    const { data: ids_animes, isSuccess, isFetching, isLoading: loadingIds } = useGetIdsQuery({sortBy: active, genres: genres});
-    
-    // useEffect(() => {
-    //     if (ids_animes && !isFetching) {
-    //         console.log('DO')
-    //         dispatch(setTotal(ids_animes?.length));
-    //     }     
-    // }, [ids_animes])    
- 
-    const { data: animes, isLoading, isSuccess: success } = useGetAnimesQuery(ids_animes?.slice(0, 5)!, 
-        {skip: !isSuccess});
+    const perPage = isList ? 5 : 15;
 
-    if (isLoading || loadingIds) {
+    const [ page, setPage ] = useState(0);
+    const { sort, genres } = useAppSelector(state => state.btnsReducer);
+
+    useEffect(() => {
+        setPage(0);
+    }, [genres, sort])
+
+    const { 
+        data: ids, 
+        isSuccess, 
+        isLoading: loadingIds,
+        isFetching: fetchingIds, 
+    } = useGetIdsQuery({sortBy: sort, genres: genres});
+
+    const { 
+        data: animes,
+        isLoading: loadingAnimes, 
+        isFetching: fetchingAnimes 
+    } = useGetAnimesQuery((isSuccess && ids.length !== 0) ? ids.slice(page*perPage, (page+1)*perPage) : skipToken);    
+
+    const loading = loadingIds || loadingAnimes || fetchingIds || fetchingAnimes;
+
+    if (loading) {
         return (
             <div className={cl.nothing}>
                 <h2>Загрузка...</h2>
@@ -35,34 +43,47 @@ const ArticleList: FC<{isList: boolean}> = ({isList}) => {
         );        
     };
 
-    // const lastElement = useRef<HTMLDivElement>(null);
-    // useObserver(lastElement, page < totalPages, isLoading)
-
-    if (ids_animes && ids_animes?.length < 1) {
+    if (!ids || !animes || ids.length === 0) {
         return (
-            <div className={cl.nothing}>
-                <h2>Ничего не найдено</h2>
-            </div>            
-        )
-    }; 
+        <div className={cl.nothing}>
+               <h2>Ничего не найдено</h2>
+           </div>            
+       );
+    };
 
-    if (!animes) {
-        return (
-            <div className={cl.nothing}>
-                <h2>Ничего не найдено, но айдишники пришли</h2>
-            </div>
-        );
-    }
+
+    const total = ids.length;    
+    const totalPages = Math.ceil(total / perPage);
+    console.log(page)
+    console.log(totalPages)
     
     return (
-        <div className={isList ? cl.list : cl.table}>
-            {animes.map(article =>
-                isList ?
-                <CardMedium key={article!.id} article={article!}/>
-                :
-                <CardSmall key={article!.id} article={article!}/>
-            )}
-            {/* <div className={cl.last} ref={lastElement} /> */}
+        <div className={cl.container}>        
+            <div className={isList ? cl.list : cl.table}>
+                {animes.map(article =>
+                    isList ?
+                    <CardMedium key={article.id} article={article}/>
+                    :
+                    <CardSmall key={article.id} article={article}/>
+                )}                             
+            </div>
+            <div className={cl.btns}>
+                <MainButton 
+                    onClick={() => {setPage(page - 1); window.scrollTo({ top: 150, behavior: 'smooth' });}} 
+                    disabled={ page === 0 }
+                    light
+                >
+                    Назад
+                </MainButton>
+                <Pagination currentPage={page} totalPages={totalPages} setPage={setPage}/>
+                <MainButton
+                    onClick={() => {setPage(page + 1); window.scrollTo({ top: 150, behavior: 'smooth' });}}
+                    disabled={page === totalPages - 1}
+                    light
+                >
+                    Дальше
+                </MainButton>
+            </div>            
         </div>
     );
 };

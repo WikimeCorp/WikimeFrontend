@@ -26,3 +26,34 @@
     opacity: 0.7;
     cursor: default;
 }
+
+.light {
+    padding: 7px 20px;
+    margin: 10px;
+
+    border: 1.5px solid #5CDB95;
+    border-radius: 7px;
+    
+    font-size: 18px;
+    font-weight: 700;
+    color: #5CDB95;
+    cursor: pointer;
+    background: inherit;
+
+    transition: 0.2s;
+}
+
+.light:hover,
+.light:target {
+    background: #5CDB95;
+    color: #fff;
+}
+
+.light:disabled,
+.light:disabled:hover, 
+.light:disabled:target {
+    opacity: 0.3;
+    cursor: default;
+    color: #5CDB95;
+    background: #fff;
+}

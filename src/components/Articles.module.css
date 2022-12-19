@@ -1,3 +1,10 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
 .list {
     display: flex;
     flex-direction: column;
@@ -13,13 +20,16 @@
     flex-wrap: wrap;
 }
 
-.last {
-    height: 20px;
-    background-color: inherit;
-}
-
 .nothing {
     display: flex;
     width: 100%;
     justify-content: center;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 830px;
+    margin-bottom: 70px;
 }

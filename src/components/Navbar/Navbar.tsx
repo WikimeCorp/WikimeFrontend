@@ -42,11 +42,9 @@ const Navbar = () => {
                     }
                 </div>
                 <div className="contentR">
-                    <form>                    
-                        <input type="search" placeholder="Поиск"/>
-                    </form>
                     {user && user.avatar ?
                         <NavLink to='/user' className="avatar">
+                            {/* add default avatar from server */}
                             <img src={imgUrl} />
                         </NavLink>
                         :
