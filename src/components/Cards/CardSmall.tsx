@@ -4,6 +4,9 @@ import FavoriteButton from "../UI/button/favorite/FavouriteButton";
 import MainButton from "../UI/button/main/MainButton";
 import { IAnime } from "../../types/IAnime"
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/redux";
+import { useAuth } from "../../hooks/useAuth";
+import { addToWatched } from "../../store/actions/userActions";
 
 
 const apiHost = process.env.REACT_APP_API_HOST;
@@ -16,6 +19,16 @@ interface CardSmallProps {
 const CardSmall: FC<CardSmallProps> = ({article}) => {
     
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const auth = useAuth();
+
+    const onClick = () => {
+      if (auth.user) {
+        dispatch(addToWatched(article.id));
+      };
+
+      navigate(`../article/${article.id}`)
+    }
 
     return (
         <div className={cl.card}>
@@ -31,7 +44,7 @@ const CardSmall: FC<CardSmallProps> = ({article}) => {
                 {article.title}
               </div>
             </div>
-            <MainButton onClick={() => navigate(`../article/${article.id}`)}>Подробнее</MainButton>
+            <MainButton onClick={() => onClick()}>Подробнее</MainButton>
         </div>
     );
 };

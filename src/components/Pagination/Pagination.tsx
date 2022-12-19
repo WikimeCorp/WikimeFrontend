@@ -5,11 +5,12 @@ type Props = {
     currentPage: number;
     totalPages: number;
     setPage: React.Dispatch<React.SetStateAction<number>>;
+    isUserPage?: boolean;
 };
 
-const Pagination: FC<Props> = ({currentPage, setPage, totalPages}) => {
+const Pagination: FC<Props> = ({currentPage, setPage, totalPages, isUserPage}) => {
 
-    let nums:number[] = [1, 0, 10, 11, 12, 13, 14, 0, 29];
+    let nums:number[] = [];
 
     if (totalPages <= 10) {
         nums = Array.from({length: totalPages}, (_, i) => i + 1)
@@ -23,8 +24,15 @@ const Pagination: FC<Props> = ({currentPage, setPage, totalPages}) => {
         nums = [1, 0];
         nums = nums.concat(Array.from({length: 5}, (_, i) => i + currentPage - 1));
         nums.push(0, totalPages);
-    }
+    };
 
+    const onClick = (e: React.MouseEvent<HTMLButtonElement>, num: number) => {
+        setPage(num - 1);
+
+        if (!isUserPage) {
+            window.scrollTo({ top: 150, behavior: 'smooth' });
+        };
+    };
 
     return (
         <div className={cl.container}>
@@ -32,7 +40,7 @@ const Pagination: FC<Props> = ({currentPage, setPage, totalPages}) => {
                 <button
                     key={idx}
                     className={(num === currentPage + 1) ? cl.pageNumActive : cl.pageNum}
-                    onClick={() => {setPage(num - 1);  window.scrollTo({ top: 150, behavior: 'smooth' });}}
+                    onClick={(e) => onClick(e, num)}
                     disabled={num === 0}
                 >
                     {(num !== 0) ? num : '...'}

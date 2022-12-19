@@ -21,9 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const dispatch = useAppDispatch(); 
     const navigate = useNavigate();
     const user = useAppSelector(state => state.VkAuth.user);
-    const token = localStorage.getItem('userToken');
-
-    
+    const token = localStorage.getItem('userToken');    
 
     const signin = () => { 
         return dispatch(getAccessToken())

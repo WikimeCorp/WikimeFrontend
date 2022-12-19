@@ -87,6 +87,10 @@
     letter-spacing: -0.02em;  
 }
 
+.art a {
+    width: 100%;
+}
+
 .art span {
     color: #EDF5E1;
 }

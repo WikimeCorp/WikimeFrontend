@@ -5,13 +5,11 @@ import btnsReducer from './reducers/BtnsSlice';
 import addAnimeReducer from './reducers/AddAnimeSlice';
 import authReduser from './reducers/AuthSlice';
 import userReduser from './reducers/UserSlice';
-import scrollReducer from './reducers/ScrollSlice';
 
 
 const rootReducer = combineReducers({
     btnsReducer,
     addAnimeReducer,
-    scrollReducer,
     userReduser,
     [animeAPI.reducerPath]: animeAPI.reducer,
     VkAuth: authReduser,

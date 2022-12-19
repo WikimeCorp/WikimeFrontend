@@ -39,12 +39,11 @@ export const userSlice = createSlice({
         delFav: (state, action: PayloadAction<number>) => {
             state.favorites = state.favorites.filter(item => item !== action.payload);
         },
-        clean: (state) => {
-            state.favorites = [];
-            state.watched = [];
-        },
+        clean: () => initialState,
         addWatched: (state, action: PayloadAction<number>) => {
-            state.watched = [...state.watched, action.payload];
+            if (!state.watched.includes(action.payload)) {
+                state.watched = [...state.watched, action.payload];
+            };            
         },
         updateNick: (state, action: PayloadAction<string>) => {
             state.nickname = action.payload;

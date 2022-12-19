@@ -51,11 +51,8 @@ const ArticleList: FC<{isList: boolean}> = ({isList}) => {
        );
     };
 
-
     const total = ids.length;    
     const totalPages = Math.ceil(total / perPage);
-    console.log(page)
-    console.log(totalPages)
     
     return (
         <div className={cl.container}>        

@@ -18,13 +18,21 @@ const UserPage: FC = () => {
     const auth = useAuth();
     const dispatch = useAppDispatch();
 
-    const { fav: favType, viewed: viewedType, added: addedType } = 
-            useAppSelector(state => state.btnsReducer.isListViewUser);
+    const { 
+        fav: favType, 
+        viewed: viewedType, 
+        added: addedType 
+    } = useAppSelector(state => state.btnsReducer.isListViewUser);
+
     const { fav, viewed, added } = useAppSelector(state => state.btnsReducer.usersLists);
     const { nickname, avatar } = useAppSelector(state => state.userReduser);
 
     const imgUrl = (avatar && avatar.includes('images')) ? 
         `http://${apiHost}${auth.user?.avatar}` : avatar;
+    
+    if (!auth.user) {
+        return <div>User not found</div>
+    };
     
     return(
         <div className="user-page">
@@ -50,7 +58,7 @@ const UserPage: FC = () => {
                         </div>                        
                         { fav && <ViewButton userPage={true} item={"fav"} /> }
                     </div> 
-                    { fav && <UsersArticleList isList={favType} ids={auth.user?.favorites!}/>}
+                    { fav && <UsersArticleList isList={favType} ids={auth.user.favorites}/>}
                 </div>
                 <div className="user-content-item">
                     <div className="user-content-title">
@@ -60,9 +68,9 @@ const UserPage: FC = () => {
                         </div>                        
                         { viewed && <ViewButton userPage={true} item={"viewed"}/> }
                     </div>                    
-                    { viewed && <UsersArticleList isList={viewedType} ids={auth.user?.watched!}/>}
+                    { viewed && <UsersArticleList isList={viewedType} ids={auth.user.watched}/>}
                 </div>
-                {auth.user?.role !== "user" &&
+                {auth.user.role !== "user" &&
                     <div className="user-content-item">
                         <div className="user-content-title">
                             <div className="user-content-title-main">
@@ -71,7 +79,7 @@ const UserPage: FC = () => {
                             </div>                        
                             { added && <ViewButton userPage={true} item={"added"}/> }
                         </div>                    
-                        {/* { added && <ArticleList isList={addedType} />} */}
+                        {/* { added && <UsersArticleList isList={addedType} ids={auth.user.added}/>} */}
                     </div>
                 }
             </div>

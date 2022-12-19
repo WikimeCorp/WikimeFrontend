@@ -19,20 +19,12 @@ const apiPort = process.env.REACT_APP_API_PORT;
 const Article: FC = () => {
 
     const { id } = useParams();
-    const id_num = Number(id);
     const auth = useAuth();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const watched = useAppSelector(state => state.userReduser.watched);
     const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
-    //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
-    
-    useEffect(() => {
-        if (auth.user && isSuccess && !watched.includes(id_num)) {
-            dispatch(addToWatched(id_num));
-        };
-    },[isSuccess]) 
+    //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });
 
     if (isLoading) {
         return <Loading/>;
@@ -109,10 +101,6 @@ const Article: FC = () => {
                     )}
                 </div>
             </div>}
-            <div className="comments">
-                <h1>Комментарии</h1>
-                <Comment />
-            </div>
         </div>
     );
 };
