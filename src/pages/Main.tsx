@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Carousel from '../components/Carousel/Carousel';
 import CardSmall from '../components/Cards/CardSmall';
 import { useGetAnimesQuery, useGetIdsPopularQuery, useGetPopularAnimesQuery } from '../services/anime';
+import Loading from './Loading';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
@@ -16,7 +17,7 @@ const Main: FC = () => {
     const navigate = useNavigate(); 
 
     if (isLoading) {
-        return <div>Loading</div>
+        return <Loading/>
     };
 
     if (error || animes === undefined) {

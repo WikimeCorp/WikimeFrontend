@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useAuth } from "../../hooks/useAuth";
 import { setCode } from "../../store/reducers/AuthSlice";
 import LoginButton from "../UI/button/auth/login/LoginButton";
-import "./Navbar.css"
+import "./Navbar.css";
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
@@ -28,7 +28,7 @@ const Navbar = () => {
 
     return (
         <div className="navbar">
-            <div className="content">
+            <header className="content">
                 <p className="logo">
                     <NavLink to="../">WIKIME</NavLink>
                 </p>
@@ -53,7 +53,7 @@ const Navbar = () => {
                         <LoginButton>Войти</LoginButton>
                     }
                 </div>                            
-            </div>
+            </header>
             <hr className="line" />
             <Outlet />  
         </div>              

@@ -11,6 +11,7 @@ import { addToWatched } from "../store/actions/userActions";
 import { setAddAnime } from "../store/reducers/AddAnimeSlice";
 import { addAllGenres } from "../store/reducers/BtnsSlice";
 import "../styles/Article.css";
+import Loading from "./Loading";
 
 
 const apiHost = process.env.REACT_APP_API_HOST;
@@ -35,7 +36,7 @@ const Article: FC = () => {
     },[isSuccess]) 
 
     if (isLoading) {
-        return <h1>Loading</h1>
+        return <Loading/>
     };
 
     if (!anime) {

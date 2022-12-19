@@ -1,5 +1,7 @@
 .Main-page {
-    background-color: #05386B;
+    /* background-color: #05386B; */
+    background: url("../styles/img/Background.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 .landing {
@@ -9,11 +11,9 @@
     width: 100%;
 
     padding-top: 45px;
-    padding-bottom: 70px;
-
-    background: url("../styles/img/Background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    box-shadow: inset 0px 0px 30px 15px #05386B;
+    padding-bottom: 70px;    
+    
+    /* box-shadow: inset 0px 0px 30px 15px #05386B; */
 }
 
 .landing-anime {
