@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import AdminItem from "../components/AdminItem";
 import PlusButton from "../components/UI/button/add_admin/PlusButton";
-import AdminForm from "../components/UI/forms/addAdmin/AdminForm";
+import AdminForm from "../components/Forms/addAdmin/AdminForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getAdmins, getModerators } from "../store/actions/userActions";
 import { openAdding } from "../store/reducers/BtnsSlice";
@@ -25,9 +25,9 @@ const AdminPage: FC = () => {
                     <h1>администраторы</h1>
                     <PlusButton onClick={() => dispatch(openAdding(0))}/>
                 </div>   
-                {isOpen[0] && <AdminForm />}             
+                {isOpen[0] && <AdminForm role="admin"/>}             
                 {admins && admins.map((item) =>
-                    <AdminItem userId={item} key={item}/>
+                    <AdminItem info={item} role="admin" key={item.id}/>
                 )}                
             </div>
             <div className="admins">
@@ -35,9 +35,9 @@ const AdminPage: FC = () => {
                     <h1>модераторы</h1>
                     <PlusButton  onClick={() => dispatch(openAdding(1))}/>
                 </div>    
-                {isOpen[1] && <AdminForm />}            
+                {isOpen[1] && <AdminForm role="moderator"/>}            
                 {moderators && moderators.map((item) =>
-                    <AdminItem userId={item} key={item}/>
+                    <AdminItem info={item} role="moderator" key={item.id}/>
                 )}                
             </div>
         </div>

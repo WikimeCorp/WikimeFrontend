@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Admin } from "../../types/Admin";
 import { IUser } from "../../types/IUser";
 import { getUserInfo } from "../actions/authActions";
 import { 
@@ -13,8 +14,8 @@ interface userState {
     favorites: number[];
     watched: number[];
     nickname: string;
-    moderators?: number[];
-    admins?: number[];
+    moderators?: Admin[];
+    admins?: Admin[];
     loading: boolean;
     error?: string | null;
 };
@@ -94,7 +95,7 @@ export const userSlice = createSlice({
             state.loading = true;
         })
         .addCase(getModerators.fulfilled, (state, action) => {
-            state.moderators = action.payload.ids;
+            state.moderators = action.payload;
             state.loading = false;
         })    
         .addCase(getModerators.rejected, (state, action) => {
@@ -106,7 +107,7 @@ export const userSlice = createSlice({
             state.loading = true;
         })
         .addCase(getAdmins.fulfilled, (state, action) => {
-            state.admins = action.payload.ids;
+            state.admins = action.payload;
             state.loading = false;
         })    
         .addCase(getAdmins.rejected, (state, action) => {
@@ -114,17 +115,21 @@ export const userSlice = createSlice({
             state.error = action.payload;
         }) 
         
-        .addCase(updateRole.rejected, (state, action ) => {
+        .addCase(updateRole.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload;
+            state.error = action.payload?.error_message;
         }) 
         
-        .addCase(resetRole.rejected, (state, action ) => {
+        .addCase(resetRole.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         }) 
+        .addCase(resetRole.fulfilled, (state) => {
+            state.loading = false;
+            state.error = undefined;
+        }) 
 
-        .addCase(updateAvatar.rejected, (state, action ) => {
+        .addCase(updateAvatar.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })

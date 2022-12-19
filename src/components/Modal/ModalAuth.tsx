@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginButton from "../button/auth/login/LoginButton";
+import LoginButton from "../UI/button/auth/login/LoginButton";
 import cl from "./Modal.module.css";
 
 

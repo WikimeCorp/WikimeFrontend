@@ -1,14 +1,14 @@
 import { FC } from "react";
-import { FormTextFields } from "../../../../types/FormTextFields";
-import GenreButton from "../../button/genre/GenreButton";
-import MainButton from "../../button/main/MainButton";
-import TextInput from "../../input/TextInput";
-import Genres from "../../../../utils/Genres";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { FormTextFields } from "../../../types/FormTextFields";
+import GenreButton from "../../UI/button/genre/GenreButton";
+import MainButton from "../../UI/button/main/MainButton";
+import TextInput from "../../UI/input/TextInput";
+import Genres from "../../../utils/Genres";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import cl from "./TextForm.module.css";
-import TextArea from "../../input/TextArea";
-import { IAnime } from "../../../../types/IAnime";
+import TextArea from "../../UI/input/TextArea";
+import { IAnime } from "../../../types/IAnime";
 import { useNavigate } from "react-router-dom";
 
 

@@ -1,7 +1,7 @@
 import cl from "./SideBar.module.css"
-import Genres from "../../../utils/Genres";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { addGenre, deleteGenre } from "../../../store/reducers/BtnsSlice";
+import Genres from "../../utils/Genres";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { addGenre, deleteGenre } from "../../store/reducers/BtnsSlice";
 
 const SideBar = () => {
 

@@ -1,44 +1,33 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import cl from "./AdminItem.module.css";
 import art from "../styles/img/Art.png";
 import CrossButton from "./UI/button/cross/CrossButton";
-import { useAppDispatch } from "../hooks/redux";
-import { getAdminInfo, getAdmins, getModerators, resetRole } from "../store/actions/userActions";
-import { IUser } from "../types/IUser";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { getAdmins, getModerators, resetRole } from "../store/actions/userActions";
+import { Admin } from "../types/Admin";
+import { useAuth } from "../hooks/useAuth";
 
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
 type Props = {
-    userId: number;
+    info: Admin;
+    role: string;
 };
 
-const AdminItem: FC<Props> = ({userId}) => {
+const AdminItem: FC<Props> = ({info, role}) => {
 
     const dispatch = useAppDispatch();
-    const [ admin, setAdmin ] = useState<IUser>();
-
-    useEffect(() => {
-        dispatch(getAdminInfo(userId))
-            .unwrap()
-            .then(result => {
-                setAdmin(result);
-            });
-    }, [])   
-    
-    if (!admin) {
-        return (
-            <div className={cl.container}>
-                <h3>Loading...</h3>
-            </div>
-        );
-    };
+    const userRole = useAuth().user?.role;
 
     const ClickHandler = () => {
-        dispatch(resetRole(admin.userId))
+        dispatch(resetRole(info.id))
             .then(() => {
-                dispatch(getAdmins());
-                dispatch(getModerators());
+                if (role === 'admin') {
+                    dispatch(getAdmins());
+                } else {
+                    dispatch(getModerators());
+                };
             });
     };
 
@@ -46,11 +35,13 @@ const AdminItem: FC<Props> = ({userId}) => {
         <div className={cl.container}>
             <div className={cl.containerAvatar}>
                 <div className={cl.avatar}>
-                    <img src={`http://${apiHost}${admin.avatar}`} alt={art}/>
+                    <img src={`http://${apiHost}${info.avatar}`} alt={art}/>
                 </div>
-                <h3>{admin.nickname}</h3>
+                <h3>{info.nickname}</h3>
             </div>
-            <CrossButton onClick={ClickHandler}/>
+            {(userRole === 'root' || (userRole === 'admin' && role == 'moderator')) &&
+                <CrossButton onClick={ClickHandler}/>
+            }
         </div>
     );
 };

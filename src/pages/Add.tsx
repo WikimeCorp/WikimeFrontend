@@ -1,5 +1,5 @@
 import { FC } from "react";
-import TextForm from "../components/UI/forms/addArticle/TextForm";
+import TextForm from "../components/Forms/addArticle/TextForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAddAnimeMutation, useUpdateAnimeMutation } from "../services/anime";
 import { setAddAnime, setAnimeId } from "../store/reducers/AddAnimeSlice";

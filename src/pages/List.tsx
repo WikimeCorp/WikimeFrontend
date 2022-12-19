@@ -1,7 +1,7 @@
 import { FC } from "react";
 import ArticleList from "../components/ArticleList";
-import InnerSorter from "../components/UI/InnerSorter/InnerSorter";
-import SideBar from "../components/UI/SideBar/SideBar";
+import InnerSorter from "../components/InnerSorter/InnerSorter";
+import SideBar from "../components/SideBar/SideBar";
 import { useAppSelector } from "../hooks/redux";
 import "../styles/List.css"
 

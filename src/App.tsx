@@ -2,7 +2,7 @@ import './styles/App.css';
 import List from './pages/List';
 import Article from './pages/Article';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Navbar from './components/UI/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import ErrorPage from './pages/ErrorPage';
 import Add from './pages/Add';
 import Main from './pages/Main';
@@ -10,9 +10,9 @@ import UserPage from './pages/UserPage';
 import AdminPage from './pages/AdminPage';
 import AddPhotos from './pages/AddPhotos';
 import { AuthProvider, RequireAuth, RequireAuthAdmin } from './context/context';
-import ModalAuth from './components/UI/Modal/ModalAuth';
-import ModalNickname from './components/UI/Modal/ModalNickname';
-import ModalAvatar from './components/UI/Modal/ModalAvatar';
+import ModalAuth from './components/Modal/ModalAuth';
+import ModalNickname from './components/Modal/ModalNickname';
+import ModalAvatar from './components/Modal/ModalAvatar';
 
 const App = () => { 
 

@@ -1,12 +1,12 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../../hooks/redux";
-import { updateAvatar } from "../../../store/actions/userActions";
-import { updateAva } from "../../../store/reducers/UserSlice";
-import { Art } from "../../../types/Art";
-import MainButton from "../button/main/MainButton";
-import ImgInput from "../input/ImgInput";
+import { useAppDispatch } from "../../hooks/redux";
+import { updateAvatar } from "../../store/actions/userActions";
+import { updateAva } from "../../store/reducers/UserSlice";
+import { Art } from "../../types/Art";
+import MainButton from "../UI/button/main/MainButton";
+import ImgInput from "../UI/input/ImgInput";
 import cl from "./Modal.module.css";
 
 

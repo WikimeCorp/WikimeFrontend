@@ -1,7 +1,7 @@
 import cl from "./InnerSorter.module.css"
-import ViewButton from "../button/view/ViewButtons";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { selectSort } from "../../../store/reducers/BtnsSlice";
+import ViewButton from "../UI/button/view/ViewButtons";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { selectSort } from "../../store/reducers/BtnsSlice";
 
 const InnerSorter = () => {
 

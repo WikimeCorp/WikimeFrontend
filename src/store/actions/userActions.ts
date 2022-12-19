@@ -1,10 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
+import { Admin } from "../../types/Admin";
 import { IUser } from "../../types/IUser";
 import { addFav, addWatched, delFav, updateNick } from "../reducers/UserSlice";
 
 
 const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
+
+type ErrorResponse = {
+    error: number;
+    error_message: string;
+}
 
 export const addToFavorites = createAsyncThunk<any, number, {rejectValue: string}>(
     'user/addToFavorites',
@@ -114,11 +121,7 @@ export const updateNickname = createAsyncThunk<any, string, {rejectValue: string
     }
 );
 
-type getResponse = {
-    ids: number[];
-};
-
-export const getModerators = createAsyncThunk<getResponse, void, {rejectValue: string}>(
+export const getModerators = createAsyncThunk<Admin[], void, {rejectValue: string}>(
     'user/getModerators',
     async (_, {rejectWithValue}) => {
         try {
@@ -131,7 +134,7 @@ export const getModerators = createAsyncThunk<getResponse, void, {rejectValue: s
             const response = await fetch(`http://${apiHost}/users/moderators`, settings)
             .then(response => response.json());
 
-            return (await response) as getResponse;
+            return (await response) as Admin[];
 
         } catch (error) {
             return rejectWithValue('Не удалось получить список модераторов');
@@ -139,7 +142,7 @@ export const getModerators = createAsyncThunk<getResponse, void, {rejectValue: s
     }
 );
 
-export const getAdmins = createAsyncThunk<getResponse, void, {rejectValue: string}>(
+export const getAdmins = createAsyncThunk<Admin[], void, {rejectValue: string}>(
     'user/getAdmins',
     async (_, {rejectWithValue}) => {
         try {
@@ -152,28 +155,7 @@ export const getAdmins = createAsyncThunk<getResponse, void, {rejectValue: strin
             const response = await fetch(`http://${apiHost}/users/admins`, settings)
             .then(response => response.json());
 
-            return (await response) as getResponse;
-
-        } catch (error) {
-            return rejectWithValue('Не удалось получить список администраторов');
-        }         
-    }
-);
-
-export const getAdminInfo = createAsyncThunk<IUser, number, {rejectValue: string}>(
-    'user/getAdminInfo',
-    async (id, {rejectWithValue}) => {
-        try {
-            const token = localStorage.getItem('userToken');
-            const settings = {
-                method: 'GET',
-                headers: { 'authorization': `${token}` }
-            };
-            
-            const response = await fetch(`http://${apiHost}/users/${id}`, settings)
-            .then(response => response.json());
-
-            return (await response) as IUser;
+            return (await response) as Admin[];
 
         } catch (error) {
             return rejectWithValue('Не удалось получить список администраторов');
@@ -186,28 +168,20 @@ type updateRoleRequest = {
     role: string;
 };
 
-export const updateRole = createAsyncThunk<any, updateRoleRequest, {rejectValue: string}>(
+export const updateRole = createAsyncThunk<any, updateRoleRequest, {rejectValue: ErrorResponse}>(
     'user/updateRole',
     async ({id, role}, {rejectWithValue}) => {
-        try {
-            const token = localStorage.getItem('userToken');
-            const settings = {
-                method: 'PUT',
-                headers: { 'authorization': `${token}` },
-                params: {
-                    roleName: role
-                }
-            };
-            
-            const response = await fetch(`http://${apiHost}/users/${id}/role`, settings);
-            
-            if (!response.ok) {
-                throw new Error("Server error.");
-            };
+        const token = localStorage.getItem('userToken');
+        const settings = {
+            method: 'PUT',
+            headers: { 'authorization': `${token}` }
+        };
+        
+        const response = await fetch(`http://${apiHost}/users/${id}/role?roleName=${role}`, settings);
 
-        } catch (error) {
-            return rejectWithValue('Не удалось изменить роль');
-        }         
+        if (response.status === 401) {
+            return rejectWithValue((await response.json()) as ErrorResponse)
+        }; 
     }
 );
 
