@@ -26,21 +26,31 @@ const AddPhotos: FC = () => {
     useEffect(() => {        
         if (!arts && submit && isSuccessPoster) {
             dispatch(cleanAddAnime());
-            navigate(`../article/${id}`);
+
+            if (update) {
+                navigate(-2);
+            } else {
+                navigate(`../article/${id}`);
+            };            
         };
     },[isSuccessPoster])
 
     useEffect(() => {
         if (submit && isSuccessArt && isSuccessPoster) {
             dispatch(cleanAddAnime());
-            navigate(`../article/${id}`);
+            
+            if (update) {
+                navigate(-2);
+            } else {
+                navigate(`../article/${id}`);
+            };
         };
     }, [isSuccessArt])
 
     useEffect(() => {
         if (update && submit) {
             dispatch(cleanAddAnime());
-            navigate(`../article/${id}`);
+            navigate(-2);
         }
     }, [submit])
     

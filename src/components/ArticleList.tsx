@@ -24,7 +24,7 @@ const ArticleList: FC<Props> = ({isList, searchTitle}) => {
 
     useEffect(() => {
         setPage(0);
-    }, [genres, sort])
+    }, [genres, sort, searchTitle])
 
     const { 
         data: ids, 

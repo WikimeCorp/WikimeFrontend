@@ -37,7 +37,6 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
         setValue('director', director!);
         setValue('description', description!);
     };
-    console.log(new Date((releaseDate as number)*1000).toUTCString())
 
     const handleSubmitMain: SubmitHandler<FormTextFields> = (data) => {
         
