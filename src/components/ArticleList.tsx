@@ -2,16 +2,22 @@ import { FC, useState, useEffect } from "react";
 import cl from "./Articles.module.css"
 import CardMedium from "./Cards/CardMedium";
 import CardSmall from "./Cards/CardSmall";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { useGetAnimesQuery, useGetIdsQuery } from "../services/anime";
+import { useAppSelector } from "../hooks/redux";
+import { useGetAnimesQuery, useGetIdsQuery, useGetSearchIdsQuery } from "../services/anime";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import MainButton from "./UI/button/main/MainButton";
 import Pagination from "./Pagination/Pagination";
 
 
-const ArticleList: FC<{isList: boolean}> = ({isList}) => {
+type Props = {
+    isList: boolean;
+    searchTitle: string;
+}
+
+const ArticleList: FC<Props> = ({isList, searchTitle}) => {
 
     const perPage = isList ? 5 : 15;
+    const isSearching = searchTitle.length > 2;
 
     const [ page, setPage ] = useState(0);
     const { sort, genres } = useAppSelector(state => state.btnsReducer);
@@ -22,18 +28,33 @@ const ArticleList: FC<{isList: boolean}> = ({isList}) => {
 
     const { 
         data: ids, 
-        isSuccess, 
+        isSuccess: successIds, 
         isLoading: loadingIds,
         isFetching: fetchingIds, 
-    } = useGetIdsQuery({sortBy: sort, genres: genres});
+    } = useGetIdsQuery(!isSearching ? {sortBy: sort, genres: genres} : skipToken);
+
+    const {
+        data: searchIds,
+        isSuccess: successSearchIds, 
+        isLoading: loadingSearchIds,
+        isFetching: fetchingSearchIds,
+    } = useGetSearchIdsQuery(isSearching ? searchTitle : skipToken)
 
     const { 
         data: animes,
         isLoading: loadingAnimes, 
         isFetching: fetchingAnimes 
-    } = useGetAnimesQuery((isSuccess && ids.length !== 0) ? ids.slice(page*perPage, (page+1)*perPage) : skipToken);    
+    } = useGetAnimesQuery(
+        (!isSearching && successIds && ids.length !== 0) ? 
+            ids.slice(page*perPage, (page+1)*perPage)
+            : 
+            ((isSearching && successSearchIds && searchIds.length !== 0) ? 
+                searchIds.slice(page*perPage, (page+1)*perPage) : skipToken
+            )
+        );    
 
-    const loading = loadingIds || loadingAnimes || fetchingIds || fetchingAnimes;
+    const loading = loadingIds || loadingAnimes || fetchingIds || 
+        fetchingAnimes || loadingSearchIds || fetchingSearchIds;
 
     if (loading) {
         return (
@@ -43,7 +64,7 @@ const ArticleList: FC<{isList: boolean}> = ({isList}) => {
         );        
     };
 
-    if (!ids || !animes || ids.length === 0) {
+    if (!animes) {
         return (
         <div className={cl.nothing}>
                <h2>Ничего не найдено</h2>
@@ -51,7 +72,23 @@ const ArticleList: FC<{isList: boolean}> = ({isList}) => {
        );
     };
 
-    const total = ids.length;    
+    if (isSearching && (!searchIds || searchIds.length === 0)) {
+        return (
+        <div className={cl.nothing}>
+               <h2>Ничего не найдено</h2>
+           </div>            
+       );
+    };
+
+    if (!isSearching && (!ids || ids.length === 0)) {
+        return (
+        <div className={cl.nothing}>
+               <h2>Ничего не найдено</h2>
+           </div>            
+       );
+    };
+
+    const total = isSearching ? searchIds!.length : ids!.length;    
     const totalPages = Math.ceil(total / perPage);
     
     return (

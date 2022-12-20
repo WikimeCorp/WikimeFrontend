@@ -4,6 +4,7 @@ export interface IUser {
     role: string,
     favorites: number[],
     watched: number[],
+    added: number[],
     rated: {id: number, Rate: number}[],
     avatar: string
 }

@@ -23,7 +23,7 @@ const List: FC = () => {
             </div>            
             <div className="list-content">                
                 <SideBar />
-                <ArticleList isList={isList}/> 
+                <ArticleList isList={isList} searchTitle={searchTitle}/> 
             </div>                
         </div>
     );

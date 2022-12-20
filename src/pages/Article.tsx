@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
@@ -7,9 +7,10 @@ import RateButton from "../components/UI/button/rate/RateButton";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
-import { addToWatched } from "../store/actions/userActions";
+import { addToWatched, getUserById } from "../store/actions/userActions";
 import { setAddAnime } from "../store/reducers/AddAnimeSlice";
 import "../styles/Article.css";
+import { IUser } from "../types/IUser";
 import Loading from "./Loading";
 
 
@@ -20,11 +21,22 @@ const Article: FC = () => {
 
     const { id } = useParams();
     const auth = useAuth();
+
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));
-    //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });
+    const [ author, setAuthor ] = useState<IUser>();    
+    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));  
+    
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(getUserById(anime.author))
+                .unwrap()
+                .then(result => {
+                    setAuthor(result);
+                });
+        };        
+    },[isSuccess])
 
     if (isLoading) {
         return <Loading/>;
@@ -32,8 +44,8 @@ const Article: FC = () => {
 
     if (!anime) {
         return <h1>Anime not found :(</h1>;
-    };       
-    
+    };
+
     const ratesCount = anime.rating.five + anime.rating.four + anime.rating.three 
         + anime.rating.two + anime.rating.one;
     const ratesWord: string = ((ratesCount % 10 === 1) && (ratesCount !== 11)) ?
@@ -88,7 +100,9 @@ const Article: FC = () => {
             <div className="description">
                 <h1>Описание</h1>
                 <p>{anime.description}</p>
-                {/* <span>Автор: <b>{user?.nickname}</b></span> */}
+                {author &&
+                    <span>Автор: <b>{author.nickname}</b></span>
+                }                
             </div>
             {anime.images &&                     
             <div className="pictures">

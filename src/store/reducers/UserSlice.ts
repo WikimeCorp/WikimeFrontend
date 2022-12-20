@@ -4,6 +4,7 @@ import { IUser } from "../../types/IUser";
 import { getUserInfo } from "../actions/authActions";
 import { 
     addToFavorites, addToWatched, getAdmins, getModerators, 
+    getUserById, 
     removeFromFavorites, resetRole, updateAvatar, updateNickname, updateRole 
 } from "../actions/userActions";
 
@@ -13,6 +14,7 @@ interface userState {
     rated: {id: number, Rate: number}[];
     favorites: number[];
     watched: number[];
+    added: number[];
     nickname: string;
     moderators?: Admin[];
     admins?: Admin[];
@@ -23,6 +25,7 @@ interface userState {
 const initialState: userState = {
     favorites: [],
     watched: [],
+    added: [],
     rated: [],
     nickname: '',
     loading: false
@@ -67,6 +70,7 @@ export const userSlice = createSlice({
             state.favorites = payload.favorites;
             state.nickname = payload.nickname;
             state.watched = payload.watched;
+            state.added = payload.added;
             state.rated = payload.rated;
             state.loading = false;
         })
@@ -129,6 +133,11 @@ export const userSlice = createSlice({
         }) 
 
         .addCase(updateAvatar.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+
+        .addCase(getUserById.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })

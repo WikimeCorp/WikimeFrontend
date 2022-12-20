@@ -5,7 +5,6 @@ import type { IAnime } from '../types/IAnime';
 const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
 
-
 type ParamsIds = {
     sortBy: string;
     genres: string[];
@@ -27,7 +26,7 @@ export type addAnimeResponse = {
 export const animeAPI = createApi({
     reducerPath: 'animeAPI',
     baseQuery: fetchBaseQuery({baseUrl: `http://${apiHost}/anime`}),
-    tagTypes: ['Anime', 'Ids', 'Popular', 'IdsPopular'],
+    tagTypes: ['Anime', 'Ids', 'Popular', 'IdsPopular', 'IdsSearch'],
     endpoints: (build) => ({
         getIdsPopular: build.query<number[], number | void>({
             query: (count: number = 16) => ({
@@ -119,18 +118,6 @@ export const animeAPI = createApi({
            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
         }),
 
-        deleteAnime: build.mutation<{ succes: boolean; id: number }, number>({
-            query(id) {
-                const token = localStorage.getItem('userToken');
-                return {
-                    url: `${id}`,
-                    method: 'DELETE',
-                    headers: { 'authorization': `${token}` },
-                }
-            },
-            invalidatesTags: (result, error, id) => [{ type: 'Anime', id }],
-        }),
-
         addPoster: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
             query: ({ id, ...patch }) => {
                 const token = localStorage.getItem('userToken');
@@ -171,6 +158,16 @@ export const animeAPI = createApi({
             },
             invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
         }),
+
+        getSearchIds: build.query<number[], string>({
+            query: (search: string) => ({
+                url: ``,
+                params: {
+                    search: search
+                }
+            }),
+            providesTags: ['IdsSearch']
+        }),
     }),
 });
 
@@ -179,12 +176,11 @@ export const {
     useGetPopularAnimesQuery,
     useGetIdsQuery,
     useGetAnimesQuery,
-    useLazyGetAnimesQuery,
     useGetAnimeQuery,
     useAddAnimeMutation,
     useUpdateAnimeMutation,
-    useDeleteAnimeMutation,
     useAddPosterMutation,
     useAddImgMutation,
-    useAddRatingMutation
+    useAddRatingMutation,
+    useGetSearchIdsQuery
 } = animeAPI;

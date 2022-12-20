@@ -229,3 +229,22 @@ export const updateAvatar = createAsyncThunk<any, FormData, {rejectValue: string
         }         
     }
 );
+
+export const getUserById = createAsyncThunk<IUser, number, {rejectValue: string}>(
+    'user/getUserById',
+    async (id, {rejectWithValue}) => {
+        try {
+            const settings = {
+                method: 'GET',
+            };
+            
+            const response = await fetch(`http://${apiHost}/users/${id}`, settings)
+            .then(response => response.json());
+
+            return (await response) as IUser;
+
+        } catch (error) {
+            return rejectWithValue('Не удалось получить информацию о пользователе');
+        }         
+    }
+);

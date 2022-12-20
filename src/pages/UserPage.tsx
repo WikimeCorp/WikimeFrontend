@@ -79,7 +79,7 @@ const UserPage: FC = () => {
                             </div>                        
                             { added && <ViewButton userPage={true} item={"added"}/> }
                         </div>                    
-                        {/* { added && <UsersArticleList isList={addedType} ids={auth.user.added}/>} */}
+                        { added && <UsersArticleList isList={addedType} ids={auth.user.added}/>}
                     </div>
                 }
             </div>
