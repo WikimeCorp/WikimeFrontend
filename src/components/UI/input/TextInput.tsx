@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, forwardRef } from "react";
-import cl from "./TextInput.module.css";
+import cl from './TextInput.module.css';
 
 
 const inputStyles = [cl.base, cl.light, cl.search];
@@ -16,6 +16,8 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(({light, search, ...p
   
   const CurrentStyle = search ? inputStyles[2]
     : (light ? inputStyles[1] : inputStyles[0]);
+
+    console.log(inputStyles[2])
   
   return (
     <input 

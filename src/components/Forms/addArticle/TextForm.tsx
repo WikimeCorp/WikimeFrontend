@@ -4,7 +4,7 @@ import GenreButton from "../../UI/button/genre/GenreButton";
 import MainButton from "../../UI/button/main/MainButton";
 import TextInput from "../../UI/input/TextInput";
 import Genres from "../../../utils/Genres";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { useAppSelector } from "../../../hooks/redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import cl from "./TextForm.module.css";
 import TextArea from "../../UI/input/TextArea";
@@ -25,8 +25,7 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
         formState: { errors, isValid },
     } = useForm<FormTextFields>({mode: "all"});
 
-    const dispatch = useAppDispatch();
-    const { id, genres, title, originTitle, description, releaseDate, director, update} = 
+    const { id, genres, title, originTitle, description, releaseDate, director } = 
         useAppSelector(state => state.addAnimeReducer);
 
     const navigate = useNavigate();

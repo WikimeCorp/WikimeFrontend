@@ -1,50 +1,61 @@
 # WikimeFrontend
 
-Frontend for Wikime
+Веб-клиент для Wikime. 
 
-# Getting Started with Create React App
+Wikime - веб-приложение для просмотра информации об аниме.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Проект для учебных дисциплин: "Технологии Интернет и WEB-программирования", "Введение в системы баз данных".
 
-## Available Scripts
+## Функционал
+***
 
-In the project directory, you can run:
+>Доступный функционал зависит от пользоватеской роли. Ниже представлен список в порядке возрастания приоритета роли, при этом каждый пользователей имеет возможности пользователей с более низким приоритетом.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Неавторизованный пользователь
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    - Авторизация пользователя через VK
+    - Поиск и фильтрация статей об аниме
+    <br></br>
+    
+2. Пользователь
 
-### `npm test`
+    - Изменение имени и аватара 
+    - Добавление и удаление статей из избранного
+    - Оценка статьи
+    <br></br> 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Модератор
 
-### `npm run build`
+    - Редактирование и добавление статьи
+    <br></br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Администратор
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    - Изменение ролей пользователей
+    <br></br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Использованные технологии
+***
 
-### `npm run eject`
+- [React](https://reactjs.org/) - JavaScript-библиотека для создания пользовательских интерфейсов
+- [React Router](https://reactrouter.com/en/6.5.0) - маршрутизация на стороне клиента
+- [Redux](https://redux.js.org/) - JavaScript-библиотека для управления состоянием приложения
+- [Redux Toolkit](https://redux-toolkit.js.org/) - библиотека для работы с хранилищем и асинхронной логикой
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Макет
+***
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Дизайн](https://www.figma.com/file/DPbTCQA7jVXjRaGxUT8wBr/Wikime?node-id=68%3A3&t=2b6tNyRkOtxZqyve-1) в Figma. Макет разработан на начальных этапах проекта, финальная версия имеет другой вид.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Установка
+***
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Склонировать репозиторий и установить зависимости
+```bash
+npm install
+```
+2. Запустить локально веб-клиент
+```bash
+npm start
+```
