@@ -2,95 +2,185 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import type { IAnime } from '../types/IAnime';
 
 
-type AnimeRespone = IAnime[];
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
+
+type ParamsIds = {
+    sortBy: string;
+    genres: string[];
+};
+
+type RatingBody = {
+    id: number;
+    rating: number;
+};
+
+type ImgsBody = {
+    imgFile: FormData;
+};
+
+export type addAnimeResponse = {
+    animeId: number;
+};
 
 export const animeAPI = createApi({
     reducerPath: 'animeAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001/'}),
-    tagTypes: ['Anime'],
+    baseQuery: fetchBaseQuery({baseUrl: `http://${apiHost}/anime`}),
+    tagTypes: ['Anime', 'Ids', 'Popular', 'IdsPopular', 'IdsSearch'],
     endpoints: (build) => ({
+        getIdsPopular: build.query<number[], number | void>({
+            query: (count: number = 16) => ({
+                url: `/popular`,
+                params: {
+                    count: count
+                }
+            }),
+            providesTags: ['IdsPopular']
+        }),
+        getPopularAnimes: build.query<IAnime[], number[]>({
+            query: (ids: number[]) => {
 
-        getAnimes: build.query<AnimeRespone, void>({
-            query: () => 'anime',
+                const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
+
+                return {
+                    url: `/list`,
+                    params: args, 
+                }
+            },
             providesTags: (result) =>
                 result
                 ? [
-                    ...result.map(({ id }) => ({ type: 'Anime' as const, id })),
-                    { type: 'Anime', id: 'LIST' },
-                  ]
-                : [{ type: 'Anime', id: 'LIST' }],
+                    ...result.map(({ id }) => ({ type: 'Popular' as const, id })),
+                    { type: 'Popular', id: 'LIST' },
+                ]
+                : [{ type: 'Popular', id: 'LIST' }],
         }),
 
-        addAnime: build.mutation<IAnime, Partial<IAnime>>({
-            query: (body) => ({
-                url: `anime`,
-                method: 'POST',
-                body,
-            }),
+        getIds: build.query<number[], ParamsIds>({
+            query: (paramsIds: ParamsIds) => {
+
+                const args = paramsIds.genres.length > 0 ? 
+                    { sortBy: paramsIds.sortBy, genres: paramsIds.genres.join(',')}
+                    : { sortBy: paramsIds.sortBy };
+
+                return {
+                    url: ``,
+                    params: args,
+                }
+            },
+            providesTags: ['Ids']
+        }),
+        getAnimes: build.query<IAnime[], number[]>({
+            query: (ids: number[]) => {
+                const args = new URLSearchParams(ids.map(s => ['id',`${s}`]));
+                return {
+                    url: `/list`,
+                    params: args, 
+                }
+            },
+            providesTags: (result, error, ids) =>
+                result
+                ? [
+                    ...result.map(({ id }) => ({ type: 'Anime' as const, id })),
+                    { type: 'Anime', id: 'PARTIAL-LIST' },
+                  ]
+                : [{ type: 'Anime', id: 'PARTIAL-LIST' }],
+        }),
+
+        addAnime: build.mutation<addAnimeResponse, Partial<IAnime>>({
+            query: (body) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: ``,
+                    method: 'POST',
+                    headers: { 'authorization': `${token}` },
+                    body,
+                }
+            },
             invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
         }),
 
         getAnime: build.query<IAnime, string>({
-            query: (id) => `anime/${id}`,
+            query: (id) => `${id}`,
             providesTags: (result, error, id) => [{ type: 'Anime', id}],
         }),
 
         updateAnime: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
-           query: ({ id, ...patch }) => ({
-            url: `anime/${id}`,
-            method: 'PUT',
-            body: patch,
-           }),
+           query: ({ id, ...patch }) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}`,
+                    method: 'PUT',
+                    headers: { 'authorization': `${token}` },
+                    body: patch,
+                }
+            },
            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
         }),
 
-        deleteAnime: build.mutation<{ succes: boolean; id: number }, number>({
-            query(id) {
+        addPoster: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
+            query: ({ id, ...patch }) => {
+                const token = localStorage.getItem('userToken');
                 return {
-                    url: `anime/${id}`,
-                    method: 'DELETE',
+                    url: `${id}/poster`,
+                    method: 'POST',
+                    headers: { 'authorization': `${token}` },
+                    body: patch.imgFile,
                 }
             },
-            invalidatesTags: (result, error, id) => [{ type: 'Anime', id }],
-        }),
-
-        getPoster: build.query<string, string>({
-            query: (id) => `anime/${id}/poster`,
-            providesTags: (result, error, id) => [{ type: 'Anime', id}],
-        }),
-
-        updatePoster: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
-            query: ({ id, ...patch }) => ({
-             url: `anime/${id}/poster`,
-             method: 'PUT',
-             body: patch,
-            }),
             invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
          }),
 
-         getImgs: build.query<string[], string>({
-            query: (id) => `anime/${id}/imgs`,
-            providesTags: (result, error, id) => [{ type: 'Anime', id}],
-        }),
-
-        addImgs: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
-            query: ({ id, ...patch }) => ({
-             url: `anime/${id}/imgs`,
-             method: 'PUT',
-             body: patch,
-            }),
+        addImg: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
+            query: ({ id, ...patch }) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}/images`,
+                    method: 'POST',
+                    headers: { 'authorization': `${token}` },
+                    body: patch.imgFile,
+                }
+            },
             invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }], 
          }),
+
+         addRating: build.mutation<IAnime, RatingBody>({
+            query: ({id, rating}) => {
+                const token = localStorage.getItem('userToken');
+                return {
+                    url: `${id}/rating`,
+                    method: 'POST',
+                    headers: { 'authorization': `${token}` },
+                    body: JSON.stringify({
+                        "rating": rating
+                    })
+                }
+            },
+            invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
+        }),
+
+        getSearchIds: build.query<number[], string>({
+            query: (search: string) => ({
+                url: ``,
+                params: {
+                    search: search
+                }
+            }),
+            providesTags: ['IdsSearch']
+        }),
     }),
 });
 
 export const {
+    useGetIdsPopularQuery,
+    useGetPopularAnimesQuery,
+    useGetIdsQuery,
     useGetAnimesQuery,
     useGetAnimeQuery,
     useAddAnimeMutation,
     useUpdateAnimeMutation,
-    useDeleteAnimeMutation,
-    useGetPosterQuery,
-    useUpdatePosterMutation,
-    useGetImgsQuery
+    useAddPosterMutation,
+    useAddImgMutation,
+    useAddRatingMutation,
+    useGetSearchIdsQuery
 } = animeAPI;

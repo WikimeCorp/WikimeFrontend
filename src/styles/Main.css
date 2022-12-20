@@ -1,5 +1,7 @@
 .Main-page {
-    background-color: #05386B;
+    /* background-color: #05386B; */
+    background: url("../styles/img/Background.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 .landing {
@@ -9,11 +11,9 @@
     width: 100%;
 
     padding-top: 45px;
-    padding-bottom: 70px;
-
-    background: url("../styles/img/Background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    box-shadow: inset 0px 0px 30px 15px #05386B;
+    padding-bottom: 70px;    
+    
+    /* box-shadow: inset 0px 0px 30px 15px #05386B; */
 }
 
 .landing-anime {
@@ -22,38 +22,33 @@
     width: 400px;
     margin-right: 70px;
 
-    font-weight: 600;
+    font-family: 'Dressedless Pro';
+    font-style: normal;
+    font-weight: 400;
     font-size: 18px;
     line-height: 30px;
-
+    letter-spacing: 0.07em;
+    
     color: #EDF5E1;
+    cursor: pointer;
 }
 
 .poster {    
     width: 400px;
     height: 400px;
     overflow: hidden;
-    filter: drop-shadow(0px 0px 20px rgba(237, 245, 225, 0.3));
+    filter: drop-shadow(0px 0px 20px rgba(237, 245, 225, 0.7));
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .poster img {
-    height: 100%;
+    min-height: 100%;
     min-width: 100%;
     left: 50%;
     position: relative;
     transform: translateX(-50%);   
 }
-
-/* .landing-anime img {
-    width: 400px;
-    height: 400px;
-    margin-bottom: 20px;
-
-    filter: drop-shadow(0px 0px 20px rgba(237, 245, 225, 0.3));
-    border-radius: 10px;
-} */
 
 .landing-info {
     display: flex;

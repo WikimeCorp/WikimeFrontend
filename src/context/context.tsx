@@ -1,9 +1,10 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useAuth } from "../hooks/useAuth";
-import { authAPI, useGetUserQuery } from "../services/auth";
 import { getAccessToken, getAuthorizeCodeHref, getJWToken, getUserInfo } from "../store/actions/authActions";
-import { logout, selectCurrentUser } from "../store/reducers/AuthSlice";
+import { logout } from "../store/reducers/AuthSlice";
+import { clean } from "../store/reducers/UserSlice";
 import { IUser } from "../types/IUser";
 
 
@@ -16,22 +17,30 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType>(null!);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const dispatch = useAppDispatch();
-    const code = useAppSelector(state => state.VkAuth.code); 
+
+    const dispatch = useAppDispatch(); 
+    const navigate = useNavigate();
     const user = useAppSelector(state => state.VkAuth.user);
-    
-    const signin = () => {
-        if(code)
-            return dispatch(getAccessToken())
+    const token = localStorage.getItem('userToken');    
+
+    const signin = () => { 
+        return dispatch(getAccessToken())
                     .then(() => 
                         dispatch(getJWToken())
                         .then(() => 
                             dispatch(getUserInfo())
                         )
-                    );
+                    );                 
+    };
+
+    if (token && !user) {
+        dispatch(getUserInfo()).catch(() => signin());
     };
 
     const signout = () => {
+        dispatch(clean());
+        navigate('../');
+        window.scrollTo(0,0);
         return dispatch(logout());
     };
 
@@ -41,10 +50,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 };
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
-    const auth = useAuth();
+    
+    const token = localStorage.getItem('userToken');
 
-    if (!!!auth.user) {
-        window.location.href = getAuthorizeCodeHref();
+    if(!token) {
+        window.location.href = getAuthorizeCodeHref();  
+    }
+
+    return children;
+};
+
+export function RequireAuthAdmin({ children }: { children: JSX.Element }) {
+    
+    const token = localStorage.getItem('userToken');
+    const navigate = useNavigate();
+
+    if(!token) {
+        window.location.href = getAuthorizeCodeHref();  
+    }
+
+    const user = useAuth().user;
+
+    if (user && user.role !== "admin" && user.role !== "root") {
+        navigate('../');
+        window.scrollTo(0,0);
     }
 
     return children;

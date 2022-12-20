@@ -1,4 +1,4 @@
-.text {
+.base {
     margin: 10px;
     margin-bottom: 0;
     padding: 20px 25px;
@@ -18,10 +18,85 @@
     font-weight: 400;
 }
 
-.text::placeholder {
+.base::placeholder {
     color: #379683;
 }
 
-.text:focus {
-    border: 1.5px solid #379683;;
+.base:focus {
+    border: 1.5px solid #379683;
+}
+
+.base[type="date"] {
+    max-width: 200px;
+    color: #379683;
+}
+
+.base[type=date]::-webkit-calendar-picker-indicator {
+	cursor: pointer;
+    opacity: 0.6;
+}
+
+.base[type=date]::-webkit-calendar-picker-indicator:hover {
+	opacity: 1;
+}
+
+.light {
+    padding: 0.5rem 1rem;
+    margin-bottom: 10px;
+    width: 40vw;
+
+    border: 1px solid #5CDB95;
+    border-radius: 10px; 
+    background-color: #fff;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: -0.02em;
+
+    color: #05386B;
+    caret-color: #05386B;
+    outline: none;
+}
+
+.light::placeholder {
+    color: #5CDB95;
+    opacity: 0.5;
+}
+
+.light:focus {
+    filter: drop-shadow(0px 0px 10px rgba(92, 219, 149, 0.3));
+}
+
+.search {
+    padding: 0.5rem 1rem;
+    margin-bottom: 25px;
+    width: 80vw;
+    max-width: 1044px;
+
+    border: 1px solid #5CDB95;
+    border-radius: 10px; 
+    background-color: #fff;
+
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: -0.02em;
+
+    color: #05386B;
+    caret-color: #05386B;
+    outline: none;
+}
+
+.search::placeholder {
+    color: #5CDB95;
+    opacity: 0.7;
+}
+
+.search:focus {
+    filter: drop-shadow(0px 0px 10px rgba(92, 219, 149, 0.3));
 }

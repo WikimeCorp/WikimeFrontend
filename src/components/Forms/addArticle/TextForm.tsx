@@ -1,17 +1,19 @@
 import { FC } from "react";
-import { FormTextFields } from "../../../../types/FormTextFields";
-import GenreButton from "../../button/genre/GenreButton";
-import MainButton from "../../button/main/MainButton";
-import TextInput from "../../input/TextInput";
-import Genres from "../../../../utils/Genres";
-import { useAppSelector } from "../../../../hooks/redux";
+import { FormTextFields } from "../../../types/FormTextFields";
+import GenreButton from "../../UI/button/genre/GenreButton";
+import MainButton from "../../UI/button/main/MainButton";
+import TextInput from "../../UI/input/TextInput";
+import Genres from "../../../utils/Genres";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import cl from "./TextForm.module.css";
-import TextArea from "../../input/TextArea";
+import TextArea from "../../UI/input/TextArea";
+import { IAnime } from "../../../types/IAnime";
+import { useNavigate } from "react-router-dom";
 
 
 interface TextFormProps {
-    onSubmit: (data: FormTextFields) => void;
+    onSubmit: (data: Partial<IAnime>) => void;
 };
 
 const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
@@ -19,34 +21,35 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors, isValid },
-    } = useForm<FormTextFields>({mode: "onBlur"});
+    } = useForm<FormTextFields>({mode: "all"});
 
-    const GenresField = useAppSelector(state => state.genresReducer.genres);
+    const dispatch = useAppDispatch();
+    const { id, genres, title, originTitle, description, releaseDate, director, update} = 
+        useAppSelector(state => state.addAnimeReducer);
 
-    // const handleSubmitMain: React.FormEventHandler<HTMLFormElement & FormFields> = (event) => {
-    //     event.preventDefault();
-    //     const form = event.currentTarget;
-    //     const { title, originTitle, director, releaseDate, description} = form;
-    //     onSubmit({
-    //         title: title.value,
-    //         originTitle: originTitle.value,
-    //         director: director.value,
-    //         releaseDate: releaseDate.value,
-    //         description: description.value,
-    //         genres: GenresField,
-    //     });
-    // };
+    const navigate = useNavigate();
+
+    if (id !== undefined) {
+        setValue('title', title!);
+        setValue('originTitle', originTitle!);       
+        setValue('director', director!);
+        setValue('description', description!);
+    };
 
     const handleSubmitMain: SubmitHandler<FormTextFields> = (data) => {
+        
         onSubmit({
             title: data.title,
             originTitle: data.originTitle,
             director: data.director,
-            releaseDate: data.releaseDate,
+            releaseDate: Math.floor(data.releaseDate.getTime() / 1000),
             description: data.description,
-            genres: GenresField,
+            genres: genres,
         });
+
+        navigate('/add/photos'); 
     };
 
     return (
@@ -85,8 +88,10 @@ const TextForm: FC<TextFormProps> = ({ onSubmit }) => {
                     {errors?.director && <p>{errors?.director?.message || "Error!"}</p>}
                 </div>
                 <h2>Дата выхода</h2>
-                <TextInput placeholder="XX.XX.XXXX" 
-                    {...register("releaseDate", {required: "Обязательное поле", pattern: /^\d{2}([./-])\d{2}\1\d{4}$/})}
+                <TextInput 
+                    type="date"
+                    {...register("releaseDate", {required: "Обязательное поле", valueAsDate: true})}
+                    defaultValue={releaseDate && new Date((releaseDate as number)*1000).toISOString().substring(0,10)}
                 />
                 <div className={cl.error}>
                     {errors?.releaseDate && <p>{errors?.releaseDate?.message ||  "Неверный ввод"}</p>}

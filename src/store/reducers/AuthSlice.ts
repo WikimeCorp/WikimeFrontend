@@ -1,20 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authAPI } from "../../services/auth";
 import { IUser } from "../../types/IUser";
 import { getAccessToken, getCode, getJWToken, getUserInfo } from "../actions/authActions";
-import { RootState } from "../store";
+
 
 interface authState {
-    code?: string;
+    code: string | null;
     accessToken?: string;
     loading: boolean;
-    error: string | null; 
+    error?: string; 
     user?: IUser;
 };
 
 const initialState: authState = {
+    code: null,
     loading: false,
-    error: null
 };
 
 export const authSlice = createSlice({
@@ -29,49 +28,54 @@ export const authSlice = createSlice({
         },
         logout: (state) => {
             localStorage.removeItem('userToken');
-            state.code = undefined;
+            state.code = null;
             state.accessToken = undefined;
             state.user = undefined;
         },
     },
     extraReducers: (builder) => {
         builder
-        .addCase(getAccessToken.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
         .addCase(getAccessToken.fulfilled, (state, action) => {
+            state.code = null;
             state.accessToken = action.payload.token;
             state.loading = false;
+            state.error = undefined;
+        })
+        .addCase(getAccessToken.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(getAccessToken.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload
         })      
         
         .addCase(getJWToken.pending, (state) => {
             state.loading = true;
-            state.error = null;
+            state.error = undefined;
         })
         .addCase(getJWToken.fulfilled, (state, action) => {
             localStorage.setItem('userToken', action.payload.AuthToken);
+            state.accessToken = undefined;
             state.loading = false;
+        })  
+        .addCase(getJWToken.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         })  
 
         .addCase(getUserInfo.pending, (state) => {
             state.loading = true;
-            state.error = null;
         })
         .addCase(getUserInfo.fulfilled, (state, action) => {
-            state.user = action.payload;
+            state.user = action.payload as IUser;
             state.loading = false;
         })    
-        
-        // .addMatcher(
-        //     authAPI.endpoints.getUser.matchFulfilled,
-        //     (state, { payload }) => {
-        //         state.user = payload;
-        //     }
-        // )
+        .addCase(getUserInfo.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload?.error_message;
+        })            
     }
 });
 
 export const { setCode, logout } = authSlice.actions;
 export default authSlice.reducer;
-export const selectCurrentUser = (state: RootState) => state.VkAuth.user;

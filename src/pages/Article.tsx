@@ -1,29 +1,63 @@
-import { FC } from "react";
-import { useParams } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Comment from "../components/Comments/Comment";
 import FavoriteButton from "../components/UI/button/favorite/FavouriteButton";
 import MainButton from "../components/UI/button/main/MainButton";
 import RateButton from "../components/UI/button/rate/RateButton";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useAuth } from "../hooks/useAuth";
 import { useGetAnimeQuery } from "../services/anime";
+import { addToWatched, getUserById } from "../store/actions/userActions";
+import { setAddAnime } from "../store/reducers/AddAnimeSlice";
 import "../styles/Article.css";
+import { IUser } from "../types/IUser";
+import Loading from "./Loading";
+
+
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
 
 const Article: FC = () => {
 
     const { id } = useParams();
+    const auth = useAuth();
 
-    const { data: anime, isLoading, isSuccess, isError } = useGetAnimeQuery(String(id));
-    //const { data: user, } = useGetUserQuery(String(anime?.author), { skip: !isSuccess });  
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const [ author, setAuthor ] = useState<IUser>();    
+    const { data: anime, isLoading, isSuccess } = useGetAnimeQuery(String(id));  
+    
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(getUserById(anime.author))
+                .unwrap()
+                .then(result => {
+                    setAuthor(result);
+                });
+        };        
+    },[isSuccess])
 
     if (isLoading) {
-        return <div>Loading</div>
+        return <Loading/>;
     };
 
-    if(isError) {
-        console.log("error")
-    }
-
     if (!anime) {
-        return <div>Anime not found :(</div>
+        return <h1>Anime not found :(</h1>;
+    };
+
+    const ratesCount = anime.rating.five + anime.rating.four + anime.rating.three 
+        + anime.rating.two + anime.rating.one;
+    const ratesWord: string = ((ratesCount % 10 === 1) && (ratesCount !== 11)) ?
+        "оценка" : "оценок";
+
+    const inFavCount = anime.rating.inFavorites;
+    const inFavUsers: string = ((inFavCount % 10 === 1) && (inFavCount !== 11)) ?
+        "пользователя" : "пользователей";
+
+    const updateClick = () => {
+        dispatch(setAddAnime(anime));
+        navigate('/add');
     };
     
     return (
@@ -31,10 +65,10 @@ const Article: FC = () => {
             <div className="info">
                 <div className="art">
                     <div className="art-img">
-                        <img src={anime.poster}/>
+                        <img src={`http://${apiHost}${anime.poster}`} alt='poster'/>
                     </div>
-                    <FavoriteButton inArciclePage>Добавить в избранное</FavoriteButton>
-                    <span>В избранном у 37 пользователей</span>
+                    <FavoriteButton id={anime.id} inArciclePage>Добавить в избранное</FavoriteButton>
+                    <span>В избранном у {inFavCount} {inFavUsers}</span>
                 </div>
                 <div className="info-content">
                     <h1>{anime.title}</h1>
@@ -52,14 +86,13 @@ const Article: FC = () => {
                         </div>
                         <div className="info-ui">
                             <div className="info-ui-rate">
-                                <span>4.7</span>
-                                <p>1487 оценок</p>                           
-                                <RateButton>Оценить</RateButton> 
-                            </div>                                                       
-                            {/* <div className="edit">
-                                <MainButton>Редактировать статью</MainButton>
-                            </div> */}
-                            <MainButton>Редактировать статью</MainButton>
+                                <span>{anime.rating.average}</span>
+                                <p>{ratesCount} {ratesWord}</p>                           
+                                <RateButton animeId={anime.id}>Оценить</RateButton> 
+                            </div>
+                            {auth.user && auth.user.role !== "user" && 
+                                <MainButton onClick={updateClick}>Редактировать статью</MainButton>
+                            }
                         </div>
                     </div>
                 </div>
@@ -67,7 +100,9 @@ const Article: FC = () => {
             <div className="description">
                 <h1>Описание</h1>
                 <p>{anime.description}</p>
-                {/* <span>Автор: <b>{user?.nickname}</b></span> */}
+                {author &&
+                    <span>Автор: <b>{author.nickname}</b></span>
+                }                
             </div>
             {anime.images &&                     
             <div className="pictures">
@@ -75,15 +110,11 @@ const Article: FC = () => {
                 <div className="pictures-content">
                     {anime.images.map((art, idx) =>
                         <div className="pictures-content-art" key={idx}>
-                            <img key={idx} src={art}/>
+                            <img key={idx} src={`http://${apiHost}${art}`} alt='art'/>
                         </div>                        
                     )}
                 </div>
             </div>}
-            <div className="comments">
-                <h1>Комментарии</h1>
-                <Comment />
-            </div>
         </div>
     );
 };

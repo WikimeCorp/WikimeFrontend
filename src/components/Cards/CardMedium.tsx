@@ -4,6 +4,13 @@ import MainButton from "../UI/button/main/MainButton";
 import FavoriteButton from "../UI/button/favorite/FavouriteButton";
 import { IAnime } from "../../types/IAnime"
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { useAppDispatch } from "../../hooks/redux";
+import { addToWatched } from "../../store/actions/userActions";
+
+
+const apiHost = process.env.REACT_APP_API_HOST;
+const apiPort = process.env.REACT_APP_API_PORT;
 
 interface CardMediumProps {
   article: IAnime;
@@ -12,11 +19,21 @@ interface CardMediumProps {
 const CardMedium: FC<CardMediumProps> = ({article}) => {
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const auth = useAuth();
+
+    const onClick = () => {
+      if (auth.user) {
+        dispatch(addToWatched(article.id));
+      };
+
+      navigate(`../article/${article.id}`)
+    }
 
     return (
         <div  className={cl.card}>
           <div className={cl.poster}>
-            <img src={article.poster} alt="poster"/>
+            <img src={article.poster && `http://${apiHost}${article.poster}`} alt="poster"/>
           </div>
           <div className={cl.cardContent}>
             <div className={cl.titleContainer}>
@@ -29,13 +46,13 @@ const CardMedium: FC<CardMediumProps> = ({article}) => {
                 {article.description} 
               </div>
               <div className={cl.ui}>
-                <FavoriteButton>Добавить в избранное</FavoriteButton>
+                <FavoriteButton id={article.id}>Добавить в избранное</FavoriteButton>
                 <div className={cl.rateAndBtn}>
                   <div className={cl.rate}>                      
                     <p>Рейтинг</p>
-                    <span>4.7</span>
+                    <span>{article.rating.average}</span>
                   </div>
-                  <MainButton onClick={() => navigate(`/article/${article.id}`)}>Подробнее</MainButton>
+                  <MainButton onClick={() => onClick()}>Подробнее</MainButton>
                 </div>
               </div>
             </div>

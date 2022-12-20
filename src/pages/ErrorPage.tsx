@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useRouteError } from "react-router-dom";
 import "../styles/ErrorPage.css";
 
 const ErrorPage: FC = () => {

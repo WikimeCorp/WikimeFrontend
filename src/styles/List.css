@@ -4,10 +4,23 @@
     width: 100%;
 }
 
+.list-page-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+}
+
 .list-content {
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
     padding-top: 50px;
-    padding-left: 10%;
+    justify-content: space-between;
+}
+
+.last-element {
+    height: 20px;
+    background-color: royalblue;
+    width: 100%;
 }

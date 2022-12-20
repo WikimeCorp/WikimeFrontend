@@ -1,3 +1,10 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
 .list {
     display: flex;
     flex-direction: column;
@@ -11,4 +18,18 @@
     align-content: flex-start;
     gap: 0;
     flex-wrap: wrap;
+}
+
+.nothing {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 830px;
+    margin-bottom: 70px;
 }
