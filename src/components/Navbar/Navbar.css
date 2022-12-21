@@ -56,15 +56,20 @@
 
     display: flex;
     align-items: center;
-    text-align: center;
-
-    color: #05386B;
+    text-align: center;    
     cursor: default;
 }
 
-.logo a {
+.logo a,
+.logo a:hover {
     text-decoration: none;
     cursor: pointer;
+    color: #05386B;
+}
+
+.logo a:active {
+    text-decoration: none;
+    color: #05386B;
 }
 
 .links {
