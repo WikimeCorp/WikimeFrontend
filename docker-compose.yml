@@ -4,7 +4,7 @@ services:
     container_name: little_boy
     image: little_boy
     ports:
-      - ${REACT_APP_LITTLE_BOY_PORT}:${REACT_APP_LITTLE_BOY_PORT}
+      - 56743:${REACT_APP_LITTLE_BOY_PORT}
     networks:
       - api
     environment:
@@ -33,7 +33,8 @@ services:
       REACT_APP_CLIENT_SECRET: ${REACT_APP_CLIENT_SECRET}
       REACT_APP_VKAUTH_URI: ${REACT_APP_VKAUTH_URI}
 
-      REACT_APP_LITTLE_BOY_PORT: ${REACT_APP_LITTLE_BOY_PORT}
+      REACT_APP_LITTLE_BOY_HOST: ${REACT_APP_LITTLE_BOY_HOST}
+      REACT_APP_LITTLE_BOY_PORT: 56743
 
 networks:
   api:
