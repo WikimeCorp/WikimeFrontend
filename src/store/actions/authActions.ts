@@ -7,6 +7,7 @@ const authEndpoint = process.env.REACT_APP_VKAUTH_URI;
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 const littleBoyPort = process.env.REACT_APP_LITTLE_BOY_PORT;
+const littleBoyHost = process.env.REACT_APP_LITTLE_BOY_HOST;
 const apiHost = process.env.REACT_APP_API_HOST;
 const apiPort = process.env.REACT_APP_API_PORT;
 
@@ -37,7 +38,7 @@ export const getAccessToken = createAsyncThunk<
     async (_, { getState, rejectWithValue}) => {
         try {
             const code = getState().VkAuth.code;            
-            const response = await fetch(`http://localhost:${littleBoyPort}/access_token?code=${code}`);            
+            const response = await fetch(`http://${littleBoyHost}:${littleBoyPort}/access_token?code=${code}`);            
             return (await response.json()) as VkResponse;    
         } catch (error) {
             return rejectWithValue('Не удалось получить Access Token');
