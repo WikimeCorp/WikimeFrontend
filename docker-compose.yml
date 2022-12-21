@@ -1,0 +1,40 @@
+version: "3"
+services:
+  little_boy:
+    container_name: little_boy
+    image: little_boy
+    ports:
+      - ${REACT_APP_LITTLE_BOY_PORT}:${REACT_APP_LITTLE_BOY_PORT}
+    networks:
+      - api
+    environment:
+      REACT_APP_CLIENT_ID: ${REACT_APP_CLIENT_ID}
+      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+      REACT_APP_API_PORT: ${REACT_APP_API_PORT}
+      REACT_APP_REDIRECT_URI: ${REACT_APP_REDIRECT_URI}
+      REACT_APP_CLIENT_SECRET: ${REACT_APP_CLIENT_SECRET}
+      REACT_APP_VKAUTH_URI: ${REACT_APP_VKAUTH_URI}
+      
+      REACT_APP_LITTLE_BOY_PORT: ${REACT_APP_LITTLE_BOY_PORT}
+  frontend:
+    image: frontend
+    depends_on:
+      - little_boy
+    ports:
+      - 8080:3000
+      - 3000:3000
+    networks:
+      - api
+    environment:
+      REACT_APP_CLIENT_ID: ${REACT_APP_CLIENT_ID}
+      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+      REACT_APP_API_PORT: ${REACT_APP_API_PORT}
+      REACT_APP_REDIRECT_URI: ${REACT_APP_REDIRECT_URI}
+      REACT_APP_CLIENT_SECRET: ${REACT_APP_CLIENT_SECRET}
+      REACT_APP_VKAUTH_URI: ${REACT_APP_VKAUTH_URI}
+
+      REACT_APP_LITTLE_BOY_PORT: ${REACT_APP_LITTLE_BOY_PORT}
+
+networks:
+  api:
+    driver: bridge
