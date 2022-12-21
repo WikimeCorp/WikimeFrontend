@@ -1,4 +1,3 @@
-import './styles/App.css';
 import List from './pages/List';
 import Article from './pages/Article';
 import { Route, Routes, useLocation } from 'react-router-dom';
