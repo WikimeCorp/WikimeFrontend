@@ -39,9 +39,9 @@ h2 {
 
 @font-face {
     font-family: 'Dressedless-Pro-Regular';
-    src:url('./fonts/Dressedless-Pro-Regular.ttf.woff') format('woff'),
-        url('./fonts/Dressedless-Pro-Regular.ttf.svg') format('svg'),
-        url('./fonts/Dressedless-Pro-Regular.ttf.eot') format('embedded-opentype'); 
+    src: local('Dressedless-Pro-Regular'), url(./fonts/Dressedless-Pro-Regular.ttf.woff) format('woff'),
+        url(./fonts/Dressedless-Pro-Regular.ttf.svg) format('svg'),
+        url(./fonts/Dressedless-Pro-Regular.ttf.eot) format('embedded-opentype'); 
     font-weight: 400;
     font-style: normal;
     line-height: 45px;
