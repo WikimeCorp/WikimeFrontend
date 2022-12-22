@@ -13,14 +13,14 @@ const rootReducer = combineReducers({
     userReduser,
     [animeAPI.reducerPath]: animeAPI.reducer,
     VkAuth: authReduser,
-    [commentsAPI.reducerPath]: commentsAPI.reducer,
+    [commentsAPI.reducerPath]: commentsAPI.reducer
 });
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(animeAPI.middleware, commentsAPI.middleware),
+            getDefaultMiddleware().concat(animeAPI.middleware, commentsAPI.middleware)
     });
 };
 

@@ -3,7 +3,6 @@ import { useAppDispatch } from '../../hooks/redux';
 import { useAuth } from '../../hooks/useAuth';
 import { getUserById } from '../../store/actions/userActions';
 import { useDelCommentMutation } from '../../store/API/comments';
-import art from '../../styles/img/Art.png';
 import { IUser } from '../../types/IUser';
 import { TComment } from '../../types/TComment';
 import { formatText } from '../../utils/formatText';

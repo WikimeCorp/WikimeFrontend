@@ -14,18 +14,18 @@ export const commentsAPI = createApi({
             providesTags: (result) =>
                 result
                     ? [
-                          ...result.map(({ id }) => ({
-                              type: 'Comments' as const,
-                              id,
-                          })),
-                          { type: 'Comments', id: 'LIST' },
-                      ]
-                    : [{ type: 'Comments', id: 'LIST' }],
+                        ...result.map(({ id }) => ({
+                            type: 'Comments' as const,
+                            id
+                        })),
+                        { type: 'Comments', id: 'LIST' }
+                    ]
+                    : [{ type: 'Comments', id: 'LIST' }]
         }),
 
         getComment: build.query<string[], string>({
             query: (id: string) => `/comments/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Comments', id }],
+            providesTags: (result, error, id) => [{ type: 'Comments', id }]
         }),
 
         addComment: build.mutation<TComment, NewComment>({
@@ -35,10 +35,10 @@ export const commentsAPI = createApi({
                     url: `/comments`,
                     method: 'POST',
                     headers: { authorization: `${token}` },
-                    body,
+                    body
                 };
             },
-            invalidatesTags: [{ type: 'Comments', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Comments', id: 'LIST' }]
         }),
 
         delComment: build.mutation<{ success: boolean; id: number }, string>({
@@ -47,12 +47,12 @@ export const commentsAPI = createApi({
                 return {
                     url: `/comments/${id}`,
                     method: 'DELETE',
-                    headers: { authorization: `${token}` },
+                    headers: { authorization: `${token}` }
                 };
             },
-            invalidatesTags: (result, error, id) => [{ type: 'Comments', id }],
-        }),
-    }),
+            invalidatesTags: (result, error, id) => [{ type: 'Comments', id }]
+        })
+    })
 });
 
 export const { useAddCommentMutation, useDelCommentMutation, useGetCommentQuery, useGetCommentsQuery } = commentsAPI;

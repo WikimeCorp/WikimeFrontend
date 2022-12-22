@@ -54,8 +54,8 @@ export const getJWToken = createAsyncThunk<JWTResponse, void, { state: RootState
             const settings = {
                 method: 'POST',
                 body: JSON.stringify({
-                    AuthToken: accessToken,
-                }),
+                    AuthToken: accessToken
+                })
             };
 
             const response = await fetch(`http://${apiHost}/auth/vk`, settings);
@@ -79,7 +79,7 @@ export const getUserInfo = createAsyncThunk<
     const token = localStorage.getItem('userToken');
     const settings = {
         method: 'GET',
-        headers: { authorization: `${token}` },
+        headers: { authorization: `${token}` }
     };
 
     const response = await fetch(`http://${apiHost}/users/current`, settings).then((response) => response.json());
