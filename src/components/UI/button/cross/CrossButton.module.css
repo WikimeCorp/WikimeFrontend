@@ -14,3 +14,20 @@
 .icon:hover, .icon:target {
     opacity: 1;
 }
+
+.comment {
+    margin: 25px 0;
+    padding: 0 1rem;
+    background: none;   
+    cursor: pointer;
+    color: #379683;
+}
+
+.commentIcon {
+    height: 30px;
+    opacity: 0.5;
+}
+
+.commentIcon:hover, .commentIcon:target {
+    opacity: 1;
+}

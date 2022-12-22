@@ -30,10 +30,10 @@ export const animeAPI = createApi({
             query: (count: number = 16) => ({
                 url: `/popular`,
                 params: {
-                    count: count
-                }
+                    count: count,
+                },
             }),
-            providesTags: ['IdsPopular']
+            providesTags: ['IdsPopular'],
         }),
         getPopularAnimes: build.query<IAnime[], number[]>({
             query: (ids: number[]) => {
@@ -41,19 +41,19 @@ export const animeAPI = createApi({
 
                 return {
                     url: `/list`,
-                    params: args
+                    params: args,
                 };
             },
             providesTags: (result) =>
                 result
                     ? [
-                        ...result.map(({ id }) => ({
-                            type: 'Popular' as const,
-                            id
-                        })),
-                        { type: 'Popular', id: 'LIST' }
-                    ]
-                    : [{ type: 'Popular', id: 'LIST' }]
+                          ...result.map(({ id }) => ({
+                              type: 'Popular' as const,
+                              id,
+                          })),
+                          { type: 'Popular', id: 'LIST' },
+                      ]
+                    : [{ type: 'Popular', id: 'LIST' }],
         }),
 
         getIds: build.query<number[], ParamsIds>({
@@ -61,36 +61,36 @@ export const animeAPI = createApi({
                 const args =
                     paramsIds.genres.length > 0
                         ? {
-                            sortBy: paramsIds.sortBy,
-                            genres: paramsIds.genres.join(',')
-                        }
+                              sortBy: paramsIds.sortBy,
+                              genres: paramsIds.genres.join(','),
+                          }
                         : { sortBy: paramsIds.sortBy };
 
                 return {
                     url: ``,
-                    params: args
+                    params: args,
                 };
             },
-            providesTags: ['Ids']
+            providesTags: ['Ids'],
         }),
         getAnimes: build.query<IAnime[], number[]>({
             query: (ids: number[]) => {
                 const args = new URLSearchParams(ids.map((s) => ['id', `${s}`]));
                 return {
                     url: `/list`,
-                    params: args
+                    params: args,
                 };
             },
             providesTags: (result, error, ids) =>
                 result
                     ? [
-                        ...result.map(({ id }) => ({
-                            type: 'Anime' as const,
-                            id
-                        })),
-                        { type: 'Anime', id: 'PARTIAL-LIST' }
-                    ]
-                    : [{ type: 'Anime', id: 'PARTIAL-LIST' }]
+                          ...result.map(({ id }) => ({
+                              type: 'Anime' as const,
+                              id,
+                          })),
+                          { type: 'Anime', id: 'PARTIAL-LIST' },
+                      ]
+                    : [{ type: 'Anime', id: 'PARTIAL-LIST' }],
         }),
 
         addAnime: build.mutation<addAnimeResponse, Partial<IAnime>>({
@@ -100,15 +100,15 @@ export const animeAPI = createApi({
                     url: ``,
                     method: 'POST',
                     headers: { authorization: `${token}` },
-                    body
+                    body,
                 };
             },
-            invalidatesTags: [{ type: 'Anime', id: 'LIST' }]
+            invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
         }),
 
         getAnime: build.query<IAnime, string>({
             query: (id) => `${id}`,
-            providesTags: (result, error, id) => [{ type: 'Anime', id }]
+            providesTags: (result, error, id) => [{ type: 'Anime', id }],
         }),
 
         updateAnime: build.mutation<void, Pick<IAnime, 'id'> & Partial<IAnime>>({
@@ -118,10 +118,10 @@ export const animeAPI = createApi({
                     url: `${id}`,
                     method: 'PUT',
                     headers: { authorization: `${token}` },
-                    body: patch
+                    body: patch,
                 };
             },
-            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }]
+            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }],
         }),
 
         addPoster: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
@@ -131,10 +131,10 @@ export const animeAPI = createApi({
                     url: `${id}/poster`,
                     method: 'POST',
                     headers: { authorization: `${token}` },
-                    body: patch.imgFile
+                    body: patch.imgFile,
                 };
             },
-            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }]
+            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }],
         }),
 
         addImg: build.mutation<void, Pick<IAnime, 'id'> & ImgsBody>({
@@ -144,10 +144,10 @@ export const animeAPI = createApi({
                     url: `${id}/images`,
                     method: 'POST',
                     headers: { authorization: `${token}` },
-                    body: patch.imgFile
+                    body: patch.imgFile,
                 };
             },
-            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }]
+            invalidatesTags: (result, error, { id }) => [{ type: 'Anime', id }],
         }),
 
         addRating: build.mutation<IAnime, RatingBody>({
@@ -158,23 +158,23 @@ export const animeAPI = createApi({
                     method: 'POST',
                     headers: { authorization: `${token}` },
                     body: JSON.stringify({
-                        rating: rating
-                    })
+                        rating: rating,
+                    }),
                 };
             },
-            invalidatesTags: [{ type: 'Anime', id: 'LIST' }]
+            invalidatesTags: [{ type: 'Anime', id: 'LIST' }],
         }),
 
         getSearchIds: build.query<number[], string>({
             query: (search: string) => ({
                 url: ``,
                 params: {
-                    search: search
-                }
+                    search: search,
+                },
             }),
-            providesTags: ['IdsSearch']
-        })
-    })
+            providesTags: ['IdsSearch'],
+        }),
+    }),
 });
 
 export const {
@@ -188,5 +188,5 @@ export const {
     useAddPosterMutation,
     useAddImgMutation,
     useAddRatingMutation,
-    useGetSearchIdsQuery
+    useGetSearchIdsQuery,
 } = animeAPI;

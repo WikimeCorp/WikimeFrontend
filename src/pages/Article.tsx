@@ -50,6 +50,11 @@ const Article: FC = () => {
     const inFavCount = anime.rating.inFavorites;
     const inFavUsers: string = inFavCount % 10 === 1 && inFavCount !== 11 ? 'пользователя' : 'пользователей';
 
+    let isCanUpdate = auth.user && auth.user.role !== 'user';
+    if (auth.user?.role === 'moderator' && !auth.user.added.includes(anime.id)) {
+        isCanUpdate = false;
+    }
+
     const updateClick = () => {
         dispatch(setAddAnime(anime));
         navigate('/add');
@@ -98,9 +103,7 @@ const Article: FC = () => {
                                 </p>
                                 <RateButton animeId={anime.id}>Оценить</RateButton>
                             </div>
-                            {auth.user && auth.user.role !== 'user' && (
-                                <MainButton onClick={updateClick}>Редактировать статью</MainButton>
-                            )}
+                            {isCanUpdate && <MainButton onClick={updateClick}>Редактировать статью</MainButton>}
                         </div>
                     </div>
                 </div>
@@ -128,8 +131,8 @@ const Article: FC = () => {
             )}
             <div className="comments">
                 <h1>Комментарии</h1>
-                <CommentList />
-                <NewComment />
+                <CommentList animeId={anime.id} />
+                <NewComment animeId={anime.id} />
             </div>
         </div>
     );

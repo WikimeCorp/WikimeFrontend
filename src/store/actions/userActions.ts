@@ -19,8 +19,8 @@ export const addToFavorites = createAsyncThunk<any, number, { rejectValue: strin
                 method: 'POST',
                 headers: { authorization: `${token}` },
                 body: JSON.stringify({
-                    animeId: id
-                })
+                    animeId: id,
+                }),
             };
 
             const response = await fetch(`http://${apiHost}/users/current/favorites`, settings);
@@ -45,8 +45,8 @@ export const removeFromFavorites = createAsyncThunk<any, number, { rejectValue: 
                 method: 'DELETE',
                 headers: { authorization: `${token}` },
                 body: JSON.stringify({
-                    animeId: id
-                })
+                    animeId: id,
+                }),
             };
 
             const response = await fetch(`http://${apiHost}/users/current/favorites`, settings);
@@ -71,8 +71,8 @@ export const addToWatched = createAsyncThunk<any, number, { rejectValue: string 
                 method: 'POST',
                 headers: { authorization: `${token}` },
                 body: JSON.stringify({
-                    animeId: id
-                })
+                    animeId: id,
+                }),
             };
 
             const response = await fetch(`http://${apiHost}/users/current/watched`, settings);
@@ -97,8 +97,8 @@ export const updateNickname = createAsyncThunk<any, string, { rejectValue: strin
                 method: 'PUT',
                 headers: { authorization: `${token}` },
                 body: JSON.stringify({
-                    nickname: name
-                })
+                    nickname: name,
+                }),
             };
 
             const response = await fetch(`http://${apiHost}/users/current/nickname`, settings);
@@ -121,7 +121,7 @@ export const getModerators = createAsyncThunk<Admin[], void, { rejectValue: stri
             const token = localStorage.getItem('userToken');
             const settings = {
                 method: 'GET',
-                headers: { authorization: `${token}` }
+                headers: { authorization: `${token}` },
             };
 
             const response = await fetch(`http://${apiHost}/users/moderators`, settings).then((response) =>
@@ -142,7 +142,7 @@ export const getAdmins = createAsyncThunk<Admin[], void, { rejectValue: string }
             const token = localStorage.getItem('userToken');
             const settings = {
                 method: 'GET',
-                headers: { authorization: `${token}` }
+                headers: { authorization: `${token}` },
             };
 
             const response = await fetch(`http://${apiHost}/users/admins`, settings).then((response) =>
@@ -167,12 +167,12 @@ export const updateRole = createAsyncThunk<any, updateRoleRequest, { rejectValue
         const token = localStorage.getItem('userToken');
         const settings = {
             method: 'PUT',
-            headers: { authorization: `${token}` }
+            headers: { authorization: `${token}` },
         };
 
         const response = await fetch(`http://${apiHost}/users/${id}/role?roleName=${role}`, settings);
 
-        if (response.status === 401) {
+        if (response.status === 401 || response.status === 403) {
             return rejectWithValue((await response.json()) as ErrorResponse);
         }
     }
@@ -185,7 +185,7 @@ export const resetRole = createAsyncThunk<any, number, { rejectValue: string }>(
             const token = localStorage.getItem('userToken');
             const settings = {
                 method: 'DELETE',
-                headers: { authorization: `${token}` }
+                headers: { authorization: `${token}` },
             };
 
             const response = await fetch(`http://${apiHost}/users/${id}/role`, settings);
@@ -207,7 +207,7 @@ export const updateAvatar = createAsyncThunk<any, FormData, { rejectValue: strin
             const settings = {
                 method: 'POST',
                 headers: { authorization: `${token}` },
-                body: photo
+                body: photo,
             };
 
             const response = await fetch(`http://${apiHost}/users/current/avatar`, settings);
@@ -226,7 +226,7 @@ export const getUserById = createAsyncThunk<IUser, number, { rejectValue: string
     async (id, { rejectWithValue }) => {
         try {
             const settings = {
-                method: 'GET'
+                method: 'GET',
             };
 
             const response = await fetch(`http://${apiHost}/users/${id}`, settings).then((response) => response.json());
