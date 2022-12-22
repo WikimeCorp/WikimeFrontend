@@ -1,14 +1,12 @@
-import { TextareaHTMLAttributes, forwardRef } from "react";
-import cl from "./TextArea.module.css";
+import { TextareaHTMLAttributes, forwardRef } from 'react';
+import cl from './TextArea.module.css';
 
+interface InputProps extends React.DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
+    comment?: boolean;
+}
 
-type InputProps = React.DetailedHTMLProps<
-    TextareaHTMLAttributes<HTMLTextAreaElement>,
-    HTMLTextAreaElement
->;
-
-const TextArea = forwardRef<HTMLTextAreaElement, InputProps>((props, ref) => (    
-    <textarea rows={10} className={cl.text} ref={ref} {...props} />
+const TextArea = forwardRef<HTMLTextAreaElement, InputProps>(({ comment, ...props }, ref) => (
+    <textarea rows={10} className={comment ? cl.comment : cl.text} ref={ref} {...props} />
 ));
 
 export default TextArea;

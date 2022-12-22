@@ -1,22 +1,22 @@
-import { FC, useEffect } from "react";
-import AdminItem from "../components/AdminItem";
-import PlusButton from "../components/UI/button/add_admin/PlusButton";
-import AdminForm from "../components/Forms/addAdmin/AdminForm";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { getAdmins, getModerators } from "../store/actions/userActions";
-import { openAdding } from "../store/reducers/BtnsSlice";
-import  "../styles/AdminPage.css";
+import { FC, useEffect } from 'react';
+import AdminItem from '../components/AdminItem';
+import PlusButton from '../components/UI/button/add_admin/PlusButton';
+import AdminForm from '../components/Forms/addAdmin/AdminForm';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { getAdmins, getModerators } from '../store/actions/userActions';
+import { openAdding } from '../store/reducers/BtnsSlice';
+import  '../styles/AdminPage.css';
 
 const AdminPage: FC = () => {
 
     const isOpen = useAppSelector(state => state.btnsReducer.addAdmins);
     const dispatch = useAppDispatch();
-    const { admins, moderators } = useAppSelector(state => state.userReduser)
+    const { admins, moderators } = useAppSelector(state => state.userReduser);
 
     useEffect(() => {
         dispatch(getAdmins());
         dispatch(getModerators());
-    },[])
+    },[]);
 
     return (
         <div className="admin-page">

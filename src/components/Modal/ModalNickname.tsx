@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/redux";
-import { updateNickname } from "../../store/actions/userActions";
-import MainButton from "../UI/button/main/MainButton";
-import TextInput from "../UI/input/TextInput";
-import cl from "./Modal.module.css";
+import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
+import { updateNickname } from '../../store/actions/userActions';
+import MainButton from '../UI/button/main/MainButton';
+import TextInput from '../UI/input/TextInput';
+import cl from './Modal.module.css';
 
 
 const ModalNickname: FC = () => {
@@ -16,7 +16,7 @@ const ModalNickname: FC = () => {
 
     const handleClick = () => {  
         navigate(-1);
-    }
+    };
 
     const updateClick = () => {     
         if (nickname) {
@@ -43,7 +43,7 @@ const ModalNickname: FC = () => {
                 }                
             </div>
         </div>
-    )
+    );
 };
 
 export default ModalNickname;

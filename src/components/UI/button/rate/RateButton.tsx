@@ -14,9 +14,9 @@ const RateButton: FC<Props> = ({animeId, children, ...props}) => {
     const isAuth = !!auth.user;
 
     if (isAuth) {
-        return <RateUserButton animeId={animeId} {...props}>{children}</RateUserButton>
+        return <RateUserButton animeId={animeId} {...props}>{children}</RateUserButton>;
     } else {
-        return <RateNotUserButton {...props}>{children}</RateNotUserButton>
+        return <RateNotUserButton {...props}>{children}</RateNotUserButton>;
     }
 };
 

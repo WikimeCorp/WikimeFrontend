@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, FC } from 'react';
-import cl from "./LogoutButton.module.css"
 import { useAuth } from '../../../../../hooks/useAuth';
+import cl from './LogoutButton.module.css';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;

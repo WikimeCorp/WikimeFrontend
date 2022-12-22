@@ -1,6 +1,6 @@
 .base {
     margin: 10px;
-    margin-bottom: 0;
+    margin-bottom: 1.5px;
     padding: 20px 25px;
     width: 100%;
     max-width: 845px;
@@ -22,13 +22,23 @@
     color: #379683;
 }
 
+.base:hover,
 .base:focus {
+    margin: 8.5px;
+    margin-bottom: 0;
     border: 1.5px solid #379683;
 }
 
 .base[type="date"] {
     max-width: 200px;
     color: #379683;
+}
+
+.base:hover[type="date"],
+.base:focus[type="date"] {
+    margin: 10px;
+    margin-bottom: 1.5px;
+    border: none;
 }
 
 .base[type=date]::-webkit-calendar-picker-indicator {
@@ -43,7 +53,7 @@
 .light {
     padding: 0.5rem 1rem;
     margin-bottom: 10px;
-    width: 40vw;
+    width: 100%;
 
     border: 1px solid #5CDB95;
     border-radius: 10px; 
@@ -66,7 +76,8 @@
     opacity: 0.5;
 }
 
-.light:focus {
+.light:focus,
+.light:hover {
     filter: drop-shadow(0px 0px 10px rgba(92, 219, 149, 0.3));
 }
 
@@ -97,6 +108,7 @@
     opacity: 0.7;
 }
 
-.search:focus {
+.search:focus,
+.search:hover {
     filter: drop-shadow(0px 0px 10px rgba(92, 219, 149, 0.3));
 }

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import cl from "./Pagination.module.css"
+import cl from './Pagination.module.css';
 
 type Props = {
     currentPage: number;
@@ -13,7 +13,7 @@ const Pagination: FC<Props> = ({currentPage, setPage, totalPages, isUserPage}) =
     let nums:number[] = [];
 
     if (totalPages <= 10) {
-        nums = Array.from({length: totalPages}, (_, i) => i + 1)
+        nums = Array.from({length: totalPages}, (_, i) => i + 1);
     } else if (currentPage < 4){
         nums = Array.from({length: 7}, (_, i) => i + 1);
         nums.push(0, totalPages);

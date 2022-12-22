@@ -1,9 +1,9 @@
-import { FC } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FC } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faTableCells } from '@fortawesome/free-solid-svg-icons';
-import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
-import { changeView, changeViewUser } from "../../../../store/reducers/BtnsSlice";
-import cl from "./ViewButtons.module.css";
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
+import { changeView, changeViewUser } from '../../../../store/reducers/BtnsSlice';
+import cl from './ViewButtons.module.css';
 
 
 interface Props {
@@ -32,7 +32,7 @@ const ViewButton: FC<Props> = ({userPage, item}) => {
                     icon={faList} 
                     className={
                         View ?
-                        cl.iconActive : cl.icon}
+                            cl.iconActive : cl.icon}
                 />
             </button>
             <button onClick={() => handleClick(false)}>
@@ -40,7 +40,7 @@ const ViewButton: FC<Props> = ({userPage, item}) => {
                     icon={faTableCells} 
                     className={
                         !View ?
-                        cl.iconActive : cl.icon}
+                            cl.iconActive : cl.icon}
                 />
             </button>
         </div>

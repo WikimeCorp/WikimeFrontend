@@ -1,38 +1,61 @@
-import { FC } from "react";
-import cl from "./Comment.module.css";
-import art from "../../styles/img/Art.png";
+import { FC, useState, useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/redux';
+import { useAuth } from '../../hooks/useAuth';
+import { getUserById } from '../../store/actions/userActions';
+import { useDelCommentMutation } from '../../store/API/comments';
+import { IUser } from '../../types/IUser';
+import { TComment } from '../../types/TComment';
+import { formatText } from '../../utils/formatText';
+import CrossButton from '../UI/button/cross/CrossButton';
+import cl from './Comment.module.css';
 
+const apiHost = process.env.REACT_APP_API_HOST;
 
-const Comment: FC = () => {
-    return(
+const Comment: FC<{ comment: TComment }> = ({ comment }) => {
+    const { user } = useAuth();
+    const dispatch = useAppDispatch();
+    const [author, setAuthor] = useState<IUser>();
+
+    const [delComment] = useDelCommentMutation();
+
+    useEffect(() => {
+        dispatch(getUserById(comment.author))
+            .unwrap()
+            .then((result) => {
+                setAuthor(result);
+            });
+    }, [comment.author]);
+
+    if (!author) {
+        return <div>автор не найден</div>;
+    }
+
+    const isCanDelete = user && user.role !== 'user' && user.role !== 'moderator';
+
+    const deleteClick = async () => {
+        try {
+            await delComment(comment.id);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    return (
         <div className={cl.main}>
             <div className={cl.header}>
                 <div className={cl.user}>
-                    <img src={art}/>
-                    <h6>Murimonai</h6>
+                    <div className={cl.avatar}>
+                        <img src={`http://${apiHost}${author.avatar}`} alt="avatar" />
+                    </div>
+                    <p>{author?.nickname}</p>
                 </div>
-                <div className={cl.date}>
+                {isCanDelete && <CrossButton isComment={true} onClick={deleteClick} />}
+                {/* <div className={cl.date}>
                     <p>18.09.2022 в 03:38</p>
-                </div>
+                </div> */}
             </div>
             <hr />
-            <div className={cl.content}>
-                <p>Асуна, ты ли это? Наконец-то спустя 10 лет мы увидели пролог 
-                    к этой франшизе, самый что не на есть ещё до всех событий в 
-                    Sword online, даже брат откуда не возьмись нарисовался. В 1 
-                    сезоне конечно другое начало и там Кирито с Асуной знакомится 
-                    в гильдии, но позже автор написал более адекватную завязку с 
-                    монстрами на этажах и встречи наших влюблённых. Это начало более 
-                    канонично и правильное. Не сказать, что в САО была обалденная рисовка, 
-                    но на дворе 2022 господа, а рисовка уровня 2012 года и не меняется, 
-                    хотелось бы видеть прогресс не только в виртуальной игре, но и визуальной 
-                    части. В целом ничего выдающегося нет, ибо это пролог о том, как Асуна 
-                    со своей подружкой набивает себе уровень в игре. На подходе следующий 
-                    фильм, продолжение событий, которые показали здесь, поэтому какие-то 
-                    преждевременные выводы делать рано, но от меня пока что 7 баллов + 1 
-                    балл за долгожданную каноничную предысторию знакомства Кирито и Асуны, 
-                    которой так не хватало в 1 сезоне.</p>
-            </div>
+            <div className={cl.content}>{formatText(comment.message)}</div>
         </div>
     );
 };

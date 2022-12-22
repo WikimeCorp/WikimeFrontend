@@ -18,8 +18,11 @@
 .env.test.local
 .env.production.local
 
-#environment
+# environment
 *.env
+
+#linter
+.*rc
 
 npm-debug.log*
 yarn-debug.log*

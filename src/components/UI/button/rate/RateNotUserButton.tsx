@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import cl from "./RateButton.module.css"
+import cl from './RateButton.module.css';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
@@ -20,7 +20,7 @@ const RateNotUserButton: FC<Props> = ({children, ...props}) => {
                 >
                     {children}
                 </button>        
-        </div>
+            </div>
         </Link>
     );
 };

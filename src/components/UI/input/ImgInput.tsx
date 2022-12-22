@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, forwardRef } from "react";
-import cl from "./ImgInput.module.css";
+import { InputHTMLAttributes, forwardRef } from 'react';
+import cl from './ImgInput.module.css';
 
 
 interface InputProps extends React.DetailedHTMLProps<
