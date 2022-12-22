@@ -117,7 +117,7 @@ const Article: FC = () => {
                     </span>
                 )}
             </div>
-            {anime.images && (
+            {anime.images && anime.images.length !== 0 && (
                 <div className="pictures">
                     <h1>Арты и кадры</h1>
                     <div className="pictures-content">

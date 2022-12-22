@@ -25,7 +25,10 @@
     color: #379683;
 }
 
+.text:hover,
 .text:focus {
+    margin: 8.5px;
+    margin-bottom: -1.5px;
     border: 1.5px solid #379683;
 }
 
