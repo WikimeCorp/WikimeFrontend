@@ -18,7 +18,7 @@ const AdminForm: FC<{ role: string }> = ({ role }) => {
         register,
         handleSubmit,
         setError,
-        formState: { errors, isValid }
+        formState: { errors, isValid },
     } = useForm<FormData>({ mode: 'onBlur' });
 
     const onSubmit = handleSubmit((data) => {
@@ -45,7 +45,7 @@ const AdminForm: FC<{ role: string }> = ({ role }) => {
                 placeholder="Введите id пользователя..."
                 {...register('userID', {
                     required: { value: true, message: 'Обязательное поле' },
-                    pattern: { value: /\d+/, message: 'id содержит только цифры' }
+                    pattern: { value: /\d+/, message: 'id содержит только цифры' },
                 })}
             />
             <div className={cl.error}>{errors?.userID && <p role="alert">{errors?.userID?.message}</p>}</div>

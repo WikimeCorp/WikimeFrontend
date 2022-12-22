@@ -7,8 +7,10 @@ const Comment: FC = () => {
         <div className={cl.main}>
             <div className={cl.header}>
                 <div className={cl.user}>
-                    <img src={art} alt="avatar" />
-                    <h6>Murimonai</h6>
+                    <div className={cl.avatar}>
+                        <img src={art} alt="avatar" />
+                    </div>
+                    <p>Murimonai</p>
                 </div>
                 <div className={cl.date}>
                     <p>18.09.2022 в 03:38</p>

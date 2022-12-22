@@ -10,7 +10,7 @@ const littleBoyPort = process.env.REACT_APP_LITTLE_BOY_PORT;
 const littleBoyHost = process.env.REACT_APP_LITTLE_BOY_HOST;
 const apiHost = process.env.REACT_APP_API_HOST;
 
-export const getAuthorizeCodeHref = (): string => {
+export const getAuthorizeCodeHref = (redirect?: string): string => {
     const display = 'page';
     const response_type = 'code';
     const state = 4194308;
@@ -54,8 +54,8 @@ export const getJWToken = createAsyncThunk<JWTResponse, void, { state: RootState
             const settings = {
                 method: 'POST',
                 body: JSON.stringify({
-                    AuthToken: accessToken
-                })
+                    AuthToken: accessToken,
+                }),
             };
 
             const response = await fetch(`http://${apiHost}/auth/vk`, settings);
@@ -79,7 +79,7 @@ export const getUserInfo = createAsyncThunk<
     const token = localStorage.getItem('userToken');
     const settings = {
         method: 'GET',
-        headers: { authorization: `${token}` }
+        headers: { authorization: `${token}` },
     };
 
     const response = await fetch(`http://${apiHost}/users/current`, settings).then((response) => response.json());

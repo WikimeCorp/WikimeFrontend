@@ -7,9 +7,8 @@ import { useAppSelector } from '../hooks/redux';
 import '../styles/List.css';
 
 const List: FC = () => {
-
-    const [ searchTitle, setSearchTitle ] = useState<string>('');
-    const isList = useAppSelector(state => state.btnsReducer.isListView);
+    const [searchTitle, setSearchTitle] = useState<string>('');
+    const isList = useAppSelector((state) => state.btnsReducer.isListView);
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTitle(event.target.value);
@@ -20,11 +19,11 @@ const List: FC = () => {
             <div className="list-page-top">
                 <TextInput placeholder="Что вы ищете сегодня?" search onChange={onChange}></TextInput>
                 <InnerSorter />
-            </div>            
-            <div className="list-content">                
+            </div>
+            <div className="list-content">
                 <SideBar />
-                <ArticleList isList={isList} searchTitle={searchTitle}/> 
-            </div>                
+                <ArticleList isList={isList} searchTitle={searchTitle} />
+            </div>
         </div>
     );
 };

@@ -18,6 +18,7 @@
     color: #EDF5E1;
 
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .fav:hover,
@@ -48,6 +49,7 @@
     color: #379683;
 
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .favSmall:hover,
@@ -87,6 +89,7 @@
     background-color: #05386B;
     border: 1px solid #EDF5E1;
     opacity: 0.8;
+    transition: 0.2s;
 }
 
 .inFav:hover,

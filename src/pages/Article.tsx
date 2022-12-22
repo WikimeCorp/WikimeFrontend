@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Comment from '../components/Comments/Comment';
 import FavoriteButton from '../components/UI/button/favorite/FavouriteButton';
 import MainButton from '../components/UI/button/main/MainButton';
 import RateButton from '../components/UI/button/rate/RateButton';
@@ -9,9 +8,11 @@ import { useAuth } from '../hooks/useAuth';
 import { useGetAnimeQuery } from '../store/API/anime';
 import { getUserById } from '../store/actions/userActions';
 import { setAddAnime } from '../store/reducers/AddAnimeSlice';
-import '../styles/Article.css';
+import CommentList from '../components/Comments/CommentList';
+import NewComment from '../components/Comments/NewComment';
 import { IUser } from '../types/IUser';
 import Loading from './Loading';
+import '../styles/Article.css';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
@@ -125,6 +126,11 @@ const Article: FC = () => {
                     </div>
                 </div>
             )}
+            <div className="comments">
+                <h1>Комментарии</h1>
+                <CommentList />
+                <NewComment />
+            </div>
         </div>
     );
 };
