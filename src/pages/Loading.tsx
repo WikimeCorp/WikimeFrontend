@@ -1,5 +1,5 @@
-import { FC } from "react";
-import "../styles/Loading.css";
+import { FC } from 'react';
+import '../styles/Loading.css';
 
 const Loading: FC = () => {
     

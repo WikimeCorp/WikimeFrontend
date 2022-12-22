@@ -1,5 +1,5 @@
-import { TextareaHTMLAttributes, forwardRef } from "react";
-import cl from "./TextArea.module.css";
+import { TextareaHTMLAttributes, forwardRef } from 'react';
+import cl from './TextArea.module.css';
 
 
 type InputProps = React.DetailedHTMLProps<

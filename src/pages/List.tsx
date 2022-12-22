@@ -1,10 +1,10 @@
-import React, { FC, useState } from "react";
-import ArticleList from "../components/ArticleList";
-import InnerSorter from "../components/InnerSorter/InnerSorter";
-import SideBar from "../components/SideBar/SideBar";
-import TextInput from "../components/UI/input/TextInput";
-import { useAppSelector } from "../hooks/redux";
-import "../styles/List.css"
+import React, { FC, useState } from 'react';
+import ArticleList from '../components/ArticleList';
+import InnerSorter from '../components/InnerSorter/InnerSorter';
+import SideBar from '../components/SideBar/SideBar';
+import TextInput from '../components/UI/input/TextInput';
+import { useAppSelector } from '../hooks/redux';
+import '../styles/List.css';
 
 const List: FC = () => {
 

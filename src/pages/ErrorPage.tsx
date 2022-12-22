@@ -1,5 +1,5 @@
-import { FC } from "react";
-import "../styles/ErrorPage.css";
+import { FC } from 'react';
+import '../styles/ErrorPage.css';
 
 const ErrorPage: FC = () => {
     

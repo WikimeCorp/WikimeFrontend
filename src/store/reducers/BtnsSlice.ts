@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 interface BtnsState {
@@ -19,20 +19,20 @@ interface BtnsState {
 };
 
 const initialState: BtnsState = {
-    sort: "favorites",
+    sort: 'favorites',
     genres: [],
     isListView: true,
     isListViewUser: {
         fav: false,
         viewed: false,
-        added: false,
+        added: false
     },
     usersLists: {
         fav: false,
         viewed: false,
-        added: false,
+        added: false
     },
-    addAdmins: [ false, false ],
+    addAdmins: [ false, false ]
 };
 
 interface changeViewUserProps {
@@ -68,8 +68,8 @@ export const btnsSlice = createSlice({
         },
         deleteGenre: (state, action: PayloadAction<string>) => {
             state.genres = state.genres.filter(item => item !== action.payload);
-        },
-    },
+        }
+    }
 });
 
 export const {
