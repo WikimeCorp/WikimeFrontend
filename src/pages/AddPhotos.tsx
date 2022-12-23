@@ -4,7 +4,7 @@ import CrossButton from '../components/UI/button/cross/CrossButton';
 import MainButton from '../components/UI/button/main/MainButton';
 import ImgInput from '../components/UI/input/ImgInput';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { useAddImgMutation, useAddPosterMutation } from '../store/API/anime';
+import { useAddImgMutation, useAddPosterMutation, useDelImgMutation } from '../store/API/anime';
 import { cleanAddAnime, setAddAnimeImgs } from '../store/reducers/AddAnimeSlice';
 import '../styles/Add.css';
 import { Art, Arts } from '../types/Art';
@@ -15,6 +15,7 @@ const AddPhotos: FC = () => {
 
     const [addPoster, { isSuccess: isSuccessPoster }] = useAddPosterMutation();
     const [addArt, { isSuccess: isSuccessArt }] = useAddImgMutation();
+    const [delImg] = useDelImgMutation();
 
     const { id, poster: posterInStore, images: artsInStore, update } = useAppSelector((state) => state.addAnimeReducer);
 
@@ -78,15 +79,25 @@ const AddPhotos: FC = () => {
         }
     };
 
-    const deleteArt = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, idx: number) => {
+    const deleteArt = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, idx: number) => {
         e.preventDefault();
 
         if (arts) {
-            let currentFiles = arts.files;
-            let currentUrls = arts.urls;
+            let currentFiles = [...arts.files];
+            let currentUrls = [...arts.urls];
 
-            currentFiles.splice(idx, 1);
+            if (currentFiles.length !== 0) {
+                currentFiles.splice(idx, 1);
+            }
             currentUrls.splice(idx, 1);
+
+            if (update && !arts.files[idx] && id) {
+                try {
+                    await delImg({ id: id, url: arts.urls[idx].split('/').splice(3, 2).join('/') });
+                } catch (error) {
+                    throw error;
+                }
+            }
 
             setArts({ files: currentFiles, urls: currentUrls });
         }

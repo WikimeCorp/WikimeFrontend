@@ -30,7 +30,7 @@ const Comment: FC<{ comment: TComment }> = ({ comment }) => {
         return <div>автор не найден</div>;
     }
 
-    const isCanDelete = user && user.role !== 'user' && user.role !== 'moderator';
+    const isCanDelete = user && (user.role !== 'user' || (user.role === 'user' && user.userId === author.userId));
 
     const deleteClick = async () => {
         try {
