@@ -131,7 +131,7 @@ const Article: FC = () => {
             )}
             <div className="comments">
                 <h1>Комментарии</h1>
-                <CommentList animeId={anime.id} />
+                <CommentList animeId={anime.id} key={anime.id} />
                 <NewComment animeId={anime.id} />
             </div>
         </div>

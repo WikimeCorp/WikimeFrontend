@@ -67,19 +67,18 @@ const AddPhotos: FC = () => {
         const data = event.target.files;
 
         if (data) {
-            let currentFiles: File[] = arts?.files ? arts.files : [];
-            let currentUrls: string[] = arts?.urls ? arts.urls : [];
+            let currentFiles: File[] = arts?.files ? [...arts.files] : [];
+            let currentUrls: string[] = arts?.urls ? [...arts.urls] : [];
 
             for (let i = 0; i < data.length; i++) {
                 currentFiles.push(data[i]);
                 currentUrls.push(URL.createObjectURL(data[i]));
             }
-
             setArts({ files: currentFiles, urls: currentUrls });
         }
     };
 
-    const deleteArt = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, idx: number) => {
+    const deleteArt = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, idx: number) => {
         e.preventDefault();
 
         if (arts) {
@@ -92,11 +91,7 @@ const AddPhotos: FC = () => {
             currentUrls.splice(idx, 1);
 
             if (update && !arts.files[idx] && id) {
-                try {
-                    await delImg({ id: id, url: arts.urls[idx].split('/').splice(3, 2).join('/') });
-                } catch (error) {
-                    throw error;
-                }
+                delImg({ id: id, url: arts.urls[idx].split('/').splice(3, 2).join('/') });
             }
 
             setArts({ files: currentFiles, urls: currentUrls });
@@ -106,7 +101,7 @@ const AddPhotos: FC = () => {
     const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
 
-        if (poster && poster.file && id) {
+        if (!update && poster && poster.file && id) {
             const posterForm = new FormData();
             posterForm.append('file', poster.file);
             addPoster({ id, imgFile: posterForm });
@@ -141,7 +136,7 @@ const AddPhotos: FC = () => {
 
     const prevClick = () => {
         dispatch(setAddAnimeImgs({ poster: poster?.url, arts: arts?.urls }));
-        navigate(-1);
+        navigate('/add');
     };
 
     return (
